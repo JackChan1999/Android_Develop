@@ -18,3 +18,9 @@ Android开发笔记
 	* [适配器设计模式](设计模式/适配器设计模式.md)
 	* [享元模式](设计模式/享元模式.md)
 	* [装饰者模式](设计模式/装饰者模式.md)
+* 响应式编程
+	* [RxJava\给 Android 开发者的 RxJava 详解](RxJava/RxJava\给 Android 开发者的 RxJava 详解.md)
+* 自定义控件
+	* [自定义控件\Android的事件分发](自定义控件/自定义控件\Android的事件分发.md)
+* 消息机制
+	* [消息机制\Android的消息机制](消息机制/消息机制\Android的消息机制.md)
