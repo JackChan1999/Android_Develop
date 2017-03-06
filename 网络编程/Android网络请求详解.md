@@ -1,3 +1,9 @@
+# 网络编程
+- [Java基础：网络编程](http://blog.csdn.net/axi295309066/article/details/52854772)
+- [Uri、URL、UriMatcher、ContentUris详解](http://blog.csdn.net/axi295309066/article/details/60129690)
+- [Android应用开发：网络编程1](http://blog.csdn.net/axi295309066/article/details/50315017)
+- [Android应用开发：网络编程2](http://blog.csdn.net/axi295309066/article/details/50330375)
+
 我们知道大多数的 Android 应用程序都是通过和服务器进行交互来获取数据的。如果使用 HTTP 协议来发送和接收网络数据，就免不了使用 HttpURLConnection 和 HttpClient，而 Android 中主要提供了上述两种方式来进行 HTTP 操作。并且这两种方式都支持 HTTPS 协议、以流的形式进行上传和下载、配置超时时间、IPv6、以及连接池等功能。
 
 但是 Googl e发布 6.0 版本的时候声明原生剔除 HttpClient，但是笔者认为 HttpClient 会提供相应的 jar 包做支持，毕竟 Google 对向下兼容这方面一直都做的很好，相信在选择网络功能的时候我们会选自己喜欢的方法。

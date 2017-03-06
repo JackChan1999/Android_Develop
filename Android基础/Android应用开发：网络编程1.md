@@ -1,3 +1,9 @@
+# 网络编程
+- [Java基础：网络编程](http://blog.csdn.net/axi295309066/article/details/52854772)
+- [Uri、URL、UriMatcher、ContentUris详解](http://blog.csdn.net/axi295309066/article/details/60129690)
+- [Android应用开发：网络编程1](http://blog.csdn.net/axi295309066/article/details/50315017)
+- [Android应用开发：网络编程2](http://blog.csdn.net/axi295309066/article/details/50330375)
+
 # 1. 网络图片查看器
 
 - 确定图片的网址
@@ -18,7 +24,7 @@ conn.setRequestMethod("GET");
 conn.getResponseCode();
 ```
 
--  服务器的图片是以流的形式返回给浏览器的 
+-  服务器的图片是以流的形式返回给浏览器的
 
 ```java
 //拿到服务器返回的输入流
@@ -112,7 +118,7 @@ public class MainActivity extends Activity {
 				Toast.makeText(ma, "请求失败", 0).show();
 				break;
 			}
-			
+
 		}
 	};
 	@Override
@@ -150,22 +156,22 @@ public class MainActivity extends Activity {
 						InputStream is = conn.getInputStream();
 						//读取出流里的数据，并构造成位图对象
 						Bitmap bm = BitmapFactory.decodeStream(is);
-						
+
 //						ImageView iv = (ImageView) findViewById(R.id.iv);
 //						//把位图对象显示至imageview
 //						iv.setImageBitmap(bm);
-						
+
 						Message msg = new Message();
 						//消息对象可以携带数据
 						msg.obj = bm;
 						msg.what = 1;
 						//把消息发送至主线程的消息队列
 						handler.sendMessage(msg);
-						
+
 					}
 					else{
 //						Toast.makeText(MainActivity.this, "请求失败", 0).show();
-						
+
 						Message msg = handler.obtainMessage();
 						msg.what = 0;
 						handler.sendMessage(msg);
@@ -201,7 +207,7 @@ public class MainActivity extends Activity {
 				Toast.makeText(ma, "请求失败", 0).show();
 				break;
 			}
-			
+
 		}
 	};
 	@Override
@@ -239,22 +245,22 @@ public class MainActivity extends Activity {
 						InputStream is = conn.getInputStream();
 						//读取出流里的数据，并构造成位图对象
 						Bitmap bm = BitmapFactory.decodeStream(is);
-						
+
 //						ImageView iv = (ImageView) findViewById(R.id.iv);
 //						//把位图对象显示至imageview
 //						iv.setImageBitmap(bm);
-						
+
 						Message msg = new Message();
 						//消息对象可以携带数据
 						msg.obj = bm;
 						msg.what = 1;
 						//把消息发送至主线程的消息队列
 						handler.sendMessage(msg);
-						
+
 					}
 					else{
 //						Toast.makeText(MainActivity.this, "请求失败", 0).show();
-						
+
 						Message msg = handler.obtainMessage();
 						msg.what = 0;
 						handler.sendMessage(msg);
@@ -265,7 +271,7 @@ public class MainActivity extends Activity {
 				}
 			}
 		};
-		t.start();	
+		t.start();
 	}
 }
 ```
@@ -276,7 +282,7 @@ public class MainActivity extends Activity {
 //1.拿到服务器返回的输入流
 InputStream is = conn.getInputStream();
 //2.把流里的数据读取出来，并构造成图片
-                    
+
 FileOutputStream fos = new FileOutputStream(file);
 byte[] b = new byte[1024];
 int len = 0;
@@ -311,7 +317,7 @@ public class MainActivity extends Activity {
 				Toast.makeText(ma, "请求失败", 0).show();
 				break;
 			}
-			
+
 		}
 	};
 	@Override
@@ -340,7 +346,7 @@ public class MainActivity extends Activity {
 			Thread t = new Thread(){
 				@Override
 				public void run() {
-					
+
 					try {
 						//2.把网址封装成一个url对象
 						URL url = new URL(path);
@@ -359,9 +365,9 @@ public class MainActivity extends Activity {
 						if(conn.getResponseCode() == 200){
 							//获取服务器响应头中的流，流里的数据就是客户端请求的数据
 							InputStream is = conn.getInputStream();
-							
+
 							//读取服务器返回的流里的数据，把数据写到本地文件，缓存起来
-							
+
 							FileOutputStream fos = new FileOutputStream(file);
 							byte[] b = new byte[1024];
 							int len = 0;
@@ -369,24 +375,24 @@ public class MainActivity extends Activity {
 								fos.write(b, 0, len);
 							}
 							fos.close();
-							
+
 							//读取出流里的数据，并构造成位图对象
 							//流里已经没有数据了
 //							Bitmap bm = BitmapFactory.decodeStream(is);
 							Bitmap bm = BitmapFactory.decodeFile(file.getAbsolutePath());
-							
-							
+
+
 							Message msg = new Message();
 							//消息对象可以携带数据
 							msg.obj = bm;
 							msg.what = 1;
 							//把消息发送至主线程的消息队列
 							handler.sendMessage(msg);
-							
+
 						}
 						else{
 //							Toast.makeText(MainActivity.this, "请求失败", 0).show();
-							
+
 							Message msg = handler.obtainMessage();
 							msg.what = 0;
 							handler.sendMessage(msg);
@@ -399,10 +405,10 @@ public class MainActivity extends Activity {
 			};
 			t.start();
 		}
-		
-		
+
+
 	}
-	
+
 	public String getFileName(String path){
 		int index = path.lastIndexOf("/");
 		return path.substring(index + 1);
@@ -431,7 +437,7 @@ public class MainActivity extends Activity {
 				Toast.makeText(ma, "请求失败", 0).show();
 				break;
 			}
-			
+
 		}
 	};
 	@Override
@@ -460,7 +466,7 @@ public class MainActivity extends Activity {
 			Thread t = new Thread(){
 				@Override
 				public void run() {
-					
+
 					try {
 						//2.把网址封装成一个url对象
 						URL url = new URL(path);
@@ -479,9 +485,9 @@ public class MainActivity extends Activity {
 						if(conn.getResponseCode() == 200){
 							//获取服务器响应头中的流，流里的数据就是客户端请求的数据
 							InputStream is = conn.getInputStream();
-							
+
 							//读取服务器返回的流里的数据，把数据写到本地文件，缓存起来
-							
+
 							FileOutputStream fos = new FileOutputStream(file);
 							byte[] b = new byte[1024];
 							int len = 0;
@@ -489,24 +495,24 @@ public class MainActivity extends Activity {
 								fos.write(b, 0, len);
 							}
 							fos.close();
-							
+
 							//读取出流里的数据，并构造成位图对象
 							//流里已经没有数据了
 //							Bitmap bm = BitmapFactory.decodeStream(is);
 							Bitmap bm = BitmapFactory.decodeFile(file.getAbsolutePath());
-							
-							
+
+
 							Message msg = new Message();
 							//消息对象可以携带数据
 							msg.obj = bm;
 							msg.what = 1;
 							//把消息发送至主线程的消息队列
 							handler.sendMessage(msg);
-							
+
 						}
 						else{
 //							Toast.makeText(MainActivity.this, "请求失败", 0).show();
-							
+
 							Message msg = handler.obtainMessage();
 							msg.what = 0;
 							handler.sendMessage(msg);
@@ -519,10 +525,10 @@ public class MainActivity extends Activity {
 			};
 			t.start();
 		}
-		
-		
+
+
 	}
-	
+
 	public String getFileName(String path){
 		int index = path.lastIndexOf("/");
 		return path.substring(index + 1);
@@ -587,7 +593,7 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		
+
 		getNewsInfo();
 //		ListView lv = (ListView) findViewById(R.id.lv);
 //		//要保证在设置适配器时，新闻xml文件已经解析完毕了
@@ -626,16 +632,16 @@ public class MainActivity extends Activity {
 			}
 			//给三个文本框设置内容
 			mHolder.tv_title.setText(news.getTitle());
-			
+
 			mHolder.tv_detail.setText(news.getDetail());
-			
+
 			mHolder.tv_comment.setText(news.getComment() + "条评论");
-			
+
 			//给新闻图片imageview设置内容
 			mHolder.siv.setImageUrl(news.getImageUrl());
 			return v;
 		}
-		
+
 		class ViewHolder{
 			//条目的布局文件中有什么组件，这里就定义什么属性
 			TextView tv_title;
@@ -643,7 +649,7 @@ public class MainActivity extends Activity {
 			TextView tv_comment;
 			SmartImageView siv;
 		}
-		
+
 		@Override
 		public Object getItem(int position) {
 			return null;
@@ -679,7 +685,7 @@ public class MainActivity extends Activity {
 		};
 		t.start();
 	}
-	
+
 	private void parseNewsXml(InputStream is) {
 		XmlPullParser xp = Xml.newPullParser();
 		try {
@@ -723,10 +729,10 @@ public class MainActivity extends Activity {
 				//解析完当前节点后，把指针移动至下一个节点，并返回它的事件类型
 				type = xp.next();
 			}
-			
+
 			//发消息，让主线程设置listview的适配器，如果消息不需要携带数据，可以发送空消息
 			handler.sendEmptyMessage(1);
-			
+
 //			for (News n : newsList) {
 //				System.out.println(n.toString());
 //			}
@@ -755,7 +761,7 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		
+
 		getNewsInfo();
 //		ListView lv = (ListView) findViewById(R.id.lv);
 //		//要保证在设置适配器时，新闻xml文件已经解析完毕了
@@ -794,16 +800,16 @@ public class MainActivity extends Activity {
 			}
 			//给三个文本框设置内容
 			mHolder.tv_title.setText(news.getTitle());
-			
+
 			mHolder.tv_detail.setText(news.getDetail());
-			
+
 			mHolder.tv_comment.setText(news.getComment() + "条评论");
-			
+
 			//给新闻图片imageview设置内容
 			mHolder.siv.setImageUrl(news.getImageUrl());
 			return v;
 		}
-		
+
 		class ViewHolder{
 			//条目的布局文件中有什么组件，这里就定义什么属性
 			TextView tv_title;
@@ -811,7 +817,7 @@ public class MainActivity extends Activity {
 			TextView tv_comment;
 			SmartImageView siv;
 		}
-		
+
 		@Override
 		public Object getItem(int position) {
 			return null;
@@ -847,7 +853,7 @@ public class MainActivity extends Activity {
 		};
 		t.start();
 	}
-	
+
 	private void parseNewsXml(InputStream is) {
 		XmlPullParser xp = Xml.newPullParser();
 		try {
@@ -891,10 +897,10 @@ public class MainActivity extends Activity {
 				//解析完当前节点后，把指针移动至下一个节点，并返回它的事件类型
 				type = xp.next();
 			}
-			
+
 			//发消息，让主线程设置listview的适配器，如果消息不需要携带数据，可以发送空消息
 			handler.sendEmptyMessage(1);
-			
+
 //			for (News n : newsList) {
 //				System.out.println(n.toString());
 //			}
@@ -920,7 +926,7 @@ conn.setConnectTimeout(5000);
 conn.setReadTimeout(5000);
 //建立连接，获取响应吗
 if(conn.getResponseCode() == 200){
-        
+
 }
 ```
 
@@ -981,7 +987,7 @@ public class MainActivity extends Activity {
 						InputStream is = conn.getInputStream();
 						//从流里把文本数据取出来
 						String text = Utils.getTextFromStream(is);
-						
+
 						//发送消息，让主线程刷新ui，显示源文件
 						Message msg = handler.obtainMessage();
 						msg.obj = text;
@@ -1041,32 +1047,32 @@ public class MainActivity extends Activity {
 			Toast.makeText(MainActivity.this, (String)msg.obj, 0).show();
 		}
 	};
-	
+
 	public void click(View v){
 		EditText et_name = (EditText) findViewById(R.id.et_name);
 		EditText et_pass = (EditText) findViewById(R.id.et_pass);
-		
+
 		final String name = et_name.getText().toString();
 		final String pass = et_pass.getText().toString();
-		
+
 		Thread t = new Thread(){
 			@Override
 			public void run() {
 				//提交的数据需要经过url编码，英文和数字编码后不变
 				@SuppressWarnings("deprecation")
 				String path = "http://192.168.13.13/Web2/servlet/LoginServlet?name=" + URLEncoder.encode(name) + "&pass=" + pass;
-				
+
 				try {
 					URL url = new URL(path);
 					HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 					conn.setRequestMethod("GET");
 					conn.setConnectTimeout(5000);
 					conn.setReadTimeout(5000);
-					
+
 					if(conn.getResponseCode() == 200){
 						InputStream is =conn.getInputStream();
 						String text = Utils.getTextFromStream(is);
-						
+
 						Message msg = handler.obtainMessage();
 						msg.obj = text;
 						handler.sendMessage(msg);
@@ -1087,7 +1093,7 @@ public class MainActivity extends Activity {
 public class Utils {
 
 	public static String getTextFromStream(InputStream is){
-		
+
 		byte[] b = new byte[1024];
 		int len = 0;
 		//创建字节数组输出流，读取输入流的文本数据时，同步把数据写入数组输出流
@@ -1150,34 +1156,34 @@ public class MainActivity extends Activity {
 			Toast.makeText(MainActivity.this, (String)msg.obj, 0).show();
 		}
 	};
-	
+
 	public void click(View v){
 		EditText et_name = (EditText) findViewById(R.id.et_name);
 		EditText et_pass = (EditText) findViewById(R.id.et_pass);
-		
+
 		final String name = et_name.getText().toString();
 		final String pass = et_pass.getText().toString();
-		
+
 		Thread t = new Thread(){
 			@Override
 			public void run() {
 				//提交的数据需要经过url编码，英文和数字编码后不变
 				@SuppressWarnings("deprecation")
 				String path = "http://192.168.13.13/Web2/servlet/LoginServlet";
-				
+
 				try {
 					URL url = new URL(path);
 					HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 					conn.setRequestMethod("POST");
 					conn.setConnectTimeout(5000);
 					conn.setReadTimeout(5000);
-					
+
 					//拼接出要提交的数据的字符串
 					String data = "name=" + URLEncoder.encode(name) + "&pass=" + pass;
 					//添加post请求的两行属性
 					conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
 					conn.setRequestProperty("Content-Length", data.length() + "");
-					
+
 					//设置打开输出流
 					conn.setDoOutput(true);
 					//拿到输出流
@@ -1187,7 +1193,7 @@ public class MainActivity extends Activity {
 					if(conn.getResponseCode() == 200){
 						InputStream is = conn.getInputStream();
 						String text = Utils.getTextFromStream(is);
-						
+
 						Message msg = handler.obtainMessage();
 						msg.obj = text;
 						handler.sendMessage(msg);

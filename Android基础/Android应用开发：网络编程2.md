@@ -1,3 +1,9 @@
+# 网络编程
+- [Java基础：网络编程](http://blog.csdn.net/axi295309066/article/details/52854772)
+- [Uri、URL、UriMatcher、ContentUris详解](http://blog.csdn.net/axi295309066/article/details/60129690)
+- [Android应用开发：网络编程1](http://blog.csdn.net/axi295309066/article/details/50315017)
+- [Android应用开发：网络编程2](http://blog.csdn.net/axi295309066/article/details/50330375)
+
 # **1. HttpClient**
 ## **1.1 发送get请求**
 * 创建一个客户端对象
@@ -74,11 +80,11 @@ public class MainActivity extends Activity {
     public void get(View v){
     	EditText et_name = (EditText) findViewById(R.id.et_name);
     	EditText et_pass = (EditText) findViewById(R.id.et_pass);
-    	
+
     	final String name = et_name.getText().toString();
     	final String pass = et_pass.getText().toString();
-    	
-    	
+
+
     	Thread t = new Thread(){
     		@Override
     		public void run() {
@@ -86,10 +92,10 @@ public class MainActivity extends Activity {
     	    	//使用httpClient框架做get方式提交
     	    	//1.创建HttpClient对象
     	    	HttpClient hc = new DefaultHttpClient();
-    	    	
+
     	    	//2.创建httpGet对象，构造方法的参数就是网址
     	    	HttpGet hg = new HttpGet(path);
-    	    	
+
     	    	//3.使用客户端对象，把get请求对象发送出去
     	    	try {
     				HttpResponse hr = hc.execute(hg);
@@ -101,7 +107,7 @@ public class MainActivity extends Activity {
     					//拿到实体中的内容，其实就是服务器返回的输入流
     					InputStream is = he.getContent();
     					String text = Utils.getTextFromStream(is);
-    					
+
     					//发送消息，让主线程刷新ui显示text
     					Message msg = handler.obtainMessage();
     					msg.obj = text;
@@ -114,16 +120,16 @@ public class MainActivity extends Activity {
     		}
     	};
     	t.start();
-    	
+
     }
-    
+
     public void post(View v){
     	EditText et_name = (EditText) findViewById(R.id.et_name);
     	EditText et_pass = (EditText) findViewById(R.id.et_pass);
-    	
+
     	final String name = et_name.getText().toString();
     	final String pass = et_pass.getText().toString();
-    	
+
     	Thread t = new Thread(){
     		@Override
     		public void run() {
@@ -132,7 +138,7 @@ public class MainActivity extends Activity {
     	    	HttpClient hc = new DefaultHttpClient();
     	    	//2.创建post请求对象
     	    	HttpPost hp = new HttpPost(path);
-    	    	
+
     	    	//封装form表单提交的数据
     	    	BasicNameValuePair bnvp = new BasicNameValuePair("name", name);
     	    	BasicNameValuePair bnvp2 = new BasicNameValuePair("pass", pass);
@@ -140,7 +146,7 @@ public class MainActivity extends Activity {
     	    	//把BasicNameValuePair放入集合中
     	    	parameters.add(bnvp);
     	    	parameters.add(bnvp2);
-    	    	
+
     	    	try {
     	    		//要提交的数据都已经在集合中了，把集合传给实体对象
     		    	UrlEncodedFormEntity entity = new UrlEncodedFormEntity(parameters, "utf-8");
@@ -151,7 +157,7 @@ public class MainActivity extends Activity {
     				if(hr.getStatusLine().getStatusCode() == 200){
     					InputStream is = hr.getEntity().getContent();
     					String text = Utils.getTextFromStream(is);
-    					
+
     					//发送消息，让主线程刷新ui显示text
     					Message msg = handler.obtainMessage();
     					msg.obj = text;
@@ -164,7 +170,7 @@ public class MainActivity extends Activity {
     		}
     	};
     	t.start();
-    	
+
     }
 }
 ```
@@ -192,7 +198,7 @@ if (code == 200) {// 数据获取成功
 public class Utils {
 
 	public static String getTextFromStream(InputStream is){
-		
+
 		byte[] b = new byte[1024];
 		int len = 0;
 		ByteArrayOutputStream bos = new ByteArrayOutputStream();
@@ -217,7 +223,7 @@ public class StreamUtils {
 
 	/**
 	 * 将输入流读取成String后返回
-	 * 
+	 *
 	 * @param in
 	 * @return
 	 * @throws IOException
@@ -259,7 +265,7 @@ class MyHandler extends AsyncHttpResponseHandler{
             //responseBody的内容就是服务器返回的数据
             byte[] responseBody) {
         Toast.makeText(MainActivity.this, new String(responseBody), 0).show();
-        
+
     }
 
     //http请求失败，返回码不为200，系统回调此方法
@@ -301,28 +307,28 @@ public class MainActivity extends Activity {
     public void get(View v){
     	EditText et_name = (EditText) findViewById(R.id.et_name);
     	EditText et_pass = (EditText) findViewById(R.id.et_pass);
-    	
+
     	final String name = et_name.getText().toString();
     	final String pass = et_pass.getText().toString();
     	String url = "http://192.168.13.13/Web/servlet/CheckLogin?name=" + URLEncoder.encode(name) + "&pass=" + pass;
     	//创建异步httpclient
     	AsyncHttpClient ahc = new AsyncHttpClient();
-    	
+
     	//发送get请求提交数据
     	ahc.get(url, new MyResponseHandler());
     }
-    
+
     public void post(View v){
     	EditText et_name = (EditText) findViewById(R.id.et_name);
     	EditText et_pass = (EditText) findViewById(R.id.et_pass);
-    	
+
     	final String name = et_name.getText().toString();
     	final String pass = et_pass.getText().toString();
     	String url = "http://192.168.13.13/Web/servlet/CheckLogin";
-    	
+
     	//创建异步httpclient
     	AsyncHttpClient ahc = new AsyncHttpClient();
-    	
+
     	//发送post请求提交数据
     	//把要提交的数据封装至RequestParams对象
     	RequestParams params = new RequestParams();
@@ -330,7 +336,7 @@ public class MainActivity extends Activity {
     	params.add("pass", pass);
     	ahc.post(url, params, new MyResponseHandler());
     }
-    
+
     class MyResponseHandler extends AsyncHttpResponseHandler{
 
     	//请求服务器成功时，此方法调用
@@ -338,7 +344,7 @@ public class MainActivity extends Activity {
 		public void onSuccess(int statusCode, Header[] headers,
 				byte[] responseBody) {
 			Toast.makeText(MainActivity.this, new String(responseBody), 0).show();
-			
+
 		}
 
 		//请求失败此方法调用
@@ -346,11 +352,11 @@ public class MainActivity extends Activity {
 		public void onFailure(int statusCode, Header[] headers,
 				byte[] responseBody, Throwable error) {
 			Toast.makeText(MainActivity.this, "请求失败", 0).show();
-			
+
 		}
-    	
+
     }
-    
+
 }
 ```
 # **3. 多线程下载**
@@ -377,7 +383,7 @@ int length = conn.getContentLength();
 RandomAccessFile raf = new RandomAccessFile(getFileName(path), "rwd");
 //设置临时文件的大小
 raf.setLength(length);
-raf.close(); 
+raf.close();
 ```
 * 确定线程下载多少数据
 ```java
@@ -395,7 +401,7 @@ for(int id = 1; id <= 3; id++){
     if(id == THREAD_COUNT){
         endIndex = length;
     }
-                    
+
     //开启线程，按照计算出来的开始结束位置开始下载数据
     new DownLoadThread(startIndex, endIndex, id).start();
 }
@@ -405,7 +411,7 @@ for(int id = 1; id <= 3; id++){
 
 ```java
 String path = "http://192.168.1.102:8080/editplus.exe";
-    
+
 URL url = new URL(path);
 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 conn.setReadTimeout(5000);
@@ -442,7 +448,7 @@ public class MultiDownload {
 	//确定下载地址
 	static String path = "http://192.168.13.13:8080/QQPlayer.exe";
 	public static void main(String[] args) {
-		
+
 		//发送get请求，请求这个地址的资源
 		try {
 			URL url = new URL(path);
@@ -450,11 +456,11 @@ public class MultiDownload {
 			conn.setRequestMethod("GET");
 			conn.setConnectTimeout(5000);
 			conn.setReadTimeout(5000);
-			
+
 			if(conn.getResponseCode() == 200){
 				//拿到所请求资源文件的长度
 				int length = conn.getContentLength();
-				
+
 				File file = new File("QQPlayer.exe");
 				//生成临时文件
 				RandomAccessFile raf = new RandomAccessFile(file, "rwd");
@@ -463,7 +469,7 @@ public class MultiDownload {
 				raf.close();
 				//计算出每个线程应该下载多少字节
 				int size = length / ThreadCount;
-				
+
 				for (int i = 0; i < ThreadCount; i++) {
 					//计算线程下载的开始位置和结束位置
 					int startIndex = i * size;
@@ -481,14 +487,14 @@ public class MultiDownload {
 			e.printStackTrace();
 		}
 	}
-	
-	
+
+
 }
 class DownLoadThread extends Thread{
 	int startIndex;
 	int endIndex;
 	int threadId;
-	
+
 	public DownLoadThread(int startIndex, int endIndex, int threadId) {
 		super();
 		this.startIndex = startIndex;
@@ -518,7 +524,7 @@ class DownLoadThread extends Thread{
 			conn.setReadTimeout(5000);
 			//设置本次http请求所请求的数据的区间
 			conn.setRequestProperty("Range", "bytes=" + startIndex + "-" + endIndex);
-			
+
 			//请求部分数据，相应码是206
 			if(conn.getResponseCode() == 206){
 				//流里此时只有1/3原文件的数据
@@ -536,7 +542,7 @@ class DownLoadThread extends Thread{
 					raf.write(b, 0, len);
 					total += len;
 //					System.out.println("线程" + threadId + "下载了" + total);
-					
+
 					//生成一个专门用来记录下载进度的临时文件
 					RandomAccessFile progressRaf = new RandomAccessFile(progressFile, "rwd");
 					//每次读取流里数据之后，同步把当前线程下载的总进度写入进度临时文件中
@@ -545,7 +551,7 @@ class DownLoadThread extends Thread{
 				}
 				System.out.println("线程" + threadId + "下载完毕-------------------小志参上！");
 				raf.close();
-				
+
 				MultiDownload.finishedThread++;
 				synchronized (MultiDownload.path) {
 					if(MultiDownload.finishedThread == MultiDownload.ThreadCount){
@@ -556,7 +562,7 @@ class DownLoadThread extends Thread{
 						MultiDownload.finishedThread = 0;
 					}
 				}
-				
+
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -624,7 +630,7 @@ int progress;
 ```java
 while((len = is.read(b)) != -1){
 raf.write(b, 0, len);
-        
+
 //把当前线程本次下载的长度加到进度条里
 progress += len;
 pb.setProgress(progress);
@@ -637,7 +643,7 @@ FileInputStream fis = new FileInputStream(file);
 BufferedReader br = new BufferedReader(new InputStreamReader(fis));
 String text = br.readLine();
 int newStartIndex = Integer.parseInt(text);
-            
+
 //新开始位置减去原本的开始位置，得到已经下载的数据长度
 int alreadyDownload = newStartIndex - startIndex;
 //把已经下载的长度设置入进度条
@@ -657,14 +663,14 @@ public class MainActivity extends Activity {
 
 	static int ThreadCount = 3;
 	static int finishedThread = 0;
-	
+
 	int currentProgress;
 	String fileName = "QQPlayer.exe";
 	//确定下载地址
 	String path = "http://192.168.13.13:8080/" + fileName;
 	private ProgressBar pb;
 	TextView tv;
-	
+
 	Handler handler = new Handler(){
 		public void handleMessage(android.os.Message msg) {
 			//把变量改成long，在long下运算
@@ -680,7 +686,7 @@ public class MainActivity extends Activity {
 	}
 
 	public void click(View v){
-		
+
 		Thread t = new Thread(){
 			@Override
 			public void run() {
@@ -691,14 +697,14 @@ public class MainActivity extends Activity {
 					conn.setRequestMethod("GET");
 					conn.setConnectTimeout(5000);
 					conn.setReadTimeout(5000);
-					
+
 					if(conn.getResponseCode() == 200){
 						//拿到所请求资源文件的长度
 						int length = conn.getContentLength();
-						
+
 						//设置进度条的最大值就是原文件的总长度
 						pb.setMax(length);
-						
+
 						File file = new File(Environment.getExternalStorageDirectory(), fileName);
 						//生成临时文件
 						RandomAccessFile raf = new RandomAccessFile(file, "rwd");
@@ -707,7 +713,7 @@ public class MainActivity extends Activity {
 						raf.close();
 						//计算出每个线程应该下载多少字节
 						int size = length / ThreadCount;
-						
+
 						for (int i = 0; i < ThreadCount; i++) {
 							//计算线程下载的开始位置和结束位置
 							int startIndex = i * size;
@@ -728,12 +734,12 @@ public class MainActivity extends Activity {
 		};
 		t.start();
 	}
-	
+
 	class DownLoadThread extends Thread{
 		int startIndex;
 		int endIndex;
 		int threadId;
-		
+
 		public DownLoadThread(int startIndex, int endIndex, int threadId) {
 			super();
 			this.startIndex = startIndex;
@@ -753,11 +759,11 @@ public class MainActivity extends Activity {
 					//从进度临时文件中读取出上一次下载的总进度，然后与原本的开始位置相加，得到新的开始位置
 					int lastProgress = Integer.parseInt(br.readLine());
 					startIndex += lastProgress;
-					
+
 					//把上次下载的进度显示至进度条
 					currentProgress += lastProgress;
 					pb.setProgress(currentProgress);
-					
+
 					//发送消息，让主线程刷新文本进度
 					handler.sendEmptyMessage(1);
 					fis.close();
@@ -771,7 +777,7 @@ public class MainActivity extends Activity {
 				conn.setReadTimeout(5000);
 				//设置本次http请求所请求的数据的区间
 				conn.setRequestProperty("Range", "bytes=" + startIndex + "-" + endIndex);
-				
+
 				//请求部分数据，相应码是206
 				if(conn.getResponseCode() == 206){
 					//流里此时只有1/3原文件的数据
@@ -789,13 +795,13 @@ public class MainActivity extends Activity {
 						raf.write(b, 0, len);
 						total += len;
 						System.out.println("线程" + threadId + "下载了" + total);
-						
+
 						//每次读取流里数据之后，把本次读取的数据的长度显示至进度条
 						currentProgress += len;
 						pb.setProgress(currentProgress);
 						//发送消息，让主线程刷新文本进度
 						handler.sendEmptyMessage(1);
-						
+
 						//生成一个专门用来记录下载进度的临时文件
 						RandomAccessFile progressRaf = new RandomAccessFile(progressFile, "rwd");
 						//每次读取流里数据之后，同步把当前线程下载的总进度写入进度临时文件中
@@ -804,7 +810,7 @@ public class MainActivity extends Activity {
 					}
 					System.out.println("线程" + threadId + "下载完毕-------------------小志参上！");
 					raf.close();
-					
+
 					finishedThread++;
 					synchronized (path) {
 						if(finishedThread == ThreadCount){
@@ -815,7 +821,7 @@ public class MainActivity extends Activity {
 							finishedThread = 0;
 						}
 					}
-					
+
 				}
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
@@ -834,26 +840,26 @@ public class MainActivity extends Activity {
 
   	HttpUtils http = new HttpUtils();
 * 下载文件
-  ​	
+  ​
 ```
 http.download(url, //下载请求的网址
 				target, //下载的数据保存路径和文件名
 				true, //是否开启断点续传
 				true, //如果服务器响应头中包含了文件名，那么下载完毕后自动重命名
 				new RequestCallBack<File>() {//侦听下载状态
-			
+
 			//下载成功此方法调用
 			@Override
 			public void onSuccess(ResponseInfo<File> arg0) {
 				tv.setText("下载成功" + arg0.result.getPath());
 			}
-			
+
 			//下载失败此方法调用，比如文件已经下载、没有网络权限、文件访问不到，方法传入一个字符串参数告知失败原因
 			@Override
 			public void onFailure(HttpException arg0, String arg1) {
 				tv.setText("下载失败" + arg1);
 			}
-			
+
 			//在下载过程中不断的调用，用于刷新进度条
 			@Override
 			public void onLoading(long total, long current, boolean isUploading) {
@@ -893,21 +899,21 @@ public class MainActivity extends Activity {
 				"sdcard/QQPlayer.exe", //文件保存路径
 				true,//是否支持断点续传
 				true, new RequestCallBack<File>() {
-					
+
 					//下载成功后调用
 					@Override
 					public void onSuccess(ResponseInfo<File> arg0) {
 						Toast.makeText(MainActivity.this, arg0.result.getPath(), 0).show();
-						
+
 					}
-					
+
 					//下载失败调用
 					@Override
 					public void onFailure(HttpException arg0, String arg1) {
 						// TODO Auto-generated method stub
 						tv_failure.setText(arg1);
 					}
-					
+
 					@Override
 					public void onLoading(long total, long current,
 							boolean isUploading) {
