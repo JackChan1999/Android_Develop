@@ -1,5 +1,5 @@
-## Android安全加密专题文章索引
-
+##Android安全加密专题文章索引
+ 
 1. [Android安全加密：对称加密](http://blog.csdn.net/axi295309066/article/details/52491077)
 2. [Android安全加密：非对称加密](http://blog.csdn.net/axi295309066/article/details/52494640)
 3. [Android安全加密：消息摘要Message Digest](http://blog.csdn.net/axi295309066/article/details/52494725)
@@ -7,10 +7,10 @@
 5. [Android安全加密：Https编程](http://blog.csdn.net/axi295309066/article/details/52494902)
 
 
-# **1. 常见算法**
+#**1. 常见算法**
 MD5、SHA、CRC 等
 
-# **2. 使用场景**
+#**2. 使用场景**
 
 - 对用户密码进行md5 加密后保存到数据库里
 - 软件下载站使用消息摘要计算文件指纹，防止被篡改
@@ -75,3 +75,46 @@ for (int i = 0; i < bytes.length; i++) {
 String hexstring = sb.toString();
 
 ```
+
+```java
+public class MD5Utils {
+    
+    public static String encode(String pwd) {
+        // MessageDigest 消息摘要
+        try {
+            MessageDigest digester = MessageDigest.getInstance("MD5");
+            // 加密，将要加密的字符串转换成字节数组
+            byte[] digest = digester.digest(pwd.getBytes());
+
+            StringBuffer buffer = new StringBuffer();
+            // 0000-0101
+            // 1111-1111
+            // 0000-0101
+            for (byte b : digest) {
+                // 0xff 表示低8 位
+                int number = b & 0xff;
+                // int 32 位一个int 是四个字节一个字节8 位
+                // 任何一个值& 等于0
+                // & 1 = 1
+                String hexString = Integer.toHexString(number);
+                if (hexString.length() == 1) {
+                    buffer.append("0" + hexString);
+                } else {
+                    buffer.append(hexString);
+                }
+            }
+            System.out.println("密码长度---" + buffer.toString().length());
+            System.out.println("密码---" + buffer.toString());
+            return buffer.toString();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+}
+```
+# 6. MD5解密网站
+
+http://www.cmd5.com/
+
+为了提高MD5 加密的安全性，减少密文被反向解密的可能性，应尽量将密码的长度设置的长一些，另外也可以将密码进行多次加密，这样可以保护用户的隐私安全
