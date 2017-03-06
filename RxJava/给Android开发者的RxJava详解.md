@@ -38,12 +38,12 @@ API 介绍和原理简析
    最后
    关于作者：
    为什么写这个？
-   在正文开始之前的最后，放上 GitHub 链接和引入依赖的 gradle 代码： Github： 
-   https://github.com/ReactiveX/RxJava 
-   https://github.com/ReactiveX/RxAndroid 
-   引入依赖： 
-   compile 'io.reactivex:rxjava:1.0.14' 
-   compile 'io.reactivex:rxandroid:1.0.1' 
+   在正文开始之前的最后，放上 GitHub 链接和引入依赖的 gradle 代码： Github：
+   https://github.com/ReactiveX/RxJava
+   https://github.com/ReactiveX/RxAndroid
+   引入依赖：
+   compile 'io.reactivex:rxjava:1.0.14'
+   compile 'io.reactivex:rxandroid:1.0.1'
    （版本号是文章发布时的最新稳定版）
 
 另外，感谢 RxJava 核心成员流火枫林的技术支持和内测读者代码家、鲍永章、drakeet、马琳、有时放纵、程序亦非猿、大头鬼、XZoomEye、席德雨、TCahead、Tiiime、Ailurus、宅学长、妖孽、大大大大大臣哥、NicodeLee的帮助，以及周伯通招聘的赞助。
@@ -524,7 +524,7 @@ Observable.just("images/logo.png") // 输入类型 String
 
 可以看到，map() 方法将参数中的 String 对象转换成一个 Bitmap 对象后返回，而在经过 map() 方法后，事件的参数类型也由 String 转为了 Bitmap。这种直接变换对象并返回的，是最常见的也最容易理解的变换。不过 RxJava 的变换远不止这样，它不仅可以针对事件对象，还可以针对整个事件队列，这使得 RxJava 变得非常灵活。我列举几个常用的变换：
 
-- map(): 事件对象的直接变换，具体功能上面已经介绍过。它是 RxJava 最常用的变换。 map() 的示意图： 
+- map(): 事件对象的直接变换，具体功能上面已经介绍过。它是 RxJava 最常用的变换。 map() 的示意图：
 
 ![map() 示意图](http://ww1.sinaimg.cn/mw1024/52eb2279jw1f2rx4fitvfj20hw0ea0tg.jpg)
 
@@ -641,15 +641,15 @@ public <R> Observable<R> lift(Operator<? extends R, ? super T> operator) {
 
 - subscribe() 中这句话的 onSubscribe 指的是 Observable 中的 onSubscribe 对象，这个没有问题，但是 lift() 之后的情况就复杂了点。
 
-当含有 lift() 时： 
+当含有 lift() 时：
 
-1. lift() 创建了一个 Observable 后，加上之前的原始 Observable，已经有两个 Observable 了； 
+1. lift() 创建了一个 Observable 后，加上之前的原始 Observable，已经有两个 Observable 了；
 
-2. 而同样地，新 Observable 里的新 OnSubscribe 加上之前的原始 Observable 中的原始 OnSubscribe，也就有了两个 OnSubscribe； 
+2. 而同样地，新 Observable 里的新 OnSubscribe 加上之前的原始 Observable 中的原始 OnSubscribe，也就有了两个 OnSubscribe；
 
-3. 当用户调用经过 lift() 后的 Observable 的 subscribe() 的时候，使用的是 lift() 所返回的新的 Observable ，于是它所触发的 onSubscribe.call(subscriber)，也是用的新 Observable 中的新 OnSubscribe，即在 lift() 中生成的那个 OnSubscribe； 
+3. 当用户调用经过 lift() 后的 Observable 的 subscribe() 的时候，使用的是 lift() 所返回的新的 Observable ，于是它所触发的 onSubscribe.call(subscriber)，也是用的新 Observable 中的新 OnSubscribe，即在 lift() 中生成的那个 OnSubscribe；
 
-4. 而这个新 OnSubscribe 的 call() 方法中的 onSubscribe ，就是指的原始 Observable 中的原始 OnSubscribe ，在这个 call() 方法里，新 OnSubscribe 利用 operator.call(subscriber) 生成了一个新的 Subscriber（Operator 就是在这里，通过自己的 call() 方法将新 Subscriber 和原始 Subscriber 进行关联，并插入自己的『变换』代码以实现变换），然后利用这个新 Subscriber 向原始 Observable 进行订阅。 
+4. 而这个新 OnSubscribe 的 call() 方法中的 onSubscribe ，就是指的原始 Observable 中的原始 OnSubscribe ，在这个 call() 方法里，新 OnSubscribe 利用 operator.call(subscriber) 生成了一个新的 Subscriber（Operator 就是在这里，通过自己的 call() 方法将新 Subscriber 和原始 Subscriber 进行关联，并插入自己的『变换』代码以实现变换），然后利用这个新 Subscriber 向原始 Observable 进行订阅。
 
    这样就实现了 lift() 过程，有点像一种代理机制，通过事件拦截和处理实现事件序列的变换。
 
@@ -778,7 +778,7 @@ Observable.just(1, 2, 3, 4) // IO 线程，由 subscribeOn() 指定
     .map(mapOperator) // 新线程，由 observeOn() 指定
     .observeOn(Schedulers.io())
     .map(mapOperator2) // IO 线程，由 observeOn() 指定
-    .observeOn(AndroidSchedulers.mainThread) 
+    .observeOn(AndroidSchedulers.mainThread)
     .subscribe(subscriber);  // Android 主线程，由 observeOn() 指定
 ```
 如上，通过 observeOn() 的多次调用，程序实现了线程的多次切换。
@@ -1079,9 +1079,9 @@ RxBus 名字看起来像一个库，但它并不是一个库，而是一种模�
 
 对于 Android 开发者来说， RxJava 是一个很难上手的库，因为它对于 Android 开发者来说有太多陌生的概念了。可是它真的很牛逼。因此，我写了这篇《给 Android 开发者的 RxJava 详解》，希望能给始终搞不明白什么是 RxJava 的人一些入门的指引，或者能让正在使用 RxJava 但仍然心存疑惑的人看到一些更深入的解析。无论如何，只要能给各位同为 Android 工程师的你们提供一些帮助，这篇文章的目的就达到了。
 
-再次感谢对这篇文章的产出提供支持的各位： 
-技术支持：流火枫林 
-内测读者：代码家、鲍永章、drakeet、马琳、有时放纵、程序亦非猿、大头鬼、XZoomEye、席德雨、TCahead、Tiiime、Ailurus、宅学长、妖孽、大大大大大臣哥、NicodeLee 
+再次感谢对这篇文章的产出提供支持的各位：
+技术支持：流火枫林
+内测读者：代码家、鲍永章、drakeet、马琳、有时放纵、程序亦非猿、大头鬼、XZoomEye、席德雨、TCahead、Tiiime、Ailurus、宅学长、妖孽、大大大大大臣哥、NicodeLee
 赞助方：周伯通招聘 是他们让我的文章能够以不那么丑陋的样子出现在大家面前。
 
 # 关于作者
