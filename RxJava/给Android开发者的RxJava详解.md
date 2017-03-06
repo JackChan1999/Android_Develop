@@ -38,13 +38,18 @@ API 介绍和原理简析
    最后
    关于作者：
    为什么写这个？
-   在正文开始之前的最后，放上 GitHub 链接和引入依赖的 gradle 代码： Github：
-   https://github.com/ReactiveX/RxJava
-   https://github.com/ReactiveX/RxAndroid
-   引入依赖：
-   compile 'io.reactivex:rxjava:1.0.14'
-   compile 'io.reactivex:rxandroid:1.0.1'
-   （版本号是文章发布时的最新稳定版）
+
+在正文开始之前的最后，放上 GitHub 链接和引入依赖的 gradle 代码： Github：
+
+- https://github.com/ReactiveX/RxJava
+- https://github.com/ReactiveX/RxAndroid
+
+引入依赖：
+```gradle
+// 版本号是文章发布时的最新稳定版
+compile 'io.reactivex:rxjava:1.0.14'
+compile 'io.reactivex:rxandroid:1.0.1'
+```
 
 另外，感谢 RxJava 核心成员流火枫林的技术支持和内测读者代码家、鲍永章、drakeet、马琳、有时放纵、程序亦非猿、大头鬼、XZoomEye、席德雨、TCahead、Tiiime、Ailurus、宅学长、妖孽、大大大大大臣哥、NicodeLee的帮助，以及周伯通招聘的赞助。
 
