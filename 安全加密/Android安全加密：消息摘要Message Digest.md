@@ -1,4 +1,4 @@
-##Android安全加密专题文章索引
+## Android安全加密专题文章索引
 
 1. [Android安全加密：对称加密](http://blog.csdn.net/axi295309066/article/details/52491077)
 2. [Android安全加密：非对称加密](http://blog.csdn.net/axi295309066/article/details/52494640)
@@ -7,10 +7,10 @@
 5. [Android安全加密：Https编程](http://blog.csdn.net/axi295309066/article/details/52494902)
 
 
-#**1. 常见算法**
+# **1. 常见算法**
 MD5、SHA、CRC 等
 
-#**2. 使用场景**
+# **2. 使用场景**
 
 - 对用户密码进行md5 加密后保存到数据库里
 - 软件下载站使用消息摘要计算文件指纹，防止被篡改
