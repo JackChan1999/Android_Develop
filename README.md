@@ -1,7 +1,7 @@
 # 目录
 
 * Android基础
-	* [Android基础\Android应用开发-快速入门](Android基础/Android应用开发-快速入门.md)
+	* [Android应用开发-快速入门](Android基础/Android应用开发-快速入门.md)
 	* [Android四大组件之Activity](Android基础/Android四大组件之Activity.md)
 	* [Android四大组件之BroadCastReceiver](Android基础/Android四大组件之BroadCastReceiver.md)
 	* [Android四大组件之ContentProvider](Android基础/Android四大组件之ContentProvider.md)
