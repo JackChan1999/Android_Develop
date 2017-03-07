@@ -1,7 +1,6 @@
 # Summary
 
 * [序言](README.md)
-* [计算机英语](Android基础/计算机英语.docx)
 * [Android基础](android.md)
   * [Android应用开发-快速入门](Android基础/Android应用开发-快速入门.md)
   * [Android四大组件之Activity](Android基础/Android四大组件之Activity.md)
