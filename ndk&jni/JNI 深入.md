@@ -11,8 +11,7 @@ static{
 }
 ```
 
-当我们在写上面代码的时候如果不小心将hello 写成了hell0。或者libhello.so 动态库不存在，那么系
-统启动时会报如下异常。
+当我们在写上面代码的时候如果不小心将hello 写成了hell0。或者libhello.so 动态库不存在，那么系统启动时会报如下异常。
 
 ![](../assets/jni1.png)
 
@@ -24,8 +23,8 @@ static{
 ## 2.3 目标文件名画蛇添足导致的错误
 
 手机防盗界面会展示出一系列的信息，如用户设置的安全号码、手机防盗保护是否开启等信息，手机防盗界面LostFindActivity.java 的效果图如图3-5 所示。
-如果我们将Android.mk 中的目标文件名：LOCAL_MODULE := hello 写成了LOCAL_MODULE:=
-hello.so，那么当我们使用ndk 进行编译的时候会出现如下错误。
+
+如果我们将Android.mk 中的目标文件名：LOCAL_MODULE := hello 写成了LOCAL_MODULE:=hello.so，那么当我们使用ndk 进行编译的时候会出现如下错误。
 
 ![](../assets/jni3.png)
 
@@ -33,8 +32,7 @@ hello.so，那么当我们使用ndk 进行编译的时候会出现如下错误�
 
 ## 2.4 源文件名写错
 
-如果我们将Android.mk 中的源文件名：LOCAL_SRC_FILES := hello.c 写成了LOCAL_SRC_FILES :=
-helo.c（少些了一个单词），那么当使用ndk 进行编译的时候会出现如下错误：
+如果我们将Android.mk 中的源文件名：LOCAL_SRC_FILES := hello.c 写成了LOCAL_SRC_FILES :=helo.c（少些了一个单词），那么当使用ndk 进行编译的时候会出现如下错误：
 
 ![](../assets/jni4.png)
 
@@ -43,8 +41,7 @@ helo.c（少些了一个单词），那么当使用ndk 进行编译的时候会�
 
 ![](../assets/jni5.png)
 
-如果想让我们编译的动态库既支持arm 平台又支持x86 平台，那么我们可以在工程中的jni 目录下添
-加Application.mk 文件。关于Application.mk 的配置在本人的上一个文档中有说明，这里就不再介绍。
+如果想让我们编译的动态库既支持arm 平台又支持x86 平台，那么我们可以在工程中的jni 目录下添加Application.mk 文件。关于Application.mk 的配置在本人的上一个文档中有说明，这里就不再介绍。
 ## 2.6 C 语言中被Java 调用的方法名写错
 比如C 语言中的方法jstring Java_com_itheima_jnihello_MainActivity_helloC 把helloC 写成了heloC，那么将会报如下错误。
 
@@ -55,8 +52,7 @@ helo.c（少些了一个单词），那么当使用ndk 进行编译的时候会�
 ```
 public native String a_b__c_d();
 ```
-这时候我们可以通过我们的JDK 工具自动生成头文件。该工具位于JDK 中，如果我们给电脑配置
-JAVA_HOME 则可以直接在命令行中使用，使用法则很简单。如下图所示：
+这时候我们可以通过我们的JDK 工具自动生成头文件。该工具位于JDK 中，如果我们给电脑配置JAVA_HOME 则可以直接在命令行中使用，使用法则很简单。如下图所示：
 
 ![](../assets/jni7.png)
 
@@ -183,9 +179,7 @@ jintArray Java_com_ithiema_jnipassdata_DataProvider_changeColor
 }
 ```
 
-使用NDK 工具将上面的C 代码编译成动态库文件，首先得在工程的jni 目录下添加Android.mk
-和Application.mk 文件
-在MainActivity 类中调用C 语言，MainActivity.java 代码清单如下。
+使用NDK 工具将上面的C 代码编译成动态库文件，首先得在工程的jni 目录下添加Android.mk和Application.mk 文件。在MainActivity 类中调用C 语言，MainActivity.java 代码清单如下
 
 ```java
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -214,7 +208,7 @@ jintArray Java_com_ithiema_jnipassdata_DataProvider_changeColor
 
 ![](../assets/jni15.png)
 
-3.3.1 让C 语言输出Log 日志
+## 4.1 让C 语言输出Log 日志
 
 让我们的C 语言也能在LogCat 中输出一些信息是一个很简单但也很常见的实际需求。为了方便演示
 我们直接在本章节中创建的工程中演示如何让C 语言打印LogCat 日志。
@@ -244,20 +238,18 @@ jintArray Java_com_ithiema_jnipassdata_DataProvider_changeColor
 
 # 5. 案例-调用美图秀秀的动态库
 
-在美图秀秀1.0 版本的时候程序员对其代码并没有加密以及反反编译等处理，因此我们可以将其apk
-反编译出来。里面关于图形的核心算法都是通过so 库来实现的，我们可以拿过来直接使用。
-声明：本文档中使用的美图秀秀只用于学习交流Android 技术，禁止用于其他目的！
-美图秀秀1.0 版本[下载地址](http://pan.baidu.com/s/1bnAjLGN)
-将下载好的mtxx.apk 进行反编译，将反编译好的资源作为原料备用。关于如何反编译美图秀秀
-请见本文档最后一章。
+在美图秀秀1.0 版本的时候程序员对其代码并没有加密以及反反编译等处理，因此我们可以将其apk反编译出来。里面关于图形的核心算法都是通过so 库来实现的，我们可以拿过来直接使用。
+声明：本文档中使用的美图秀秀只用于学习交流Android 技术，禁止用于其他目的！美图秀秀1.0 版本[下载地址](http://pan.baidu.com/s/1bnAjLGN)
+将下载好的mtxx.apk 进行反编译，将反编译好的资源作为原料备用。关于如何反编译美图秀秀请见本文档最后一章。
+
 Tips：解压好的目录打开lib 包，发现只有armeabi 一个文件夹，说明该so 文件只能在arm 架构的CPU上运行。
-创建一个新的Android 工程《黑马美图秀秀》。将反编译好的libmtimage-jni.so 拷贝到工程的
-libs->armeab（i 该目录需要手动创建）目录下。通过反编译的 jar 包发现美图秀秀的 jni 方法都定义在 JNI.java类中，我们用jd-gui 工具将反编译的jar 包打开，找到JNI.java，然后拷贝其中的native 方法到我们的工程中。本人的工程目录结构如下所示：
+
+创建一个新的Android 工程《黑马美图秀秀》。将反编译好的libmtimage-jni.so 拷贝到工程的libs->armeab（i 该目录需要手动创建）目录下。通过反编译的 jar 包发现美图秀秀的 jni 方法都定义在 JNI.java类中，我们用jd-gui 工具将反编译的jar包打开，找到JNI.java，然后拷贝其中的native 方法到我们的工程中。本人的工程目录结构如下所示：
 
 ![](../assets/jni16.png)
 
-Tips：我们使用了美图秀秀的JNI 源码，那么我们的JNI.java 名字以及其所在的包名必须严格跟原美
-图秀秀保持一致，不然程序从so 动态库中是找不到目标方法的。原因很简单，因为C 中方法名是根据JNI.java 中的方法全限定名生成的。
+Tips：我们使用了美图秀秀的JNI 源码，那么我们的JNI.java 名字以及其所在的包名必须严格跟原美图秀秀保持一致，不然程序从so 动态库中是找不到目标方法的。原因很简单，因为C 中方法名是根据JNI.java 中的方法全限定名生成的。
+
 编写activity_main.xml 布局文件，布局文件清单如下：
 
 ```xml
@@ -342,8 +334,7 @@ public class MainActivity extends Activity {
 # 6. C 语言调用Java 代码
 
 之前我们学习的JNI 都是Java 代码调用C 代码，本章节中演示C 代码如何调用Java 代码。
-创建一个新的Android 工程《C 语言调用Java》，在工程中创建jni 目录，在改目录下放置
-Android.mk 和jni.h 文件（从老工程中拷贝）。工程目录结构如下：
+创建一个新的Android 工程《C 语言调用Java》，在工程中创建jni 目录，在改目录下放置Android.mk 和jni.h 文件（从老工程中拷贝）。工程目录结构如下：
 
 ![](../assets/jni20.png)
 
@@ -410,8 +401,7 @@ void Java_com_itheima_callJava_DataProvider_callCMethod4(JNIEnv * env, jobject o
     (*env)->CallStaticVoidMethod(env,clazz,methodID);
 }
 ```
-使用NDK 工具，将calljava.c 编译成动态库文件。（NDK 的使用在上一篇文档中有详细的介绍，
-这里就不再说明）
+使用NDK 工具，将calljava.c 编译成动态库文件。（NDK 的使用在上一篇文档中有详细的介绍，这里就不再说明）
 在MainActivity.java 中调用C 语言，代码清单如下：
 
 ```java
@@ -444,8 +434,7 @@ public class MainActivity extends Activity {
 
 # 7. 短信接收广播之锁屏用C++实现JNI
 
-C++语言是面向对象的编程语言，源于C 语言，部分语法通用。本章节中主要介绍如何使用C++完成
-简单的JNI 开发。
+C++语言是面向对象的编程语言，源于C 语言，部分语法通用。本章节中主要介绍如何使用C++完成简单的JNI 开发。
 创建一个新Android 工程《cpp 实现jni》，创建jni 包，在该包下创建JNI.java 文件，在该类中写naive方法。因为我们是C++项目，因此需要给当前工程添加native Support。右键点击项目，在弹出的对话框中选择Android Tools，然后选择Add native Support，弹出如下对话框：
 
 ![](../assets/jni21.png)
@@ -518,9 +507,7 @@ in ./AndroidManifest.xml
  [armeabi] Install : libgaga.so => libs/armeabi/libgaga.so
  **** Build Finished ****
 ```
-Tips：通过控制台，我们发现当我们的工程添加本地支持以后，当我们在部署的时候eclipse 会自动的完
-成动态库的编译工作。而且我们还发现在生成动态之前先生成了libstdc++.a 静态库然后才生成了动态库。
-上面代码运行效果如下图所示：
+Tips：通过控制台，我们发现当我们的工程添加本地支持以后，当我们在部署的时候eclipse 会自动的完成动态库的编译工作。而且我们还发现在生成动态之前先生成了libstdc++.a 静态库然后才生成了动态库。上面代码运行效果如下图所示：
 
 ![](../assets/jni25.png)
 
@@ -528,8 +515,9 @@ Tips：通过控制台，我们发现当我们的工程添加本地支持以后�
 需求：硬件设备可以监测锅炉的压力，监测代码逻辑是用C 语言编写。客户端用java 代码每一秒调用一次C 语言，以获取锅炉的压力值，然后将锅炉的压力值以动态柱形图的形式显示在手机客户端。
 
 Tips：分析上面的需求，我们需要使用jni 技术让Java 和C 代码通信。在C 语言端我们可以调用随机函数模拟锅炉压力的动态变化。在Java 端，我们可以自定义一个View 对象显示我们的锅炉压力。
-创建一个Android 工程《JNI 锅炉压力检测》，在该工程中创建jni 目录，将Android.mk、jni.h 从其他工程中拷贝到该目录下。
-在jni 目录下创建一个C 源文件pressure.c，代码清单如下：
+
+创建一个Android 工程《JNI 锅炉压力检测》，在该工程中创建jni 目录，将Android.mk、jni.h 从其他工程中拷贝到该目录下。在jni 目录下创建一个C 源文件pressure.c，代码清单如下：
+
 ```c
 #include <jni.h>
 #include <stdio.h>
@@ -542,8 +530,7 @@ jint Java_com_itheima_jniPressure_MainActivity_getPressure(){
 return getPressure();
  }
 ```
-将pressure.c 编译成动态库文件
-在MainActivity 的同一个包目录下创建一个自定义控件类MyView 继承View 类。
+将pressure.c 编译成动态库文件，在MainActivity 的同一个包目录下创建一个自定义控件类MyView 继承View 类。
 ```java
 public class MyView extends View {
     int top = 100;
@@ -624,12 +611,11 @@ public class MainActivity extends Activity {
 
 # 9. 案例-监听应用程序的卸载
 
-需求：当我们的apk 安装在Android 手机上后，我们可以在其后台开启个C 语言编写的死循环，C 语
-言编程的程序跟我们的应用不在同一个进程中，因此当我们的应用软件被卸载的时候，C 语言可以监测到。
+需求：当我们的apk 安装在Android 手机上后，我们可以在其后台开启个C 语言编写的死循环，C 语言编程的程序跟我们的应用不在同一个进程中，因此当我们的应用软件被卸载的时候，C 语言可以监测到。
+
 监测原理就是访问/data/data/{包名}文件是否存在，如果不存在显然是被删除了。
 
-Tips：考虑到我们上面的案例跟这个案例使用的知识点差不多，都是使用Java 语言调用C 语言。因此这里就不再一步一步的演示如何创建工程。这里只给出核心的C 语言代码。
-本人工程目录结构如下所示：
+Tips：考虑到我们上面的案例跟这个案例使用的知识点差不多，都是使用Java 语言调用C 语言。因此这里就不再一步一步的演示如何创建工程。这里只给出核心的C 语言代码。本人工程目录结构如下所示：
 
 ![](../assets/jni27.png)
 
@@ -675,9 +661,7 @@ void Java_com_itheima_jniuninstall_MainActivity_listen(
     }
 }
 ```
-：上面的execlp 函数用于调用本地系统（Android 系统）命令打开一个浏览器，访问一个指定的
-URL。但是经过我的测试发现在低版本模拟器（2.3）上该功能可是使用但是在高版本模拟器（4.3）上不
-可以使用。
+Tips：上面的execlp 函数用于调用本地系统（Android 系统）命令打开一个浏览器，访问一个指定的URL。但是经过我的测试发现在低版本模拟器（2.3）上该功能可是使用但是在高版本模拟器（4.3）上不可以使用。
 
 # 10. apk 的反编译
 有一款叫安卓逆向助手软件反编译apk 十分方便。这里给大家介绍的反编译方法就是基于这款软件的。[安卓逆向助手下载地址](http://pan.baidu.com/s/1eQkvlvW)
@@ -709,6 +693,6 @@ Tips：lib 目录存放都是用java 写的核心反编译逻辑，必须跟exe 
 
 ![](../assets/jni32.png)
 
-最后在Android 逆向助手.exe 中选择dex 转jar 选项。在源文件中选择上一步生成的classes.dex 文件，然后点击执行（这个过程大概需要几秒的等待时间）。这时候该软件会自动将我们生成的jar 文件用jd-gui工具打开。打开效果如下所示：
+最后在Android 逆向助手.exe 中选择dex 转jar 选项。在源文件中选择上一步生成的classes.dex 文件，然后点击执行（这个过程大概需要几秒的等待时间）。这时候该软件会自动将我们生成的jar 文件用jd-gui工具打开。打开效果如下所示
 
 ![](../assets/jni33.png)

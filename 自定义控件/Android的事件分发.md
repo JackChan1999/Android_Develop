@@ -1,4 +1,4 @@
-# **一、Touch事件和绘制事件的异同之处**
+# **1. Touch事件和绘制事件的异同之处**
 
 Touch事件和绘制事件很类似，都是由ViewRoot派发下来的，但是不同之处在绘制事件是由应用中的某个View发起请求，一层一层上传到ViewRoot，再有ViewRoot下发绘制，传递canvas给所有子View让其绘制自身，绘制好后，再通知WMS进行画到屏幕上。而Touch事件是由硬件捕获到触摸后由系统传递给应用的ViewRoot，再由ViewRoot往下一层一层传递。
 
@@ -6,9 +6,9 @@ Touch事件和绘制事件很类似，都是由ViewRoot派发下来的，但是�
 
 事件存在消耗，事件的处理方法都会返回一个boolean值，如果该值为true，则本次事件下发将会终止。
 
-# **二、MotionEvent**
+# **2. MotionEvent**
 
-## **1、MotionEvent对象的产生**
+## **2.1 MotionEvent对象的产生**
 
 系统有一个线程在循环收集屏幕硬件信息，当用户触摸屏幕时，该线程会把从硬件设备收集到的信息封装成一个MotionEvent对象，然后把该对象存放到一个消息队列中。
 
@@ -20,7 +20,7 @@ Touch事件和绘制事件很类似，都是由ViewRoot派发下来的，但是�
 
 MotionEventCompat.getActionMasked()
 
-## **2、MotionEvent对象详解**
+## **2.2 MotionEvent对象详解**
 
 MotionEvent对象包含了触摸事件的时间、位置、面积、压力、以及本次事件的Dwon发生的时间。
 
@@ -31,7 +31,7 @@ MotionEvent中我们常用的方法就是获取点击的坐标，因为这是与
 - getX和getY用于获取以该View左上角为坐标原点的坐标
 - getRowX和getRowY用于获取以屏幕左上角为坐标原点的坐标
 
-## **5种Touch事件**
+## **2.3 5种Touch事件**
 
 - Down：一次触摸事件的第一个MotionEvent对象，即手指初次接触屏幕。
 - Up：通常为一次触摸事件的最后一个MotionEvent对象，即手指离开屏幕。
@@ -41,7 +41,7 @@ MotionEvent中我们常用的方法就是获取点击的坐标，因为这是与
 
 在上面5种事件中，Down为最重要的事件，因为这是一个触摸事件的起始点，程序的很多逻辑判断，都需要根据该事件做处理，例如分发拦截。一次触摸事件必须要有Down事件，这也是MotionEvent对象中都包含了本次触摸事件的Down事件发生的时间点这个属性。其次是Move和Up，通过这3个事件的逻辑处理，就构建出来滑动，点击，长按，双击等多种效果。
 
-## **创建一个MotionEvent对象**
+## **2.4 创建一个MotionEvent对象**
 ```java
 public static MotionEvent obtain(
         long downTime,    //当用户最初按下开始一连串的位置事件。这必须得到SystemClock.uptimeMillis()
@@ -86,7 +86,7 @@ view.dispatchTouchEvent(
 ```
 然后通过延迟以此往下派发Move和Up时间，形成一个完整的触摸操作。
 
-# **三、dispatchTouchEvent触摸事件分发**
+# **3. dispatchTouchEvent触摸事件分发**
 
 ![](http://img.blog.csdn.net/20170302184158181?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvYXhpMjk1MzA5MDY2/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
 
@@ -134,7 +134,7 @@ public boolean superDispatchTouchEvent(MotionEvent event) {
 
 3、如果if判断为false，即根View和根View下的所有子View均为消费掉该事件，那么下面的代码就有执行机会，即Activity的onTouchEvent，并把该方法的返回值作为结果返回给上层。
 
-## **3.1、View的dispatchTouchEvent**
+## **3.1 View的dispatchTouchEvent**
 
 ![](http://img.blog.csdn.net/20170302184634662?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvYXhpMjk1MzA5MDY2/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
 
@@ -152,11 +152,11 @@ public boolean dispatchTouchEvent(MotionEvent event) {
 }
 ```
 
-## **3.2、ViewGroup的dispatchTouchEvent**
+## **3.2 ViewGroup的dispatchTouchEvent**
 
 ![](http://img.blog.csdn.net/20170302183800394?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvYXhpMjk1MzA5MDY2/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
 
-### Down事件：
+## 3.3 Down事件
 
 - 通过onInterceptTouchEvent方法判断是否要拦截事件，默认fasle
 - 根据scroll换算后的坐标找出所接受的子View。有动画的子View将不接受触摸事件。
@@ -262,16 +262,16 @@ public boolean dispatchTouchEvent(MotionEvent ev) {
 }
 ```
 
-### Move和Up事件
+## 3.4 Move和Up事件
 
 判断事件是否被取消或者事件是否要拦截住，是的话，给Down事件找到的target发送一个取消事件。如果不取消，也不拦截，并且Down已经找到了target，则直接交给target处理，不再遍历子View寻找合适的View了。这种处理事件是正确的，我们用手机经常可以体会到，当我手指按在一个拖动条上之后，在拖动的时候手指就算移出了拖动条，依然会把事件分发给拖动条控制它的拖动。
 
-# **四、onInterceptTouchEvent**
+# **4. onInterceptTouchEvent**
 ViewGroup的方法，事件拦截，return true表示拦截触摸事件，事件就不往下传递
 
 子View可以调用getParent().requestDisallowInterceptTouchEvent( true ) 请求父控件不拦截touch事件
 
-# **五、View的onTouchEvent**
+# **5. View的onTouchEvent**
 
 从View的dispatchTouchEvent可以看出，事件最终的处理无非是交给TouchListener的onTouch方法或者是交由onTouchEvent处理，由于onTouch默认是空实现，由程序员来编写逻辑，那么我们来看看onTouchEvent事件。View只能响应click和longclick，不具备滑动等特性。
 
@@ -435,7 +435,7 @@ Up
 
 在这里最绕的就是临时按压和按压状态，临时按压是为了处理滑动容器的，让处于滑动容器中，按下时，我们先设置的是临时按压，持续64毫秒，是为了判断接下来的时间内是否发生了move事件，如果发生了，将不会再出发按压状态，这样不会让用户看到listView滚动时，item还处于按压状态。在离开时，我们再次判断是否处于临时按压，如果是在64毫秒内触发了down和up，说明按压状态还没来得急绘制，则强制设置为按压状态，保证用户能看到，并在取消回调的方法上加上64毫秒的延迟
 
-# **六、onTouch与onClick**
+# **6. onTouch与onClick**
 
 ```java
 ImageView iv_image = (ImageView) findViewById(R.id.iv_image);
@@ -588,7 +588,7 @@ view的事件分发
 
 [Android的事件分发实例分析](http://blog.csdn.net/axi295309066/article/details/60139074)
 
-# **七、ScrollView的onTouchEvent**
+# **7. ScrollView的onTouchEvent**
 
 普通的ViewGroup并没有对onTouchEvent事件做处理，只有可以滚动的才有，我们可以分析一下ScrollView
 
@@ -703,7 +703,7 @@ private void onSecondaryPointerUp(MotionEvent ev) {
 - 如果为多点离开，进行多点离开的处理
 - 该处理方式时：如果离开的是第一个按下的点，那么由第二个按下的点代替其进行y值偏移计算的基点，并清空速度计算的帮助类，重新记录MotionEvnet
 
-# **八、Layout和Scroll的区别**
+# **8. Layout和Scroll的区别**
 
 - Layout中设置的是自身在父View中的显示区域
 - Scroll是调整自己的显示区域
