@@ -65,28 +65,25 @@ bin/jadx-gui class.dex  # 会反编译，并且使用gui打开
 OK，就这样，后续还可以配置环境变量，更加方便
 
 # 3. 更多反编译工具
-| 名称                     | 简介                                       | 下载地址                                     | 使用教程                                     |
-| :--------------------- | :--------------------------------------- | :--------------------------------------- | :--------------------------------------- |
-| Enjarify               | Enjarify 是一个用 Python 写的， Google 官方开源的可以将 Dalvik 字节码转换为 Java 字节码的工具。 | [下载](https://github.com/google/enjarify) |                                          |
-| JEB Android Decompiler |                                          | [下载](http://www.android-decompiler.com/index.php) |                                          |
-| Virtuous Ten Studio    |                                          | [下载](http://virtuous-ten-studio.com/)    |                                          |
-| Apk文件修改工具Root Tools    |                                          | [下载](https://github.com/Stericson/RootTools) |                                          |
-| Dex文件反编译工具Dedexer      |                                          | [下载](http://dedexer.sourceforge.net/)    |                                          |
-| APK+Dex文件反编译及回编译工具     |                                          | [下载](http://idoog.me/)                   |                                          |
-| android-apktool        |                                          | [下载](http://ibotpeaches.github.io/Apktool/) |                                          |
-| Onekey Decompile Apk]  |                                          | [下载](https://code.google.com/p/onekey-decompile-apk/) |                                          |
-| Baksmali               |                                          | [下载](https://code.google.com/p/smali/downloads/detail?name=baksmali) |                                          |
-| Smali                  |                                          | [下载](https://code.google.com/p/smali/)   |                                          |
-| AXMLPrinter2           |                                          | [下载](https://android4me.googlecode.com/files/AXMLPrinter2.jar) |                                          |
-| JAD Java Decompiler    |                                          | [下载](http://varaneckas.com/jad/)         |                                          |
-| JD-GUI Decompiler      |                                          | [下载](http:)                              |                                          |
-| XJad V2.2              |                                          | [下载](http://files.cnblogs.com/arix04/XJad_V2.2.rar) |                                          |
-| Android APK Decompiler | 在线反编译工具                                  | [下载](http://www.decompileandroid.com/)   |                                          |
-| SmaliViewer            | 是一款免费的APK分析软件，无论从分析的深度还是广度来看，都是一款能够满足用户需求的产品，使您在APK分析的过程中，更加得心应手。 | [下载](http://blog.avlyun.com/wp-content/uploads/2014/04/SmaliViewer.zip) | [使用指南](http://blog.avlyun.com/show/%E3%80%8Asv%E7%94%A8%E6%88%B7%E6%8C%87%E5%8D%97%E3%80%8B/) |
-| Android逆向助手            | Android逆向助手是一功能强大的逆向辅助软件。该软件可以帮助用户来进行apk反编译打包签名；dex/jar互转替换提取修复；so反编译；xml、txt加密；字符串编码等等，操作简单，只需要直接将文件拖放到源和目标文件。 | [下载](http://enjoycode.info/uploads/Androidnxzs.zip) | [使用指南](http://www.sanwho.com/620.html)   |
-| Android Killer         | 集Apk反编译、Apk打包、Apk签名，编码互转， ADB通信（应用安装-卸载-运行-设备文件管理）等特色 功能于一 身，支持logcat日志输出，语法高亮， 基于关键字（支持单行代码或多行代码段）项目内搜索， 可自定义外部工具；吸收融汇多种工具功能与特点， 打造一站 式逆向工具操作体验，大大简化了用户在 安卓应用/游戏修改过程中的各类繁琐工作。 | [下载1](http://www.pd521.com/thread-136-1-1.html) [下载2](http://pan.baidu.com/share/home?uk=4099707276#category/type=6) | [使用指南](http://www.pd521.com/thread-509-1-1.html) |
-| DexExtractor           | android dex extractor ，anti-shell，android 脱壳。 | [下载](https://github.com/bunnyblue/DexExtractor) |                                          |
-| jadx                   | Dex to Java decompiler                   | [下载](https://github.com/skylot/jadx)     |                                          |
-| android-classyshark    | a handy Android and Java executables viewer | [下载](https://github.com/google/android-classyshark) |                                          |
-| ShakaApktool           |                                          | [下载](https://github.com/rover12421/ShakaApktool) |                                          |
 
+## [3.1 Classyshark](https://github.com/google/android-classyshark)
+  轻松查看apk内部每个包的方法数，用了哪些开源库，同样拿知乎开刀做例子
+  ![](http://mmbiz.qpic.cn/mmbiz_png/ujaEPeJyrxuNRTeFDkIah7qODoDo8NcGAibsUVf5O06NqT1hIwycIazPwj1ialxvic3iaMOzhF05yRibO6qiaNGI045w/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1)
+
+## [3.2 smalidea](https://github.com/JesusFreke/smali/wiki/smalidea)
+  smali代码调试插件，你以为没有拿到安卓Java源码就不能调试了吗？图样图森破了吧
+  ![](http://mmbiz.qpic.cn/mmbiz_png/ujaEPeJyrxuNRTeFDkIah7qODoDo8NcGXSuX43NWccCGmVZxNbfEgL75EgY9nYwYJqNNDTeE04RHrHnvlRf2FA/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1)
+
+## [3.3 IDA Pro](https://www.hex-rays.com/products/ida/)
+  IDA Pro，逆向大利器，不管你是smali还是so文件，照样动态调试你
+
+## 3.4 Android Killer 
+[下载地址1](http://www.pd521.com/thread-136-1-1.html) [下载地址2](https://pan.baidu.com/share/home?uk=4099707276#category/type=6) [使用指南](http://www.pd521.com/thread-509-1-1.html)
+集Apk反编译、Apk打包、Apk签名，编码互转， ADB通信（应用安装-卸载-运行-设备文件管理）等特色功能于一 身，支持logcat日志输出，语法高亮， 基于关键字（支持单行代码或多行代码段）项目内搜索， 可自定义外部工具；吸收融汇多种工具功能与特点， 打造一站 式逆向工具操作体验，大大简化了用户在 安卓应用/游戏修改过程中的各类繁琐工作。
+
+## 3.5 SmaliViewer 
+[下载地址](http://blog.avlyun.com/wp-content/uploads/2014/04/SmaliViewer.zip) [使用指南](http://blog.avlyun.com/show/%E3%80%8Asv%E7%94%A8%E6%88%B7%E6%8C%87%E5%8D%97%E3%80%8B/)
+是一款免费的APK分析软件，无论从分析的深度还是广度来看，都是一款能够满足用户需求的产品，使您在APK分析的过程中，更加得心应手。
+
+## 3.6Enjarify
+Enjarify 是一个用 Python 写的， Google 官方开源的可以将 Dalvik 字节码转换为 Java 字节码的工具

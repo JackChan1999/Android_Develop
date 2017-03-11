@@ -1,77 +1,79 @@
+JNI与底层调用1：http://blog.csdn.net/axi295309066/article/details/60758515
+JNI与底层调用2：http://blog.csdn.net/axi295309066/article/details/60778076
+C/C++在Android开发中的应用：http://blog.csdn.net/axi295309066/article/details/60954771
 
-# 1. 掌握如何使用广播接收者拦截电话和短信
+# **1. 掌握如何使用广播接收者拦截电话和短信**
 在日常生活中，当手机丢失后，我们可以启动一系列的措施来获取丢失手机的位置信息，或者清楚丢失手机的数据来防止隐私数据泄露，本章就针对这些防盗保护措施进行讲解。
 
-# 2. JNI 开发中常见错误
+# **2. JNI 开发中常见错误**
 
-## 2.1 动态库名称写错，或者不存在
+## **2.1 动态库名称写错，或者不存在**
 ```java
 static{
-	System.loadLibrary("hell0");
+    System.loadLibrary("hell0");
 }
 ```
 
 当我们在写上面代码的时候如果不小心将hello 写成了hell0。或者libhello.so 动态库不存在，那么系统启动时会报如下异常。
 
-![](../assets/jni1.png)
+![jni](http://upload-images.jianshu.io/upload_images/3981391-73aa20ad4dfb9daa?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-## 2.2 Android.mk 配置文件写错
+## **2.2 Android.mk 配置文件写错**
 如果修改配置文件中的某个参数名称被写错，那么我们在调用ndk-build.cmd 命令的时候很可能报如下异常。出现这类异常，就需要我们检查我们的Android.mk 文件，看是否写错。
 
-![](../assets/jni2.png)
+![jni](http://upload-images.jianshu.io/upload_images/3981391-889a9e07d9c54615?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-## 2.3 目标文件名画蛇添足导致的错误
+## **2.3 目标文件名画蛇添足导致的错误**
 
 手机防盗界面会展示出一系列的信息，如用户设置的安全号码、手机防盗保护是否开启等信息，手机防盗界面LostFindActivity.java 的效果图如图3-5 所示。
-
 如果我们将Android.mk 中的目标文件名：LOCAL_MODULE := hello 写成了LOCAL_MODULE:=hello.so，那么当我们使用ndk 进行编译的时候会出现如下错误。
 
-![](../assets/jni3.png)
+![jni](http://upload-images.jianshu.io/upload_images/3981391-f0b34463ac47bca4?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 上面的异常告诉我们，LOCAL_MODULE 不能有文件拓展名。
 
-## 2.4 源文件名写错
+## **2.4 源文件名写错**
 
 如果我们将Android.mk 中的源文件名：LOCAL_SRC_FILES := hello.c 写成了LOCAL_SRC_FILES :=helo.c（少些了一个单词），那么当使用ndk 进行编译的时候会出现如下错误：
 
-![](../assets/jni4.png)
+![jni](http://upload-images.jianshu.io/upload_images/3981391-9b86248398bf34e5?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-## 2.5 平台使用错误
+## **2.5 平台使用错误**
 如果我们编译的时候用的是arm 平台，但是将目标文件运行在了x86 平台上，那么会产生如下错误。
 
-![](../assets/jni5.png)
+![jni](http://upload-images.jianshu.io/upload_images/3981391-0c937b371be43730?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 如果想让我们编译的动态库既支持arm 平台又支持x86 平台，那么我们可以在工程中的jni 目录下添加Application.mk 文件。关于Application.mk 的配置在本人的上一个文档中有说明，这里就不再介绍。
-## 2.6 C 语言中被Java 调用的方法名写错
+
+## **2.6 C 语言中被Java 调用的方法名写错**
 比如C 语言中的方法jstring Java_com_itheima_jnihello_MainActivity_helloC 把helloC 写成了heloC，那么将会报如下错误。
 
-![](../assets/jni6.png)
+![jni](http://upload-images.jianshu.io/upload_images/3981391-36c2dd63a7b77ce1?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-# 3. 自动生成JNI 头文件
+# **3. 自动生成JNI 头文件**
 对于一些特殊的Java 方法名，我们很难写出其对应的JNI 方法名，比如：
 ```
 public native String a_b__c_d();
 ```
 这时候我们可以通过我们的JDK 工具自动生成头文件。该工具位于JDK 中，如果我们给电脑配置JAVA_HOME 则可以直接在命令行中使用，使用法则很简单。如下图所示：
 
-![](../assets/jni7.png)
+![jni](http://upload-images.jianshu.io/upload_images/3981391-0ba3a4179a7a9919?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 下面演示如何使用javah 工具生成我们MainActivity.java 中native 方法的头文件。
 将命令行控制台切换到我们MainActivity.class（注意：是.class 不是.java）所在目录。本人的目录如下：
 
-![](../assets/jni8.png)
+![jni](http://upload-images.jianshu.io/upload_images/3981391-701d4870dc60927c?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 执行javah 命令：javah com.itheima.jnihello.MainActivity，发现报了如下错误：
 
-![](../assets/jni9.png)
+![jni](http://upload-images.jianshu.io/upload_images/3981391-b225cf39b186412f?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 Tips：出现上面的错误时因为我用的是jdk7 版本，jdk7 在编译MainActivity.class 类的时候会查找其所有的父类，但是在当前命令行中是不可能有MainActivity 类的父类路径的。有两种办法可以解决上述问题：
-
 1）改成jdk6 版本
 2）将native 方法定义在另外一个独立的类中
 本人在这里采用第二种方法来解决该问题，因此我创建一个类，将所有的native 方法都定义在该类中。
 
-![](../assets/jni10.png)
+![jni](http://upload-images.jianshu.io/upload_images/3981391-6014c322a870b126?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 JNIMethod.java 代码清单如下：
 
@@ -83,17 +85,17 @@ public native String a_b__c_d();
 ```
 再次执行javah 命令：javah com.itheima.jnihello.jni.JNIMethod
 
-![](../assets/jni11.png)
+![jni](http://upload-images.jianshu.io/upload_images/3981391-fd1bd5d9ac79af1f?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 这次发现没有报错，生成的头文件在如下位置：
 
-![](../assets/jni12.png)
+![jni](http://upload-images.jianshu.io/upload_images/3981391-b2657a85ab049c82?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 打开生成的头文件，将生成的方法签名拷贝出来添加到我们的hello.c 源文件中即可。
 
-![](../assets/jni13.png)
+![jni](http://upload-images.jianshu.io/upload_images/3981391-a5417003755d0d40.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-# 4. JNI 的值传递
+# **4. JNI 的值传递**
 
 本章我们通过一个案例来介绍几种常见的JNI 值传递场景。
 创建一个新的Android 工程《JNI 值传递》。在工程中创建com.itheima.jnipassdata.DataProvider 类。在该类中定义三个native 方法。代码清单如下：
@@ -123,11 +125,12 @@ public class DataProvider {
 ```
 使用javah 工具生成头文件
 
-![](../assets/jni14.png)
+
+![jni](http://upload-images.jianshu.io/upload_images/3981391-7986bd9ded2d43ff.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
 
 生成的头文件在相对于命令行的当前目录下。
-在工程中创建jni 目录，在改jni 目录中创建Hello.c 文件，将上一步生成的方法拷贝到Hello.c
-文件中，并实现里面的方法。Hello.c 代码清单如下。
+在工程中创建jni 目录，在改jni 目录中创建Hello.c 文件，将上一步生成的方法拷贝到Hello.c文件中，并实现里面的方法Hello.c 代码清单如下。
 
 ```c
 #include <stdio.h>
@@ -179,7 +182,8 @@ jintArray Java_com_ithiema_jnipassdata_DataProvider_changeColor
 }
 ```
 
-使用NDK 工具将上面的C 代码编译成动态库文件，首先得在工程的jni 目录下添加Android.mk和Application.mk 文件。在MainActivity 类中调用C 语言，MainActivity.java 代码清单如下
+使用NDK 工具将上面的C 代码编译成动态库文件，首先得在工程的jni 目录下添加Android.mk和Application.mk 文件
+在MainActivity 类中调用C 语言，MainActivity.java 代码清单如下。
 
 ```java
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -203,15 +207,13 @@ jintArray Java_com_ithiema_jnipassdata_DataProvider_changeColor
         />
 </LinearLayout>
 ```
-
 布局文件比较简单，就不再给出。运行上面代码，效果图如下：
 
-![](../assets/jni15.png)
+![jni](http://upload-images.jianshu.io/upload_images/3981391-240b7c5a763dd2a9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-## 4.1 让C 语言输出Log 日志
+## **4.1 让C 语言输出Log 日志**
 
-让我们的C 语言也能在LogCat 中输出一些信息是一个很简单但也很常见的实际需求。为了方便演示
-我们直接在本章节中创建的工程中演示如何让C 语言打印LogCat 日志。
+让我们的C 语言也能在LogCat 中输出一些信息是一个很简单但也很常见的实际需求。为了方便演示我们直接在本章节中创建的工程中演示如何让C 语言打印LogCat 日志。
 在Android.mk 中添加如下属性：LOCAL_LDLIBS := -llog，在C 源码头部引入如下头文件和宏定义
 
 ```c
@@ -220,8 +222,7 @@ jintArray Java_com_ithiema_jnipassdata_DataProvider_changeColor
 #define LOGD(...) __android_log_print(ANDROID_LOG_DEBUG, LOG_TAG, __VA_ARGS__)
 #define LOGI(...) __android_log_print(ANDROID_LOG_INFO, LOG_TAG, __VA_ARGS__)
 ```
-在C 代码中可以将LOGD（）或者LOGI（）函数当做C 语言中的printf（）函数使用。
-这里我将add 方法添加添加了一条日志输入
+在C 代码中可以将LOGD（）或者LOGI（）函数当做C 语言中的printf（）函数使用。这里我将add 方法添加添加了一条日志输入
 
 ```c
  jint Java_com_ithiema_jnipassdata_DataProvider_add
@@ -230,26 +231,23 @@ jintArray Java_com_ithiema_jnipassdata_DataProvider_changeColor
  return x+y;
  }
 ```
-重新编译hello.so 动态库，既然我们修改了Android.mk 和C 源码文件，那么一定要记得重新使
-用NDK 编译C 语言为动态库，否则日志不会输入而且也不报异常。
+重新编译hello.so 动态库，既然我们修改了Android.mk 和C 源码文件，那么一定要记得重新使用NDK 编译C 语言为动态库，否则日志不会输入而且也不报异常。
 再次部署程序到模拟器，调用add 方法，发现在LogCat 中成功输出了如下信息：
 
-![](../assets/jni35.png)
+![jni](http://upload-images.jianshu.io/upload_images/3981391-d9f9222c31ac8e01.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-# 5. 案例-调用美图秀秀的动态库
+# **5. 案例-调用美图秀秀的动态库**
 
 在美图秀秀1.0 版本的时候程序员对其代码并没有加密以及反反编译等处理，因此我们可以将其apk反编译出来。里面关于图形的核心算法都是通过so 库来实现的，我们可以拿过来直接使用。
 声明：本文档中使用的美图秀秀只用于学习交流Android 技术，禁止用于其他目的！美图秀秀1.0 版本[下载地址](http://pan.baidu.com/s/1bnAjLGN)
 将下载好的mtxx.apk 进行反编译，将反编译好的资源作为原料备用。关于如何反编译美图秀秀请见本文档最后一章。
 
 Tips：解压好的目录打开lib 包，发现只有armeabi 一个文件夹，说明该so 文件只能在arm 架构的CPU上运行。
+创建一个新的Android 工程《黑马美图秀秀》。将反编译好的libmtimage-jni.so 拷贝到工程的libs->armeab（i 该目录需要手动创建）目录下。通过反编译的 jar 包发现美图秀秀的 jni 方法都定义在 JNI.java类中，我们用jd-gui 工具将反编译的jar 包打开，找到JNI.java，然后拷贝其中的native 方法到我们的工程中。本人的工程目录结构如下所示：
 
-创建一个新的Android 工程《黑马美图秀秀》。将反编译好的libmtimage-jni.so 拷贝到工程的libs->armeab（i 该目录需要手动创建）目录下。通过反编译的 jar 包发现美图秀秀的 jni 方法都定义在 JNI.java类中，我们用jd-gui 工具将反编译的jar包打开，找到JNI.java，然后拷贝其中的native 方法到我们的工程中。本人的工程目录结构如下所示：
-
-![](../assets/jni16.png)
+![jni](http://upload-images.jianshu.io/upload_images/3981391-07f1662b853b84ca.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 Tips：我们使用了美图秀秀的JNI 源码，那么我们的JNI.java 名字以及其所在的包名必须严格跟原美图秀秀保持一致，不然程序从so 动态库中是找不到目标方法的。原因很简单，因为C 中方法名是根据JNI.java 中的方法全限定名生成的。
-
 编写activity_main.xml 布局文件，布局文件清单如下：
 
 ```xml
@@ -274,10 +272,9 @@ Tips：我们使用了美图秀秀的JNI 源码，那么我们的JNI.java 名字
         />
 </LinearLayout>
 ```
-
 在工程的res->drawable-hdpi 目录下放入一张图片。
 
-![](../assets/jni17.png)
+![jni](http://upload-images.jianshu.io/upload_images/3981391-1106547b0fdff91d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 编写MainActivity.java 代码，在改类中实现核心方法
 
@@ -308,8 +305,7 @@ public class MainActivity extends Activity {
          * 第一个参数是int[]
          * 第二个参数是第获取一个像素的偏移量，这里是0，也就是从第一个像素开始获取
          * 第三个参数每行获取多少个像素，当然bitmap 的宽度就是每行的像素个数
-         * 第四个参数、第五个参数分别是开始获取像素的x、y 坐标，这个坐标是相对于bitmap 本身来说的，
-         因此是0,0
+         * 第四个参数、第五个参数分别是开始获取像素的x、y 坐标，这个坐标是相对于bitmap 本身来说的，因此是0,0
          * 第六、七个参数分别是每行、每列获取像素的个数
          */
         bitmap.getPixels(pixels, 0, width, 0, 0, width, height);
@@ -325,18 +321,18 @@ public class MainActivity extends Activity {
 运行上面打代码，效果如下：
 1）处理前
 
-![](../assets/jni18.png)
+![jni18.png](http://upload-images.jianshu.io/upload_images/3981391-dad9eda5b41118bc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 2）处理后
 
-![](../assets/jni19.png)
+![jni19.png](http://upload-images.jianshu.io/upload_images/3981391-2552e54d9aee35db.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-# 6. C 语言调用Java 代码
+# **6. C 语言调用Java 代码**
 
 之前我们学习的JNI 都是Java 代码调用C 代码，本章节中演示C 代码如何调用Java 代码。
 创建一个新的Android 工程《C 语言调用Java》，在工程中创建jni 目录，在改目录下放置Android.mk 和jni.h 文件（从老工程中拷贝）。工程目录结构如下：
 
-![](../assets/jni20.png)
+![jni](http://upload-images.jianshu.io/upload_images/3981391-d9c495e97f1e1588.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 编写DataProvider.java 文件，在该文件中编写native 方法，DataProvider.java 代码清单如下：
 
@@ -367,7 +363,7 @@ public class DataProvider {
     public native void callCMethod4();
 }
 ```
-在jni 中创建calljava.c 文件，在该文件中实现调用java 的方法。代码清单如下。
+在jni 中创建calljava.c 文件，在该文件中实现调用java 的方法。代码清单如下
 
 ```c
 #include <jni.h>
@@ -432,12 +428,13 @@ public class MainActivity extends Activity {
 ```
 布局文件比较简单这里就不再给出。
 
-# 7. 短信接收广播之锁屏用C++实现JNI
+# **7. 短信接收广播之锁屏用C++实现JNI**
 
-C++语言是面向对象的编程语言，源于C 语言，部分语法通用。本章节中主要介绍如何使用C++完成简单的JNI 开发。
+C++语言是面向对象的编程语言，源于C 语言，部分语法通用。本章节中主要介绍如何使用C++完成
+简单的JNI 开发。
 创建一个新Android 工程《cpp 实现jni》，创建jni 包，在该包下创建JNI.java 文件，在该类中写naive方法。因为我们是C++项目，因此需要给当前工程添加native Support。右键点击项目，在弹出的对话框中选择Android Tools，然后选择Add native Support，弹出如下对话框：
 
-![](../assets/jni21.png)
+![jni](http://upload-images.jianshu.io/upload_images/3981391-2f651be5988f3d62.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 这个名字是C++源文件名，因为没有实际的业务意义一次我们这里就随便输入一个了。
 在工程中创建com.itheima.cppjni.jni 包，在该包下创建JNI.java，JNI.java 代码清单如下：
@@ -449,16 +446,16 @@ public native void helloFormCPP();
 ```
 使用javah 工具生成头文件，并将生成的头文件拷贝到工程根目录下的jni 目录中。
 
-![](../assets/jni22.png)
+![jni](http://upload-images.jianshu.io/upload_images/3981391-7a40323f07500843.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 为了让编译器提示C++语言，我们需要给工程添加C++库。
 右键点击工程，选择Properties，在弹出的对话框中选择C/C++ General->Paths And Symbols，弹出如下对话框：
 
-![](../assets/jni23.png)
+![jni](http://upload-images.jianshu.io/upload_images/3981391-d18ef77f8b64bf36.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 点击图中红色框中的Add 按钮，在弹出的对话框（如下图）中点击File system,然后选择ndk 安装目录，选择如下目录：D:\software\ndkr9\android-ndk-r9b\platforms\android-19\arch-arm\usr\include
 
-![](../assets/jni24.png)
+![jni24.png](http://upload-images.jianshu.io/upload_images/3981391-7f57a3dc84aadeb9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 然后点击OK。
 
@@ -472,7 +469,6 @@ JNIEXPORT jstring JNICALL Java_com_itheima_cppjni_jni_JNI_helloFromCPP
 return env->NewStringUTF("gaga from cpp");
 };
 ```
-
 编写MainActivity.java,在该方法中加载动态库
 ```java
 public class MainActivity extends Activity {
@@ -509,15 +505,14 @@ in ./AndroidManifest.xml
 ```
 Tips：通过控制台，我们发现当我们的工程添加本地支持以后，当我们在部署的时候eclipse 会自动的完成动态库的编译工作。而且我们还发现在生成动态之前先生成了libstdc++.a 静态库然后才生成了动态库。上面代码运行效果如下图所示：
 
-![](../assets/jni25.png)
+![jni](http://upload-images.jianshu.io/upload_images/3981391-5677047a8ebcc4d1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-# 8. 案例-锅炉压力监测
+# **8. 案例-锅炉压力监测**
 需求：硬件设备可以监测锅炉的压力，监测代码逻辑是用C 语言编写。客户端用java 代码每一秒调用一次C 语言，以获取锅炉的压力值，然后将锅炉的压力值以动态柱形图的形式显示在手机客户端。
 
 Tips：分析上面的需求，我们需要使用jni 技术让Java 和C 代码通信。在C 语言端我们可以调用随机函数模拟锅炉压力的动态变化。在Java 端，我们可以自定义一个View 对象显示我们的锅炉压力。
-
-创建一个Android 工程《JNI 锅炉压力检测》，在该工程中创建jni 目录，将Android.mk、jni.h 从其他工程中拷贝到该目录下。在jni 目录下创建一个C 源文件pressure.c，代码清单如下：
-
+创建一个Android 工程《JNI 锅炉压力检测》，在该工程中创建jni 目录，将Android.mk、jni.h 从其他工程中拷贝到该目录下。
+在jni 目录下创建一个C 源文件pressure.c，代码清单如下：
 ```c
 #include <jni.h>
 #include <stdio.h>
@@ -550,8 +545,7 @@ public class MyView extends View {
     protected void onDraw(Canvas canvas) {
         /**
          * 绘制一个矩形区域
-         * 第一、二、三、四个参数分别代表绘图区域离画布左、上、右、下的距离。这四个参数确定了矩形的大
-         小也确定了
+         * 第一、二、三、四个参数分别代表绘图区域离画布左、上、右、下的距离。这四个参数确定了矩形的大小也确定了
          */
         canvas.drawRect(60, top, 90, 150, paint);
         canvas.drawText("当前压力值："+(150-top),60, 170, paint );
@@ -607,17 +601,16 @@ public class MainActivity extends Activity {
 ```
 将上面工程部署到arm 架构的模拟器上。运行结果如下图所示。
 
-![](../assets/jni26.png)
+![jni](http://upload-images.jianshu.io/upload_images/3981391-c1e56491db89df31.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-# 9. 案例-监听应用程序的卸载
+# **9. 案例-监听应用程序的卸载**
 
 需求：当我们的apk 安装在Android 手机上后，我们可以在其后台开启个C 语言编写的死循环，C 语言编程的程序跟我们的应用不在同一个进程中，因此当我们的应用软件被卸载的时候，C 语言可以监测到。
-
 监测原理就是访问/data/data/{包名}文件是否存在，如果不存在显然是被删除了。
 
 Tips：考虑到我们上面的案例跟这个案例使用的知识点差不多，都是使用Java 语言调用C 语言。因此这里就不再一步一步的演示如何创建工程。这里只给出核心的C 语言代码。本人工程目录结构如下所示：
 
-![](../assets/jni27.png)
+![jni](http://upload-images.jianshu.io/upload_images/3981391-56a6c7ed55606ca5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 这里只给出listen.c 源文件清单，核心方法是这个文件实现的。在MainActivity.java 中加载该动态库，并在onCreate 方法中调用我们的C 语言函数即可。listen.c 代码清单如下所示：
 
@@ -663,36 +656,95 @@ void Java_com_itheima_jniuninstall_MainActivity_listen(
 ```
 Tips：上面的execlp 函数用于调用本地系统（Android 系统）命令打开一个浏览器，访问一个指定的URL。但是经过我的测试发现在低版本模拟器（2.3）上该功能可是使用但是在高版本模拟器（4.3）上不可以使用。
 
-# 10. apk 的反编译
+# **10. 安卓逆向助手**
+
 有一款叫安卓逆向助手软件反编译apk 十分方便。这里给大家介绍的反编译方法就是基于这款软件的。[安卓逆向助手下载地址](http://pan.baidu.com/s/1eQkvlvW)
 
-![](../assets/jni34.png)
+Android逆向助手是一功能强大的逆向辅助软件。该软件可以帮助用户来进行apk反编译打包签名；dex/jar互转替换提取修复；so反编译；xml、txt加密；字符串编码等等，操作简单，只需要直接将文件拖放到源和目标文件。
+
+![安卓逆向助手](http://img.blog.csdn.net/20170307190230310?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvYXhpMjk1MzA5MDY2/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
 
 将下载好的rar 包解压缩以后目录结构如下（内置的广告被我删除后的）
 
 Tips：lib 目录存放都是用java 写的核心反编译逻辑，必须跟exe 文件放在同一个目录下。
+
 打开Android 逆向助手.exe，如下图所示：
 
-![](../assets/jni28.png)
+![安卓逆向助手](http://img.blog.csdn.net/20170307190314498?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvYXhpMjk1MzA5MDY2/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
 
-选择源文件，并且选择（也是默认的选择）反编译apk,我们找到mtxx.apk 的路径，然后点击操作。
+选择源文件，并且选择（也是默认的选择）反编译apk，我们找到mtxx.apk 的路径，然后点击操作。
 在mtxx.apk 目录下生成了一个mtxx 文件夹，打开该文件，目录结构如下图所示：
 
-![](../assets/jni29.png)
+![安卓逆向助手](http://img.blog.csdn.net/20170307190344707?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvYXhpMjk1MzA5MDY2/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
 
 在上面操作后打开lib 目录可以找到美图秀秀的动态库文件，但是我们还需要找到其java 代码。显然
 美图秀秀用smali 算法反编译了。那么我们接着下一步。
 
-![](../assets/jni30.png)
+![安卓逆向助手](http://img.blog.csdn.net/20170307190414333?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvYXhpMjk1MzA5MDY2/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
 
 在Android 逆向助手.exe 中打开源文件，选择提取dex 点击执行。
 
-![](../assets/jni31.png)
+![安卓逆向助手](http://img.blog.csdn.net/20170307190552938?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvYXhpMjk1MzA5MDY2/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
 
 这时候在目标文件夹下生成了dex 文件
 
-![](../assets/jni32.png)
+![安卓逆向助手](http://img.blog.csdn.net/20170307190623423?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvYXhpMjk1MzA5MDY2/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
 
-最后在Android 逆向助手.exe 中选择dex 转jar 选项。在源文件中选择上一步生成的classes.dex 文件，然后点击执行（这个过程大概需要几秒的等待时间）。这时候该软件会自动将我们生成的jar 文件用jd-gui工具打开。打开效果如下所示
+最后在Android 逆向助手.exe 中选择dex 转jar 选项。在源文件中选择上一步生成的classes.dex 文件，然后点击执行（这个过程大概需要几秒的等待时间）。这时候该软件会自动将我们生成的jar 文件用jd-gui工具打开。打开效果如下所示：
 
-![](../assets/jni33.png)
+![安卓逆向助手](http://img.blog.csdn.net/20170307190742752?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvYXhpMjk1MzA5MDY2/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+
+# **11. jadx**
+
+jadx是新一代反编译大杀器，[github地址](https://github.com/skylot/jadx)。Android开发(/学习)有时候需要用到反编译工具，Window上有很多工具，而Mac上则不多，这里稍微介绍一下Mac上可用的反编译工具Jadx.
+
+## **11.1 准备**
+clone 仓库，编译
+```
+mkdir jadx
+git clone https://github.com/skylot/jadx.git
+cd jadx
+./gradlew dist #这个需要稍微等待一下
+```
+
+开始反编译，等完毕后，可以开始了，我就介绍个最简单最常用的用法
+
+把apk改成zip，解压zip获取class.dex文件，将class.dex文件放到jadx目录下
+```
+cd build/jadx/
+bin/jadx -d out class.dex  # 反编译后放入out文件夹下(如果out不存在它会自动创建)
+#or
+bin/jadx-gui class.dex  # 会反编译，并且使用gui打开
+```
+![jadx](http://img.blog.csdn.net/20170307190931643?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvYXhpMjk1MzA5MDY2/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+OK，就这样，后续还可以配置环境变量，更加方便
+
+# 12. 更多Android反编译工具
+
+## [12.1 Classyshark](https://github.com/google/android-classyshark)
+
+轻松查看apk内部每个包的方法数，用了哪些开源库，同样拿知乎开刀做例子
+![](http://mmbiz.qpic.cn/mmbiz_png/ujaEPeJyrxuNRTeFDkIah7qODoDo8NcGAibsUVf5O06NqT1hIwycIazPwj1ialxvic3iaMOzhF05yRibO6qiaNGI045w/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1)
+
+## [12.2 smalidea](https://github.com/JesusFreke/smali/wiki/smalidea)
+
+smali代码调试插件，你以为没有拿到安卓Java源码就不能调试了吗？图样图森破了吧
+![](http://mmbiz.qpic.cn/mmbiz_png/ujaEPeJyrxuNRTeFDkIah7qODoDo8NcGXSuX43NWccCGmVZxNbfEgL75EgY9nYwYJqNNDTeE04RHrHnvlRf2FA/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1)
+
+## [12.3IDA Pro](https://www.hex-rays.com/products/ida/)
+
+IDA Pro，逆向大利器，不管你是smali还是so文件，照样动态调试你
+
+## 12.4 Android Killer 
+
+[下载地址1](http://www.pd521.com/thread-136-1-1.html) [下载地址2](https://pan.baidu.com/share/home?uk=4099707276#category/type=6) [使用指南](http://www.pd521.com/thread-509-1-1.html)
+集Apk反编译、Apk打包、Apk签名，编码互转， ADB通信（应用安装-卸载-运行-设备文件管理）等特色功能于一 身，支持logcat日志输出，语法高亮， 基于关键字（支持单行代码或多行代码段）项目内搜索， 可自定义外部工具；吸收融汇多种工具功能与特点， 打造一站 式逆向工具操作体验，大大简化了用户在 安卓应用/游戏修改过程中的各类繁琐工作。
+
+## 12.5 SmaliViewer
+
+[下载地址](http://blog.avlyun.com/wp-content/uploads/2014/04/SmaliViewer.zip) [使用指南](http://blog.avlyun.com/show/%E3%80%8Asv%E7%94%A8%E6%88%B7%E6%8C%87%E5%8D%97%E3%80%8B/)
+是一款免费的APK分析软件，无论从分析的深度还是广度来看，都是一款能够满足用户需求的产品，使您在APK分析的过程中，更加得心应手。
+
+## 12.6 Enjarify
+
+Enjarify 是一个用 Python 写的， Google 官方开源的可以将 Dalvik 字节码转换为 Java 字节码的工具。
