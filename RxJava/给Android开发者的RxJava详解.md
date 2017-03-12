@@ -6,39 +6,6 @@
 
 这篇文章的目的有两个： 1. 给对 RxJava 感兴趣的人一些入门的指引 2. 给正在使用 RxJava 但仍然心存疑惑的人一些更深入的解析
 
-RxJava 到底是什么
-RxJava 好在哪
-API 介绍和原理简析
-1. 概念：扩展的观察者模式
-   观察者模式
-   RxJava 的观察者模式
-2. 基本实现
-   1) 创建 Observer
-   2) 创建 Observable
-   3) Subscribe (订阅)
-   4) 场景示例
-   a. 打印字符串数组
-   b. 由 id 取得图片并显示
-3. 线程控制 —— Scheduler (一)
-   1) Scheduler 的 API (一)
-   2) Scheduler 的原理 (一)
-4. 变换
-   1) API
-   2) 变换的原理：lift()
-   3) compose: 对 Observable 整体的变换
-5. 线程控制：Scheduler (二)
-   1) Scheduler 的 API (二)
-   2) Scheduler 的原理（二）
-   3) 延伸：doOnSubscribe()
-   RxJava 的适用场景和使用方式
-6. 与 Retrofit 的结合
-7. RxBinding
-8. 各种异步操作
-9. RxBus
-   最后
-   关于作者：
-   为什么写这个？
-
 在正文开始之前的最后，放上 GitHub 链接和引入依赖的 gradle 代码： Github：
 
 - https://github.com/ReactiveX/RxJava
@@ -53,7 +20,7 @@ compile 'io.reactivex:rxandroid:1.0.1'
 
 另外，感谢 RxJava 核心成员流火枫林的技术支持和内测读者代码家、鲍永章、drakeet、马琳、有时放纵、程序亦非猿、大头鬼、XZoomEye、席德雨、TCahead、Tiiime、Ailurus、宅学长、妖孽、大大大大大臣哥、NicodeLee的帮助，以及周伯通招聘的赞助。
 
-# RxJava 到底是什么
+# 1. RxJava 到底是什么
 
 一个词：异步。
 
@@ -63,7 +30,7 @@ RxJava 在 GitHub 主页上的自我介绍是 "a library for composing asynchron
 
 其实， RxJava 的本质可以压缩为异步这一个词。说到根上，它就是一个实现异步操作的库，而别的定语都是基于这之上的。
 
-# RxJava 好在哪
+# 2. RxJava 好在哪
 
 换句话说，『同样是做异步，为什么人们用它，而不用现成的 AsyncTask / Handler / XXX / ... ？』
 
@@ -150,11 +117,11 @@ Observable.from(folders)
 
 所以， RxJava 好在哪？就好在简洁，好在那把什么复杂逻辑都能穿成一条线的简洁。
 
-# API 介绍和原理简析
+# 3. API 介绍和原理简析
 
 这个我就做不到一个词说明了……因为这一节的主要内容就是一步步地说明 RxJava 到底怎样做到了异步，怎样做到了简洁。
 
-## 1. 概念：扩展的观察者模式
+## 3.1 概念：扩展的观察者模式
 
 RxJava 的异步实现，是通过一种扩展的观察者模式来实现的。
 
@@ -189,7 +156,7 @@ RxJava 的观察者模式大致如下图：
 
 ![RxJava 的观察者模式](http://ww3.sinaimg.cn/mw1024/52eb2279jw1f2rx46dspqj20gn04qaad.jpg)
 
-## 2. 基本实现
+## 3.2 基本实现
 
 基于以上的概念， RxJava 的基本实现主要有三点：
 
@@ -427,7 +394,7 @@ Observable.create(new OnSubscribe<Drawable>() {
 
 在 RxJava 的默认规则中，事件的发出和消费都是在同一个线程的。也就是说，如果只用上面的方法，实现出来的只是一个同步的观察者模式。观察者模式本身的目的就是『后台处理，前台回调』的异步机制，因此异步对于 RxJava 是至关重要的。而要实现异步，则需要用到 RxJava 的另一个概念： Scheduler 。
 
-## 3. 线程控制 —— Scheduler (一)
+## 3.3 线程控制 —— Scheduler (一)
 
 在不指定线程的情况下， RxJava 遵循的是线程不变的原则，即：在哪个线程调用 subscribe()，就在哪个线程生产事件；在哪个线程生产事件，就在哪个线程消费事件。如果需要切换线程，就需要用到 Scheduler （调度器）。
 
@@ -499,7 +466,7 @@ RxJava 的 Scheduler API 很方便，也很神奇（加了一句话就把线程�
 
 好吧这一节其实我屁也没说，只是为了让你安心，让你知道我不是忘了讲原理，而是把它放在了更合适的地方。
 
-## 4. 变换
+## 3.4 变换
 
 终于要到牛逼的地方了，不管你激动不激动，反正我是激动了。
 
@@ -767,7 +734,7 @@ observable4.compose(liftAll).subscribe(subscriber4);
 
 compose() 的原理比较简单，不附图喽。
 
-## 5. 线程控制：Scheduler (二)
+## 3.5 线程控制：Scheduler (二)
 
 除了灵活的变换，RxJava 另一个牛逼的地方，就是线程的自由控制。
 
@@ -838,9 +805,9 @@ Observable.create(onSubscribe)
 ```
 如上，在 doOnSubscribe()的后面跟一个 subscribeOn() ，就能指定准备工作的线程了。
 
-# RxJava 的适用场景和使用方式
+# 4. RxJava 的适用场景和使用方式
 
-## 1. 与 Retrofit 的结合
+## 4.1 与 Retrofit 的结合
 
 > Retrofit 是 Square 的一个著名的网络请求库。没有用过 Retrofit 的可以选择跳过这一小节也没关系，我举的每种场景都只是个例子，而且例子之间并无前后关联，只是个抛砖引玉的作用，所以你跳过这里看别的场景也可以的。
 
@@ -1049,7 +1016,7 @@ getToken()
 
 好，Retrofit 部分就到这里。
 
-## 2. RxBinding
+## 4.2 RxBinding
 
 [RxBinding](https://github.com/JakeWharton/RxBinding) 是 Jake Wharton 的一个开源库，它提供了一套在 Android 平台上的基于 RxJava 的 Binding API。所谓 Binding，就是类似设置 OnClickListener 、设置 TextWatcher 这样的注册绑定对象的 API。
 
@@ -1072,11 +1039,11 @@ RxView.clickEvents(button)
 ```
 如果想对 RxBinding 有更多了解，可以去它的 GitHub 项目 下面看看。
 
-## 3. 各种异步操作
+## 4.3 各种异步操作
 
 前面举的 Retrofit 和 RxBinding 的例子，是两个可以提供现成的 Observable 的库。而如果你有某些异步操作无法用这些库来自动生成 Observable，也完全可以自己写。例如数据库的读写、大图片的载入、文件压缩/解压等各种需要放在后台工作的耗时操作，都可以用 RxJava 来实现，有了之前几章的例子，这里应该不用再举例了。
 
-## 4. RxBus
+## 4.4 RxBus
 
 RxBus 名字看起来像一个库，但它并不是一个库，而是一种模式，它的思想是使用 RxJava 来实现了 EventBus ，而让你不再需要使用 Otto 或者 GreenRobot 的 EventBus。至于什么是 RxBus，可以看这篇文章。顺便说一句，Flipboard 已经用 RxBus 替换掉了 Otto ，目前为止没有不良反应。
 
@@ -1084,18 +1051,9 @@ RxBus 名字看起来像一个库，但它并不是一个库，而是一种模�
 
 对于 Android 开发者来说， RxJava 是一个很难上手的库，因为它对于 Android 开发者来说有太多陌生的概念了。可是它真的很牛逼。因此，我写了这篇《给 Android 开发者的 RxJava 详解》，希望能给始终搞不明白什么是 RxJava 的人一些入门的指引，或者能让正在使用 RxJava 但仍然心存疑惑的人看到一些更深入的解析。无论如何，只要能给各位同为 Android 工程师的你们提供一些帮助，这篇文章的目的就达到了。
 
-再次感谢对这篇文章的产出提供支持的各位：
-技术支持：流火枫林
-内测读者：代码家、鲍永章、drakeet、马琳、有时放纵、程序亦非猿、大头鬼、XZoomEye、席德雨、TCahead、Tiiime、Ailurus、宅学长、妖孽、大大大大大臣哥、NicodeLee
-赞助方：周伯通招聘 是他们让我的文章能够以不那么丑陋的样子出现在大家面前。
-
 # 关于作者
 
-朱凯（扔物线）， Android 工程师。
-
-微博：[扔物线](http://weibo.com/rengwuxian)
-
-GitHub：[rengwuxian](https://github.com/rengwuxian)
+朱凯（扔物线）， Android 工程师。微博：[扔物线](http://weibo.com/rengwuxian)，GitHub：[rengwuxian](https://github.com/rengwuxian)
 
 # 为什么写这个？
 

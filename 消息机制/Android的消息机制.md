@@ -843,6 +843,41 @@ Android会自动替主线程建立MessageQueue。在这个子线程里并没有�
 mHandler.sendMessage(msg);就将msg消息存入到主线程的MessageQueue里
 
 mainLooper看到Message Queue里有讯息，就会作出处理，于是由主线程执行到mHandler的handleMessage()来处理消息。
+
+## 12.4 在子线程中直接更新View不抛异常的问题
+
+下面代码，我们在子线程中直接操作View，但是并不会抛出异常
+
+```java
+public void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.main);
+    tv = (TextView) findViewById(R.id.tv);
+    iv = (ImageView) findViewById(R.id.iv);
+    //搞不懂为什么在子线程里可以修改ui
+    new Thread(){
+        public void run() {
+        tv.setText("wwwwwwwww");
+        iv.setImageResource(R.drawable.ic_launcher);
+        }
+    }.start();
+}
+```
+
+原因：
+
+在更新ui界面时View会把要界面传给ViewRoot 
+
+自定义Handler它是Activity和WindowMangerImpl之间的桥梁，要修改界面上的数据的经过它，它把数据传递给WindowManagerImple或DecorView之前，会调用checkThread方法，判断当前线程是否是主线程，不是的话跑异常。
+
+而上面的代码是在onCreate里面修改的view，那时候view还没有被真正的被放在ContentView里面，ViewRoot还没有被创建，mParent为null。mparent（放ContentView的容器类型ViewParent）为null时不调用checkThread方法，当执行到ActivityThread的handlerResumeActivity方法时ViewRoot方法才会被创建，该方法在Activity的onResume方法执行完以后的200到300毫秒以后得到执行，并且把界面传递给WidowManagerImpl进行显示，由于在viewRoot被创建前已经修改了控件的值，所以显示的是已经修改的值。
+
+所以在onResume方法被执行完的200毫秒之前那是还没有ViewRoot和mparent是可以修改主线程UI界面的   只有当viewRoot被创建了以后
+
+在子线程view被添加到了contentView上时，或已添加到ContentView上在修改显示内容时会调用View的requestLayout方法，requestLayout会调用ViewRoot的checkThread方法，才会抛异常。
+
+如果修改一个view的内容不调用requestLayout方法时是可以子线程中修改的并且不抛异常。如给一个view设置监听事件，虽然设置监听是在子线程里设置的但是调用执行监听事件的代码是在主线程里调用的从而执行也将在主线程执行。又如post方法，它只是给主线程所在的handler发送消息，handler分发消息时执行具体任务，并没有执行checkThread。又如创建一个VIew，为VIEW设置内容，添加view到该view等等，因为还没被添加到ContentView上所以不会执行checkThread。
+
 # 13. Handler的核心代码
 ```java
 public class Handler {
