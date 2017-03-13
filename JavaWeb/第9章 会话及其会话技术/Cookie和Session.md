@@ -1,6 +1,9 @@
 ![Cookie和Session](http://img.blog.csdn.net/20161107212441810)
+
 # 1. 会话跟踪技术
+
 ## **1.1 什么是会话跟踪技术**
+
 我们需要先了解一下什么是会话！可以把会话理解为客户端与服务器之间的一次会晤，在一次会晤中可能会包含多次请求和响应。例如你给10086打个电话，你就是客户端，而10086服务人员就是服务器了。从双方接通电话那一刻起，会话就开始了，到某一方挂断电话表示会话结束。在通话过程中，你会向10086发出多个请求，那么这多个请求都在一个会话中。
 
 在JavaWeb中，客户向某一服务器发出第一个请求开始，会话就开始了，直到客户关闭了浏览器会话结束。
@@ -34,6 +37,7 @@ Cookie翻译成中文是小甜点，小饼干的意思。在HTTP中它表示服�
 Cookie是由服务器创建，然后通过响应发送给客户端的一个键值对。客户端会保存Cookie，并会标注出Cookie的来源（哪个服务器的Cookie）。当客户端向服务器发出请求时会把所有这个服务器Cookie包含在请求中发送给服务器，这样服务器就可以识别客户端了！
 
 Cookie类的常用方法
+
 | 方法声明                              | 功能描述                     |
 | :-------------------------------- | :----------------------- |
 | Cookie(String name, String value) | 构造方法                     |
@@ -53,10 +57,13 @@ Cookie类的常用方法
 | getSecure()                       | 获取Cookie是否使用安全的协议传送      |
 
 ## **2.2 Cookie的用途**
+
 - 服务器使用Cookie来跟踪客户端状态！
 - 保存购物车(购物车中的商品不能使用request保存，因为它是一个用户向服务器发送的多个请求信息)
 - 显示上次登录名(也是一个用户多个请求)
+
 ## **2.3 Cookie规范**
+
 - Cookie通过请求头和响应头在服务器与客户端之间传输
 - Cookie大小上限为4KB
 - 一个服务器最多在客户端浏览器上保存20个Cookie
@@ -86,6 +93,7 @@ Set-Cookie: c=C
 
 ## **2.6 Cookie第一例**
 我们这个案例是，客户端访问AServlet，AServlet在响应中添加Cookie，浏览器会自动保存Cookie。然后客户端访问BServlet，这时浏览器会自动在请求中带上Cookie，BServlet获取请求中的Cookie打印出来
+
 ![cookie](http://img.blog.csdn.net/20161028012346319)
 
 AServlet.java
@@ -110,7 +118,7 @@ public class AServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		response.setContentType("text/html;charset=utf-8");
-		
+
 		String id = UUID.randomUUID().toString();//生成一个随机字符串
 		Cookie cookie = new Cookie("id", id);//创建Cookie对象，指定名字和值
 		response.addCookie(cookie);//在响应中添加Cookie对象
@@ -140,7 +148,7 @@ public class BServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		response.setContentType("text/html;charset=utf-8");
-		
+
 		Cookie[] cs = request.getCookies();//获取请求中的Cookie
 		if(cs != null) {//如果请求中存在Cookie
 			for(Cookie c : cs) {//遍历所有Cookie
@@ -153,6 +161,7 @@ public class BServlet extends HttpServlet {
 }
 ```
 ##**2.7 Cookie的生命**
+
 ###**2.7.1 什么是Cookie的生命**
 Cookie不只是有name和value，Cookie还是生命。所谓生命就是Cookie在客户端的有效时间，可以通过setMaxAge(int)来设置Cookie的有效时间
 
@@ -182,6 +191,7 @@ Google查看Cookie
 ![cookie](http://img.blog.csdn.net/20161028012603104)
 
 ###**2.7.3 案例：显示上次访问时间**
+
 - 创建Cookie，名为lasttime，值为当前时间，添加到response中
 - 在AServlet中获取请求中名为lasttime的Cookie
 - 如果不存在输出“您是第一次访问本站”，如果存在输出“您上一次访问本站的时间是xxx”
@@ -191,11 +201,11 @@ AServlet.java
 public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		response.setContentType("text/html;charset=utf-8");
-		
+
 		Cookie cookie = new Cookie("lasttime", new Date().toString());
 		cookie.setMaxAge(60 * 60);
 		response.addCookie(cookie);
-		
+
 		Cookie[] cs = request.getCookies();
 		String s = "您是首次访问本站！";
 		if(cs != null) {
@@ -205,7 +215,7 @@ public void doGet(HttpServletRequest request, HttpServletResponse response)
 				}
 			}
 		}
-		
+
 		response.getWriter().print(s);
 	}
 ```
@@ -290,7 +300,7 @@ http://tieba.baidu.com
       xmlValidation="false" xmlNamespaceAware="false"/>
 ```
 第三步：创建A项目，创建AServlet，设置Cookie。
-​	
+
 ```java
 Cookie c = new Cookie("id", "baidu");
 c.setPath("/");
@@ -356,7 +366,7 @@ index.jsp
     <a href="/day06_3/GoodServlet?name=SONY">SONY</a><br/>
     <a href="/day06_3/GoodServlet?name=ACER">ACER</a><br/>
     <a href="/day06_3/GoodServlet?name=DELL">DELL</a><br/>
-    
+
     <hr/>
     您浏览过的商品：
     <%
@@ -378,7 +388,7 @@ public class GoodServlet extends HttpServlet {
 			throws ServletException, IOException {
 		String goodName = request.getParameter("name");
 		String goods = CookieUtils.getCookValue(request, "goods");
-		
+
 		if(goods != null) {
 			String[] arr = goods.split(", ");
 			Set<String> goodSet = new LinkedHashSet(Arrays.asList(arr));
@@ -391,7 +401,7 @@ public class GoodServlet extends HttpServlet {
 		Cookie cookie = new Cookie("goods", goods);
 		cookie.setMaxAge(1 * 60 * 60 * 24);
 		response.addCookie(cookie);
-		
+
 		response.sendRedirect("/day06_3/index.jsp");
 	}
 }
@@ -469,7 +479,7 @@ login.jsp
   <head>
     <title>login.jsp</title>
   </head>
-  
+
   <body>
     <h1>login.jsp</h1>
     <hr/>
@@ -489,7 +499,7 @@ index1.jsp
   <head>
     <title>index1.jsp</title>
   </head>
-  
+
   <body>
 <h1>index1.jsp</h1>
 <%
@@ -514,7 +524,7 @@ index2.jsp
   <head>
     <title>index2.jsp</title>
   </head>
-  
+
   <body>
 <h1>index2.jsp</h1>
 <%
@@ -537,9 +547,9 @@ public class LoginServlet extends HttpServlet {
 			throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html;charset=utf-8");
-		
+
 		String username = request.getParameter("username");
-		
+
 		if(username.equalsIgnoreCase("itcast")) {
 			response.getWriter().print("用户名或密码错误！");
 		} else {
@@ -687,7 +697,7 @@ index.jsp
   </body>
 ```
 ## **8.4 在注册页面中使用验证码**
-```jsp
+```html
  <form action="/day06_6/RegistServlet" method="post">
     	用户名：<input type="text" name="username"/><br/>
     	验证码：<input type="text" name="code" size="3"/>
@@ -717,12 +727,12 @@ public class RegistServlet extends HttpServlet {
 			throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html;charset=utf-8");
-		
+
 		String username = request.getParameter("username");
 		String vCode = request.getParameter("code");
-		
+
 		String sessionVerifyCode = (String)request.getSession().getAttribute("vCode");
-		
+
 		if(vCode.equalsIgnoreCase(sessionVerifyCode)) {
 			response.getWriter().print(username + ", 恭喜！注册成功！");
 		} else {
@@ -741,7 +751,7 @@ public class RegistServlet extends HttpServlet {
 **regist.jsp：**
 
 - 表单中包含username和code字段
-- 在表单中给出<img>指向VerifyCodeServlet，用来在页面中显示验证码图片
+- 在表单中给出&lt;img>指向VerifyCodeServlet，用来在页面中显示验证码图片
 - 提供“看不清，换一张”链接，指向_change()函数
 - 提交到RegistServlet
 
