@@ -77,6 +77,12 @@
   * [享元模式](设计模式/享元模式.md)
   * [装饰者模式](设计模式/装饰者模式.md)
 * 数据结构和算法
+  * [Java数据结构与算法：排序算法](数据机构和算法/Java数据结构与算法：排序算法.md)
+  * [Java数据结构与算法：栈](数据机构和算法/Java数据结构与算法：栈.md)
+  * [Java数据结构与算法：队列](数据机构和算法/Java数据结构与算法：队列)
+  * [Java数据结构和算法：数组和链表](数据机构和算法/Java数据结构和算法：数组和链表.md)
+  * [Java数据结构与算法：二叉树](数据机构和算法/Java数据结构与算法：二叉树.md)
+  * [Java数据结构与算法：堆](数据机构和算法/Java数据结构与算法：堆)
 * Linux
   * [Android下的Linux](Linux/Android下的Linux.md)
   * [Linux常用指令](Linux/Linux常用指令.md)
@@ -88,11 +94,11 @@
 * 地图开发
   * [手机定位](地图开发/手机定位.md)
 * 开发工具
-  * [Android Studio 使用技巧](Android Studio 使用技巧.md)
-  * [Android反编译](Android反编译.md)
-  * [GitBook使用教程](GitBook使用教程.md)
-  * [Git常用命令](Git常用命令.md)
-  * [你所不知道的Android Studio调试技巧]()
-  * []()
-  * []()
-  * []()
+  * [Android-Studio使用技巧](开发工具/Android Studio 使用技巧.md)
+  * [Android反编译](开发工具/Android反编译.md)
+  * [GitBook使用教程](开发工具/GitBook使用教程.md)
+  * [Git常用命令](开发工具/Git常用命令.md)
+  * [GitHub秘籍](开发工具/GitHub秘籍.md)
+  * [你所不知道的Android Studio调试技巧](开发工具/你所不知道的Android Studio调试技巧)
+  * [Git常用命令和Git团队使用规范指南](开发工具/Git常用命令和Git团队使用规范指南.md)
+  * [博客编辑神器：Markdown编辑器](开发工具/博客编辑神器：Markdown编辑器.md)
