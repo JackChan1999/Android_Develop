@@ -1,4 +1,5 @@
-## GitHub
+## GitHub秘籍
+
 ### 不比较空白字符
 
 在任意 diff 页面的 UR L后加上 `?w=1`，可以去掉那些只是空白字符的改动，使你能更专注于代码改动。
@@ -110,7 +111,7 @@ https://github.com/rails/rails/compare/byroot:master...master
 
 [Gists](https://gist.github.com/) 方便我们管理代码片段，不必使用功能齐全的仓库。
 
-![Gist](http://i.imgur.com/VkKI1LC.png?1)
+![Gist](http://i.imgur.com/VkKI1LC.png)
 
 Gist 的 URL 后加上 `.pibb`（[像这样](https://gist.github.com/tiimgreen/10545817.pibb)）可以得到便于嵌入到其他网站 的 HTML 代码。
 
@@ -137,7 +138,7 @@ Password for 'https://tiimgreen@gist.github.com':
 ### Git.io
 [Git.io](http://git.io)是 Github 的短网址服务。
 
-![Git.io](http://i.imgur.com/6JUfbcG.png?1)
+![Git.io](http://i.imgur.com/6JUfbcG.png)
 
 你可以通过 Curl 命令以普通 HTTP 协议使用它：
 
