@@ -57,11 +57,12 @@ response.getWriter()是PrintWriter类型，所以它有缓冲区，缓冲区的�
 
 ## **1.5 重定向**
 ### **1.5.1 什么是重定向**
-当你访问http://www.sun.com时，你会发现浏览器地址栏中的URL会变成http://www.oracle.com/us/sun/index.htm，这就是重定向了。
+当你访问 http://www.sun.com 时，你会发现浏览器地址栏中的URL会变成 http://www.oracle.com/us/sun/index.htm， 这就是重定向了。
 
 重定向是服务器通知浏览器去访问另一个地址，即再发出另一个请求。
 
  ![servlet](http://img.blog.csdn.net/20161028205521231)
+
 ### **1.5.2 完成重定向**
 响应码为200表示响应成功，而响应码为302表示重定向。所以完成重定向的第一步就是设置响应码为302
 
@@ -145,6 +146,7 @@ request是域对象！在JavaWeb中一共四个域对象，其中ServletContext�
 
 ##**2.3 request获取请求头数据**
 Request与请求头相关的方法有：
+
 | 返回值         | 方法说明                      | 功能描述          |
 | :---------- | :------------------------ | :------------ |
 | String      | getHeader(String name)    | 获取指定名称的请求头    |
@@ -176,22 +178,22 @@ request中还提供了与请求相关的其他方法，有些方法是为了我�
 ![servlet](http://img.blog.csdn.net/20161028205726655)
 
 ```java
-    System.out.println("request.getContentLength(): " + request.getContentLength());
-	System.out.println("request.getContentType(): " + request.getContentType());
-	System.out.println("request.getContextPath(): " + request.getContextPath());
-	System.out.println("request.getMethod(): " + request.getMethod());
-	System.out.println("request.getLocale(): " + request.getLocale());
-		
-	System.out.println("request.getQueryString(): " + request.getQueryString());
-	System.out.println("request.getRequestURI(): " + request.getRequestURI());
-	System.out.println("request.getRequestURL(): " + request.getRequestURL());
-	System.out.println("request.getServletPath(): " + request.getServletPath());
-	System.out.println("request.getRemoteAddr(): " + request.getRemoteAddr());
-	System.out.println("request.getRemoteHost(): " + request.getRemoteHost());
-	System.out.println("request.getRemotePort(): " + request.getRemotePort());
-	System.out.println("request.getScheme(): " + request.getScheme());
-	System.out.println("request.getServerName(): " + request.getServerName());
-	System.out.println("request.getServerPort(): " + request.getServerPort());
+System.out.println("request.getContentLength(): " + request.getContentLength());
+System.out.println("request.getContentType(): " + request.getContentType());
+System.out.println("request.getContextPath(): " + request.getContextPath());
+System.out.println("request.getMethod(): " + request.getMethod());
+System.out.println("request.getLocale(): " + request.getLocale());
+
+System.out.println("request.getQueryString(): " + request.getQueryString());
+System.out.println("request.getRequestURI(): " + request.getRequestURI());
+System.out.println("request.getRequestURL(): " + request.getRequestURL());
+System.out.println("request.getServletPath(): " + request.getServletPath());
+System.out.println("request.getRemoteAddr(): " + request.getRemoteAddr());
+System.out.println("request.getRemoteHost(): " + request.getRemoteHost());
+System.out.println("request.getRemotePort(): " + request.getRemotePort());
+System.out.println("request.getScheme(): " + request.getScheme());
+System.out.println("request.getServerName(): " + request.getServerName());
+System.out.println("request.getServerPort(): " + request.getServerPort());
 ```
 
 ###**2.4.1 案例：request.getRemoteAddr()封IP**
@@ -207,7 +209,7 @@ if(ip.equals("127.0.0.1")) {
 }
 ```
 
-##**2.5 request获取请求参数**
+## **2.5 request获取请求参数**
 最为常见的客户端传递参数方式有两种：
 
 - 浏览器地址栏直接输入：一定是GET请求
@@ -233,9 +235,6 @@ GET请求和POST请求的区别：
   <input type="submit" value="提交"/>
 </form>
 ```
-
- 
-
 下面是使用request获取请求参数的API：
 
 - String getParameter(String name)：通过指定名称获取参数值；
@@ -249,7 +248,7 @@ public void doGet(HttpServletRequest request, HttpServletResponse response)
 		System.out.println("p1=" + v1);
 		System.out.println("p2=" + v2);
 	}
-	
+
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String v1 = request.getParameter("p1");
@@ -264,8 +263,6 @@ public void doGet(HttpServletRequest request, HttpServletResponse response)
 ```html
 <a href="/hello/ParamServlet?name=zhangSan&name=liSi">超链接</a>
 ```
-
-​	
 
 ```java
 public void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -303,7 +300,6 @@ public void doPost(HttpServletRequest request, HttpServletResponse response)
 <a href="/day05_1/ParamServlet?p1=v1&p1=vv1&p2=v2&p2=vv2">超链接</a>
 ```
 
-
 ```java
 Map<String,String[]> paramMap = request.getParameterMap();
 		for(String name : paramMap.keySet()) {
@@ -317,10 +313,10 @@ p2: [v2, vv2]
 p1: [v1, vv1]
 ```
 
-##**2.6 请求转发和请求包含**
+## **2.6 请求转发和请求包含**
 无论是请求转发还是请求包含，都表示由多个Servlet共同来处理一个请求。例如Servlet1来处理请求，然后Servlet1又转发给Servlet2来继续处理这个请求。
 
-###**2.6.1 请求转发**
+### **2.6.1 请求转发**
 在AServlet中，把请求转发到BServlet：
 
 ```java
@@ -437,8 +433,8 @@ BServlet
 </form>
 ```
 - 链接1和表单1：没什么可说的，它使用绝对路径
-- 链接2和表单2：以“/”开头，相对主机，与当前a.html的主机相同，即最终访问的页面为http://localhost:8080/hello2/index.html
-- 链接3和表单3：不以“/”开头，相对当前页面的路径，即a.html所有路径，即最终访问的路径为：http://localhost:8080/hello1/pages/index.html
+- 链接2和表单2：以“/”开头，相对主机，与当前a.html的主机相同，即最终访问的页面为 http://localhost:8080/hello2/index.html
+- 链接3和表单3：不以“/”开头，相对当前页面的路径，即a.html所有路径，即最终访问的路径为 http://localhost:8080/hello1/pages/index.html
 
 重定向1
 ```java
@@ -449,9 +445,9 @@ public class AServlet extends HttpServlet {
 	}
 }
 ```
-假设访问AServlet的路径为：http://localhost:8080/hello/servlet/AServlet
+假设访问AServlet的路径为 http://localhost:8080/hello/servlet/AServlet
 
-因为路径以“/”开头，所以相对当前主机，即http://localhost:8080/hello/index.html
+因为路径以“/”开头，所以相对当前主机，即 http://localhost:8080/hello/index.html
 
 重定向2
 ```java
@@ -463,8 +459,8 @@ public class AServlet extends HttpServlet {
 }
 ```
 
-假设访问AServlet的路径为：http://localhost:8080/hello/servlet/AServlet
-因为路径不以“/”开头，所以相对当前路径，即http://localhost:8080/hello/servlet/index.html
+假设访问AServlet的路径为 http://localhost:8080/hello/servlet/AServlet
+因为路径不以“/”开头，所以相对当前路径，即 http://localhost:8080/hello/servlet/index.html
 
 ## **3.3 建议使用“/”**
 强烈建议使用“/”开头的路径，这说明在页面中的超链接和表单都要以“/”开头，后面是当前应用的名称，再是访问路径：
@@ -510,8 +506,8 @@ public class AServlet extends HttpServlet {
 }
 ```
 
-假设访问AServlet的路径为：http://localhost:8080/hello/servlet/AServlet
-因为路径以“/”开头，所以相对当前应用，即http://localhost:8080/hello/BServlet。
+假设访问AServlet的路径为 http://localhost:8080/hello/servlet/AServlet
+因为路径以“/”开头，所以相对当前应用，即 http://localhost:8080/hello/BServlet。
 
 转发2：
 
@@ -524,8 +520,8 @@ public class AServlet extends HttpServlet {
 }
 ```
 
-假设访问AServlet的路径为：http://localhost:8080/hello/servlet/AServlet
-因为路径不以“/”开头，所以相对当前应用，即http://localhost:8080/hello/servlet/BServlet。
+假设访问AServlet的路径为 http://localhost:8080/hello/servlet/AServlet
+因为路径不以“/”开头，所以相对当前应用，即 http://localhost:8080/hello/servlet/BServlet。
 
 ## **3.5 <url-pattern>路径**
 　　<url-pattern>必须使用“/”开头，并且相对的是当前应用。
@@ -533,7 +529,7 @@ public class AServlet extends HttpServlet {
 ## **3.6 ServletContext获取资源**
 必须是相对路径，可以“/”开头，也可以不使用“/”开头，但无论是否使用“/”开头都是相对当前应用路径
 
-例如在AServlet中获取资源，AServlet的路径路径为：http://localhost:8080/hello/servlet/AServlet：
+例如在AServlet中获取资源，AServlet的路径路径为 http://localhost:8080/hello/servlet/AServlet：
 
 ```java
 public class AServlet extends HttpServlet {
@@ -561,7 +557,7 @@ public class Demo {
 	public void fun1() {
 		InputStream in = Demo.class.getResourceAsStream("/a.txt");
 	}
-	
+
 	public void fun2() {
 		InputStream in = Demo.class.getResourceAsStream("a.txt");
 	}
@@ -580,7 +576,7 @@ public class Demo {
 	public void fun1() {
 		InputStream in = Demo.class.getClassLoader().getResourceAsStream("/a.txt");
 	}
-	
+
 	public void fun2() {
 		InputStream in = Demo.class.getClassLoader().getResourceAsStream("a.txt");
 	}
@@ -613,7 +609,7 @@ index.html
     <title>index.html</title>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
   </head>
-  
+
   <body>
 <form action="/hello/servlet/AServlet">
   名称:<input type="text" name="name"/>

@@ -3,6 +3,7 @@
 # **1. 过滤器概述**
 
 ## **1.1 什么是过滤器**
+
 过滤器会在一组资源（jsp、servlet、.css、.html等等）的前面执行！它可以让请求得到目标资源，也可以不让请求达到！过滤器有拦截请求的能力！
 
 过滤器JavaWeb三大组件之一，它与Servlet很相似！不它过滤器是用来拦截请求的，而不是处理请求的
@@ -14,6 +15,7 @@
 ![管理器Filter](http://img.blog.csdn.net/20161030011928389)
 
 ## **1.2 过滤器之hello world**
+
 其实过滤器与Servlet很相似，我们回忆一下如果写的第一个Servlet应用！写一个类，实现Servlet接口！没错，写过滤器就是写一个类，实现Filter接口
 
 - void init(FilterConfig)：创建之后，马上执行；Filter会在服务器启动时就创建！
@@ -23,12 +25,12 @@
 ```java
 public class HelloFilter implements Filter {
   public void init(FilterConfig filterConfig) throws ServletException {}
-  
+
   public void doFilter(ServletRequest request, ServletResponse response,
       FilterChain chain) throws IOException, ServletException {
     System.out.println("Hello Filter");
   }
-  
+
   public void destroy() {}
 }
 ```
@@ -51,6 +53,7 @@ public class HelloFilter implements Filter {
 OK了，现在可以尝试去访问index.jsp页面了，看看是什么效果！
 
 当用户访问index.jsp页面时，会执行HelloFilter的doFilter()方法！在我们的示例中，index.jsp页面是不会被执行的，如果想执行index.jsp页面，那么我们需要放行！
+
 ```java
 public void doFilter(ServletRequest request, ServletResponse response,
 			FilterChain chain) throws IOException, ServletException {
@@ -67,6 +70,7 @@ public void doFilter(ServletRequest request, ServletResponse response,
 # **2. 过滤器详细**
 
 ## **2.1 过滤器的生命周期**
+
 我们已经学习过Servlet的生命周期，那么Filter的生命周期也就没有什么难度了！
 
 - init(FilterConfig)
@@ -82,7 +86,9 @@ public void doFilter(ServletRequest request, ServletResponse response,
 服务器会在创建Filter对象之后，把Filter放到缓存中一直使用，通常不会销毁它。一般会在服务器关闭时销毁Filter对象，在销毁Filter对象之前，服务器会调用Filter对象的destory()方法。
 
 ## **2.2 FilterConfig**
-你已经看到了吧，Filter接口中的init()方法的参数类型为FilterConfig类型。它的功能与ServletConfig相似，与web.xml文件中的配置信息对应。下面是FilterConfig的功能介绍：
+
+你已经看到了吧，Filter接口中的init()方法的参数类型为FilterConfig类型。它的功能与ServletConfig相似，与web.xml文件中的配置信息对应。下面是FilterConfig的功能介绍
+
 | 返回值            | 方法说明                          | 功能描述                                |
 | :------------- | :---------------------------- | :---------------------------------- |
 | ServletContext | getServletContext()           | 获取ServletContext的方法                 |
@@ -93,6 +99,7 @@ public void doFilter(ServletRequest request, ServletResponse response,
 ![管理器Filter](http://img.blog.csdn.net/20161108105729439)
 
 ## **2.3 FilterChain**
+
 doFilter()方法的参数中有一个类型为FilterChain的参数，它只有一个方法
 
 ```java
@@ -168,6 +175,7 @@ filter1 end...
 ```
 
 ## **2.5 四种拦截方式**
+
 我们来做个测试，写一个过滤器，指定过滤的资源为b.jsp，然后我们在浏览器中直接访问b.jsp，你会发现过滤器执行了！
 
 但是，当我们在a.jsp中request.getRequestDispathcer(“/b.jsp”).forward(request,response)时，就不会再执行过滤器了！也就是说，默认情况下，只能直接访问目标资源才会执行过滤器，而forward执行目标资源，不会执行过滤器！
@@ -180,7 +188,7 @@ public class MyFilter extends HttpFilter {
 		System.out.println("myfilter...");
 		chain.doFilter(request, response);
 	}
-}	
+}
 ```
 ```xml
 <filter>
@@ -211,6 +219,7 @@ http://localhost:8080/filtertest/b.jsp -->直接访问b.jsp时，会执行过滤
 http://localhost:8080/filtertest/a.jsp --> 访问a.jsp，但a.jsp会forward到b.jsp，这时就不会执行过滤器！
 
 其实过滤器有四种拦截方式！分别是：REQUEST、FORWARD、INCLUDE、ERROR
+
 | 拦截方式    | 功能描述                                     |
 | :------ | :--------------------------------------- |
 | REQUEST | 直接访问目标资源时执行过滤器。包括：在地址栏中直接访问、表单提交、超链接、重定向，只要在地址栏中可以看到目标资源的路径，就是REQUEST |
@@ -238,7 +247,6 @@ http://localhost:8080/filtertest/a.jsp --> 访问a.jsp，但a.jsp会forward到b.
    <dispatcher>FORWARD</dispatcher>
 </filter-mapping>
 ```
-
 其实最为常用的就是REQUEST和FORWARD两种拦截方式，而INCLUDE和ERROR都比较少用！其中INCLUDE比较好理解，我们这里不再给出代码，学员可以通过FORWARD方式修改，来自己测试。而ERROR方式不易理解，下面给出ERROR拦截方式的例子
 ```xml
 <filter-mapping>
@@ -261,8 +269,8 @@ http://localhost:8080/filtertest/a.jsp --> 访问a.jsp，但a.jsp会forward到b.
    %>
   </body>
 ```
-
 ## **2.6 过滤器的应用场景**
+
 过滤器的应用场景：
 
 - 执行目标资源之前做预处理工作，例如设置编码，这种试通常都会放行，只是在目标资源执行之前做一些准备工作
@@ -270,6 +278,7 @@ http://localhost:8080/filtertest/a.jsp --> 访问a.jsp，但a.jsp会forward到b.
 - 在目标资源执行后，做一些后续的特殊处理工作，例如把目标资源输出的数据进行处理
 
 ## **2.7 设置目标资源**
+
 在web.xml文件中部署Filter时，可以通过“*”来执行目标资源
 ```xml
 <filter-mapping>
@@ -277,10 +286,10 @@ http://localhost:8080/filtertest/a.jsp --> 访问a.jsp，但a.jsp会forward到b.
   <url-pattern>/*</url-pattern>
 </filter-mapping>
 ```
-
 这一特性与Servlet完全相同！通过这一特性，我们可以在用户访问敏感资源时，执行过滤器，例如：&lt;url-pattern>/admin/*&lt;url-pattern>，可以把所有管理员才能访问的资源放到/admin路径下，这时可以通过过滤器来校验用户身份。
 
 还可以为&lt;filter-mapping>指定目标资源为某个Servlet，例如：
+
 ```xml
 <servlet>
 		<servlet-name>myservlet</servlet-name>
@@ -300,9 +309,10 @@ http://localhost:8080/filtertest/a.jsp --> 访问a.jsp，但a.jsp会forward到b.
 	</filter-mapping>
 ```
 
-当用户访问http://localhost:8080/filtertest/abc时，会执行名字为myservlet的Servlet，这时会执行过滤器。
+当用户访问 http://localhost:8080/filtertest/abc 时，会执行名字为myservlet的Servlet，这时会执行过滤器。
 
 ## **2.8 Filter小结**
+
 Filter的三个方法：
 
 - void init(FilterConfig)：在Tomcat启动时被调用
@@ -330,6 +340,7 @@ FilterChain类：
 - ERROR：拦截错误转发方式
 
 # **3. 分ip统计网站的访问次数**
+
 | ip            | count |
 | :------------ | :---- |
 | 192.168.1.111 | 2     |
@@ -433,14 +444,14 @@ RBAC -> 基于角色的权限控制
 - tb_userrole
 - tb_menu(增、删、改、查)
 - tb_rolemenu
-## **4.1、说明**
+## **4.1 说明**
 我们给出三个页面：index.jsp、user.jsp、admin.jsp。
 
 - index.jsp：谁都可以访问，没有限制
 - user.jsp：只有登录用户才能访问
 - admin.jsp：只有管理员才能访问
 
-## **4.2、分析**
+## **4.2 分析**
 设计User类：username、password、grade，其中grade表示用户等级，1表示普通用户，2表示管理员用户。
 
 当用户登录成功后，把user保存到session中。
@@ -449,7 +460,7 @@ RBAC -> 基于角色的权限控制
 - 如果访问的是user.jsp，查看session中是否存在user；
 - 如果访问的是admin.jsp，查看session中是否存在user，并且user的grade等于2。
 
-## **4.3、代码**
+## **4.3 代码**
 
 ```java
 User.java
@@ -471,7 +482,7 @@ public class UserService {
 		users.put("zhangSan", new User("zhangSan", "123", 1));
 		users.put("liSi", new User("liSi", "123", 2));
 	}
-	
+
 	public User login(String username, String password) {
 		User user = users.get(username);
 		if(user == null) return null;
@@ -533,7 +544,7 @@ public class LoginServlet extends HttpServlet {
 			throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html;charset=utf-8");
-		
+
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		UserService userService = new UserService();
@@ -548,19 +559,17 @@ public class LoginServlet extends HttpServlet {
 	}
 }
 ```
-
 LoginUserFilter.java
-
-```java
-  <filter>
-    <display-name>LoginUserFilter</display-name>
+```xml
+<filter>
+  <display-name>LoginUserFilter</display-name>
+  <filter-name>LoginUserFilter</filter-name>
+  <filter-class>cn.itcast.filter.LoginUserFilter</filter-class>
+</filter>
+<filter-mapping>
     <filter-name>LoginUserFilter</filter-name>
-    <filter-class>cn.itcast.filter.LoginUserFilter</filter-class>
-  </filter>
-  <filter-mapping>
-    <filter-name>LoginUserFilter</filter-name>
-    <url-pattern>/user/*</url-pattern>
-  </filter-mapping>
+  <url-pattern>/user/*</url-pattern>
+</filter-mapping>
 ```
 
 ```java
@@ -584,7 +593,7 @@ public class LoginUserFilter implements Filter {
 
 LoginAdminFilter.java
 
-```java
+```xml
   <filter>
     <display-name>LoginAdminFilter</display-name>
     <filter-name>LoginAdminFilter</filter-name>
@@ -634,7 +643,6 @@ public class NoCacheFilter extends HttpFilter {
 	}
 }
 ```
-
 但是要注意，有的浏览器可能不会理会你的设置，还是会缓存的！这时就要在页面中使用时间戳来处理了。
 
 # **5. 解决全站字符乱码**
@@ -725,7 +733,7 @@ public class EncodingRequest extends HttpServletRequestWrapper {
 
 	public String getParameter(String name) {
 		HttpServletRequest request = (HttpServletRequest) getRequest();
-		
+
 		String method = request.getMethod();
 		if(method.equalsIgnoreCase("post")) {
 			try {
@@ -793,18 +801,14 @@ web.xml
 index.jsp
 
 ```jsp
-  <body>
+<body>
 <a href="<c:url value='/BookServlet'/>">全部图书</a><br/>
 <a href="<c:url value='/BookServlet?category=1'/>">JavaSE分类</a><br/>
 <a href="<c:url value='/BookServlet?category=2'/>">JavaEE分类</a><br/>
 <a href="<c:url value='/BookServlet?category=3'/>">Java框架分类</a><br/>
-  </body>
+</body>
 ```
-
- 
-
 BookServlet.java
-
 ```java
 public class BookServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -818,7 +822,7 @@ public class BookServlet extends HttpServlet {
 			int category = Integer.parseInt(param);
 			bookList = bookService.findByCategory(category);
 		}
-		
+
 		request.setAttribute("bookList", bookList);
 		request.getRequestDispatcher("/show.jsp").forward(request, response);
 	}
@@ -834,7 +838,7 @@ show.jsp
 		<th>图书单价</th>
 		<th>图书分类</th>
 	</tr>
-	
+
   <c:forEach items="${bookList }" var="book">
 	<tr>
 		<td>${book.bname }</td>
@@ -890,7 +894,7 @@ StaticFilter.java
 ```java
 public class StaticFilter implements Filter {
 	private ServletContext sc;
-	
+
 	public void destroy() {
 	}
 
@@ -900,13 +904,13 @@ public class StaticFilter implements Filter {
 		HttpServletResponse res = (HttpServletResponse) response;
 
 		String key = "key_" + request.getParameter("category");
-				
+
 		Map<String,String> map = (Map<String, String>) sc.getAttribute("pages");
 		if(map == null) {
 			map = new HashMap<String,String>();
 			sc.setAttribute("pages", map);
 		}
-		
+
 		if(map.containsKey(key)) {
 			res.sendRedirect(req.getContextPath() + "/staticPages/" + map.get(key));
 			return;

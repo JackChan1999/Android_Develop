@@ -263,6 +263,7 @@ Node基本方法：
 
 Node获取子节点和父节点方法，只有Document和Element才能使用这些方法：
 
+
 |      返回值 | 方法              | 说明                             |
 | -------: | :-------------- | :----------------------------- |
 | NodeList | getChildNodes() | 获取当前节点的所有子节点                   |
@@ -1150,21 +1151,20 @@ XML文档中是使用元素和属性的地方。
 
 无论是在XML中，还是在XSD中，都需要声明名称空间。这与Java中使用import来导包是一个道理。当然，前提是有包（创建类是使用了package）才可以导，没包就不能导了。如果被定义的元素在声明时没有指定目标名称空间，那么就是在无名称空间中，那么我们在使用这些在无名称空间中的元素时，就不用再去声明名称空间了。
 
-声明名称空间使用xmlns，例如：xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"。这表示声明了一个名称空间，相当与Java中的import。但是，Java中的import的含义是在下面使用的类，如果没有给出包名，那么就是import导入的这个类。而xmlns表示，下面使用xsi为前缀的元素或属性，都是来自http://www.w3.org/2001/XMLSchema-instance名称空间。也就是说给名称空间起了一个简称，这就相当于我们称呼“北京传智播客教育科技有限公司”为“传智”一样。“传智”就是简称。
+声明名称空间使用xmlns，例如：xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"。 这表示声明了一个名称空间，相当与Java中的import。但是，Java中的import的含义是在下面使用的类，如果没有给出包名，那么就是import导入的这个类。而xmlns表示，下面使用xsi为前缀的元素或属性，都是来自http://www.w3.org/2001/XMLSchema-instance 名称空间。也就是说给名称空间起了一个简称，这就相当于我们称呼“北京传智播客教育科技有限公司”为“传智”一样。“传智”就是简称。
 
-例如在XSD文件中，xmlns:xsd="http://www.w3.org/2001/XMLSchema"就是声明名称空间，而这个名称空间是W3C的名称空间，无需关联文件就可以直接声明！在XSD文件中所有使用xsd为前面的元素和属性都是来自http://www.w3.org/2001/XMLSchema名称空间。
+例如在XSD文件中，xmlns:xsd="http://www.w3.org/2001/XMLSchema" 就是声明名称空间，而这个名称空间是W3C的名称空间，无需关联文件就可以直接声明！在XSD文件中所有使用xsd为前面的元素和属性都是来自 http://www.w3.org/2001/XMLSchema 名称空间。
 
 名称空间命名：一般名称空间都是以公司的URL来命名，即网址！当然也可以给名称空间命名为aa、bb之类的名字，但这可能会导致名称空间的重名问题。
 
-前缀命名：前缀的命名没有什么要求，但一般对http://www.w3.org/2001/XMLSchema名称空间的前缀都是使用xs或xsd。http://www.w3.org/2001/XMLSchema-instance的前缀使用xsi。
+前缀命名：前缀的命名没有什么要求，但一般对 http://www.w3.org/2001/XMLSchema名称空间的前缀都是使用xs或xsd。http://www.w3.org/2001/XMLSchema-instance 的前缀使用xsi。
 
-在XML文档中声明xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"名称空间的目的是使用xsi中的一个属性：xsi:noNamespaceSchemaLocation，它是用W3C提供的库属性，用来关联XSD文件用的。当然，它只能关联那些没有“目标名称空间”的XSD文件。下面会讲解目标名称空间！
+在XML文档中声明 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 名称空间的目的是使用xsi中的一个属性：xsi:noNamespaceSchemaLocation，它是用W3C提供的库属性，用来关联XSD文件用的。当然，它只能关联那些没有“目标名称空间”的XSD文件。下面会讲解目标名称空间！
 
 ## **11.6 默认名称空间**
 所谓默认名称空间就是在声明名称空间时，不指定前缀，也可以理解为前缀为空字符串的意思。这样定义元素时，如果没有指定前缀的元素都是在使用默认名称空间中的元素。
 
-xmlns=”http://www.itcast.cn”
-当在文档中使用<xxx>时，那么<xxx>元素就是http://www.itcast.cn名称空间中声明的元素。
+xmlns=”http://www.itcast.cn” 当在文档中使用<xxx>时，那么<xxx>元素就是 http://www.itcast.cn 名称空间中声明的元素。
 
 注意：没有指定前缀的属性不表示在默认名称空间中，而是表示没有名称空间。也就是说，默认名称空间不会涉及到属性，只对元素有效！
 

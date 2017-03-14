@@ -62,7 +62,7 @@ public class ItcastPool implements DataSource {
 			list.add(conWapper);
 		}
 	}
-	
+
 	public void add(Connection con) {
 		list.add(con);
 	}
@@ -82,7 +82,7 @@ ItcastConnection.java
 ```java
 public class ItcastConnection extends ConnectionWrapper {
 	private ItcastPool pool;
-	
+
 	public ItcastConnection(Connection con, ItcastPool pool) {
 		super(con);
 		this.pool = pool;
@@ -111,13 +111,13 @@ public void fun1() throws SQLException {
   ds.setPassword("123");
   ds.setUrl("jdbc:mysql://localhost:3306/mydb1");
   ds.setDriverClassName("com.mysql.jdbc.Driver");
-  
+
   ds.setMaxActive(20);
   ds.setMaxIdle(10);
   ds.setInitialSize(10);
   ds.setMinIdle(2);
   ds.setMaxWait(1000);
-  
+
   Connection con = ds.getConnection();
   System.out.println(con.getClass().getName());
   con.close();
@@ -203,12 +203,12 @@ public void fun1() throws PropertyVetoException, SQLException {
   ds.setUser("root");
   ds.setPassword("123");
   ds.setDriverClass("com.mysql.jdbc.Driver");
-  
+
   ds.setAcquireIncrement(5);
   ds.setInitialPoolSize(20);
   ds.setMinPoolSize(2);
   ds.setMaxPoolSize(50);
-  
+
   Connection con = ds.getConnection();
   System.out.println(con);
   con.close();
@@ -287,11 +287,11 @@ JNDI（Java Naming and Directory Interface），Java命名和目录接口。JNDI
 
 ```xml
 <Context>  
-  <Resource name="mydbcp" 
+  <Resource name="mydbcp"
 			type="org.apache.tomcat.dbcp.dbcp.BasicDataSource"
 			factory="org.apache.naming.factory.BeanFactory"
-			username="root" 
-			password="123" 
+			username="root"
+			password="123"
 			driverClassName="com.mysql.jdbc.Driver"    
 			url="jdbc:mysql://127.0.0.1/mydb1"
 			maxIdle="3"
@@ -300,11 +300,11 @@ JNDI（Java Naming and Directory Interface），Java命名和目录接口。JNDI
 			initialSize="3"/>
 </Context>  
 <Context>  
-  <Resource name="myc3p0" 
+  <Resource name="myc3p0"
 			type="com.mchange.v2.c3p0.ComboPooledDataSource"
 			factory="org.apache.naming.factory.BeanFactory"
-			user="root" 
-			password="123" 
+			user="root"
+			password="123"
 			classDriver="com.mysql.jdbc.Driver"    
 			jdbcUrl="jdbc:mysql://127.0.0.1/mydb1"
 			maxPoolSize="20"
@@ -328,12 +328,12 @@ JNDI（Java Naming and Directory Interface），Java命名和目录接口。JNDI
 - lookup(String)：获取资源的方法，其中”java:comp/env”是资源的入口（这是固定的名称），获取过来的还是一个Context，这说明需要在获取到的Context上进一步进行获取。”bean/MyBeanFactory”对应&lt;Resource>中配置的name值，这回获取的就是资源对象了
 
 ```java
-Context cxt = new InitialContext(); 
+Context cxt = new InitialContext();
 DataSource ds = (DataSource)cxt.lookup("java:/comp/env/mydbcp");
 Connection con = ds.getConnection();
 System.out.println(con);
 con.close();
-Context cxt = new InitialContext(); 
+Context cxt = new InitialContext();
 Context envCxt = (Context)cxt.lookup("java:/comp/env");
 DataSource ds = (DataSource)env.lookup("mydbcp");
 Connection con = ds.getConnection();
@@ -379,7 +379,8 @@ Runnable -> 任务类
 | thread3 | ccc   |
 
 ## **8.1、ThreadLocal API**
-ThreadLocal类只有三个方法：
+ThreadLocal类只有三个方法
+
 | 返回值  | 方法说明         | 功能描述 |
 | :--- | :----------- | :--- |
 | void | set(T value) | 保存值  |
@@ -395,18 +396,18 @@ class MyThreadLocal<T> {
 	public void set(T value) {
 		map.put(Thread.currentThread(), value);
 	}
-	
+
 	public void remove() {
 		map.remove(Thread.currentThread());
 	}
-	
+
 	public T get() {
 		return map.get(Thread.currentThread());
 	}
 }
 ```
 
- ![这里写图片描述](http://img.blog.csdn.net/20161031123355223)
+ ![jdbc](http://img.blog.csdn.net/20161031123355223)
 
 # 9. BaseServlet
 
@@ -418,7 +419,7 @@ class MyThreadLocal<T> {
 
 为了避免Servlet的“膨胀”，我们写一个BaseServlet。它的作用是让一个Servlet可以处理多种不同的请求。不同的请求调用Servlet的不同方法。我们写好了BaseServlet后，让其他Servlet继承BaseServlet，例如CustomerServlet继承BaseServlet，然后在CustomerServlet中提供add()、update()、delete()等方法，每个方法对应不同的请求。
 
-![这里写图片描述](http://img.blog.csdn.net/20161031123412221)
+![jdbc](http://img.blog.csdn.net/20161031123412221)
 ## **9.2、BaseServlet分析**
 我们知道，Servlet中处理请求的方法是service()方法，这说明我们需要让service()方法去调用其他方法。例如调用add()、mod()、del()、all()等方法！具体调用哪个方法需要在请求中给出方法名称！然后service()方法通过方法名称来调用指定的方法
 
@@ -429,7 +430,7 @@ class MyThreadLocal<T> {
 ```
 
 
-![这里写图片描述](http://img.blog.csdn.net/20161031123423177)
+![jdbc](http://img.blog.csdn.net/20161031123423177)
 
 ## **9.3、BaseServlet代码**
 
@@ -445,7 +446,7 @@ public class BaseServlet extends HttpServlet {
 
 		// 例如：http://localhost:8080/demo1/xxx?m=add
 		String methodName = req.getParameter("method");// 它是一个方法名称
-		
+
 		// 当没用指定要调用的方法时，那么默认请求的是execute()方法。
 		if(methodName == null || methodName.isEmpty()) {
 			methodName = "execute";
@@ -544,19 +545,19 @@ DBUtils提供了很多个ResultSetHandler接口的实现，这些实现已经基
 <br>
 Map处理器
 
-![这里写图片描述](http://img.blog.csdn.net/20161031123454427)
+![jdbc](http://img.blog.csdn.net/20161031123454427)
 
-Bean处理器 
+Bean处理器
 
-![这里写图片描述](http://img.blog.csdn.net/20161031123506271)
+![jdbc](http://img.blog.csdn.net/20161031123506271)
 
 Column处理器
 
- ![这里写图片描述](http://img.blog.csdn.net/20161031123515239)
+ ![jdbc](http://img.blog.csdn.net/20161031123515239)
 
 Scalar处理器
 
- ![这里写图片描述](http://img.blog.csdn.net/20161031123523505)
+ ![jdbc](http://img.blog.csdn.net/20161031123523505)
 
 ## **10.5、QueryRunner之查询**
 QueryRunner的查询方法是：
@@ -665,7 +666,7 @@ public void xxx() {
       String sql = …;
       Object[] params = …;
       qr.update(con, sql, params);
-      
+
 	  sql = …;
       Object[] params = …;
       qr.update(con, sql, params);
@@ -756,7 +757,7 @@ public void daoMethod2(…) {
 
 在Service中调用了JdbcUtils.beginTransaction()方法时，JdbcUtils要做准备好一个已经调用了setAuthCommitted(false)方法的Connection对象，因为在Service中调用JdbcUtils.beginTransaction()之后，马上就会调用DAO的方法，而在DAO方法中会调用JdbcUtils.getConnection()方法。这说明JdbcUtils要在getConnection()方法中返回刚刚准备好的，已经设置了手动提交的Connection对象。
 
- ![这里写图片描述](http://img.blog.csdn.net/20161102182901093)
+ ![jdbc](http://img.blog.csdn.net/20161102182901093)
 
 在JdbcUtils中创建一个Connection con属性，当它为null时，说明没有事务！当它不为null时，表示开启了事务。
 
@@ -805,7 +806,7 @@ public class JdbcUtils {
 		}
 		return con;
 	}
-	
+
 	public static void beginTranscation() throws SQLException {
 		if(con != null) {
 			throw new SQLException("事务已经开启，在没有结束当前事务时，不能再开启事务！");
@@ -813,7 +814,7 @@ public class JdbcUtils {
 		con = dataSource.getConnection();
 		con.setAutoCommit(false);
 	}
-	
+
 	public static void commitTransaction() throws SQLException {
 		if(con == null) {
 			throw new SQLException("当前没有事务，所以不能提交事务！");
@@ -822,7 +823,7 @@ public class JdbcUtils {
 		con.close();
 		con = null;
 	}
-	
+
 	public static void rollbackTransaction() throws SQLException {
 		if(con == null) {
 			throw new SQLException("当前没有事务，所以不能回滚事务！");
@@ -844,10 +845,10 @@ public class JdbcUtils {
 public class JdbcUtils {
 	// 配置文件的默认配置！要求你必须给出c3p0-config.xml！！！
 	private static ComboPooledDataSource dataSource = new ComboPooledDataSource();
-	
+
 	// 它是事务专用连接！
 	private static ThreadLocal<Connection> tl = new ThreadLocal<Connection>();
-	
+
 	/**
 	 * 使用连接池返回一个连接对象
 	 * @return
@@ -859,7 +860,7 @@ public class JdbcUtils {
 		if(con != null) return con;
 		return dataSource.getConnection();
 	}
-	
+
 	/**
 	 * 返回连接池对象！
 	 * @return
@@ -867,7 +868,7 @@ public class JdbcUtils {
 	public static DataSource getDataSource() {
 		return dataSource;
 	}
-	
+
 	/**
 	 * 开启事务
 	 * 1. 获取一个Connection，设置它的setAutoComnmit(false)
@@ -876,7 +877,7 @@ public class JdbcUtils {
 	 * 1. 创建一个Connection，设置为手动提交
 	 * 2. 把这个Connection给dao用！
 	 * 3. 还要让commitTransaction或rollbackTransaction可以获取到！
-	 * @throws SQLException 
+	 * @throws SQLException
 	 */
 	public static void beginTransaction() throws SQLException {
 		Connection con = tl.get();
@@ -887,14 +888,14 @@ public class JdbcUtils {
 		 */
 		con = getConnection();//给con赋值，表示事务已经开始了
 		con.setAutoCommit(false);
-		
+
 		tl.set(con);//把当前线程的连接保存起来！
 	}
-	
+
 	/**
 	 * 提交事务
 	 * 1. 获取beginTransaction提供的Connection，然后调用commit方法
-	 * @throws SQLException 
+	 * @throws SQLException
 	 */
 	public static void commitTransaction() throws SQLException {
 		Connection con = tl.get();//获取当前线程的专用连接
@@ -907,11 +908,11 @@ public class JdbcUtils {
 		// 把它设置为null，表示事务已经结束了！下次再去调用getConnection()返回的就不是con了
 		tl.remove();//从tl中移除连接
 	}
-	
+
 	/**
 	 * 提交事务
 	 * 1. 获取beginTransaction提供的Connection，然后调用rollback方法
-	 * @throws SQLException 
+	 * @throws SQLException
 	 */
 	public static void rollbackTransaction() throws SQLException {
 		Connection con = tl.get();
@@ -923,11 +924,11 @@ public class JdbcUtils {
 		con.close();
 		tl.remove();
 	}
-	
+
 	/**
 	 * 释放连接　
 	 * @param connection
-	 * @throws SQLException 
+	 * @throws SQLException
 	 */
 	public static void releaseConnection(Connection connection) throws SQLException {
 		Connection con = tl.get();
@@ -960,7 +961,7 @@ public class AccountDao {
 ```java
 public class AccountService {
 	private AccountDao dao = new AccountDao();
-	
+
 	public void transfer(String from, String to, double balance) {
 		try {
 			JdbcUtils.beginTranscation();

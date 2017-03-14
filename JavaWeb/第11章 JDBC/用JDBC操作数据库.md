@@ -37,6 +37,7 @@ ResultSet对象表示查询结果集，只有在执行查询操作后才会有�
 
 - boolean next()：使“行光标”移动到下一行，并返回移动后的行是否存在
 - XXX getXXX(int col)：获取当前行指定列上的值，参数就是列数，列数从1开始，而不是0
+
 # **4. Hello JDBC**
 
 下面开始编写第一个JDBC程序
@@ -284,7 +285,7 @@ Connection con = DriverManager.getConnection(url, username, password);
 Connection最为重要的方法就是获取Statement：
 
 ```java
-Statement stmt = con.createStatement(); 
+Statement stmt = con.createStatement();
 ```
 
 后面在学习ResultSet方法时，还要学习一下下面的方法：
@@ -294,6 +295,7 @@ Statement stmt = con.createStatement(int,int);
 ```
 
 ## **5.4 Statement**
+
 Statement最为重要的方法是：
 
 - int executeUpdate(String sql)：执行更新操作，即执行insert、update、delete语句，其实这个方法也可以执行create table、alter table，以及drop table等语句，但我们很少会使用JDBC来执行这些语句
@@ -314,6 +316,7 @@ Statement还有一个boolean execute()方法，这个方法可以用来执行增
 到N行！
 
 ResultSet表示结果集，它是一个二维的表格！ResultSet内部维护一个行光标（游标），ResultSet提供了一系列的方法来移动游标
+
 | 返回值     | 方法                | 功能描述                                    |
 | :------ | :---------------- | :-------------------------------------- |
 | void    | beforeFirst()     | 把光标放到第一行的前面，这也是光标默认的位置                  |
@@ -331,6 +334,7 @@ ResultSet表示结果集，它是一个二维的表格！ResultSet内部维护�
 | int     | getRow()          | 返回当前光标所有行                               |
 <br>
 获取结果集元数据
+
 | 返回值               | 方法                          | 功能描述     |
 | :---------------- | :-------------------------- | :------- |
 | ResultSetMetaData | getMetaData()               | 得到元数据    |
@@ -378,7 +382,7 @@ resultSetConcurrency的可选值：
 - CONCUR_READ_ONLY：结果集是只读的，不能通过修改结果集而反向影响数据库；
 - CONCUR_UPDATABLE：结果集是可更新的，对结果集的更新可以反向影响数据库。
 
-通常可更新结果集这一“高级特性”我们也是不需要的！ 
+通常可更新结果集这一“高级特性”我们也是不需要的！
 
 获取滚动结果集的代码如下：
 
@@ -402,7 +406,8 @@ ResultSet rs = stmt.executeQuery(sql);//这个结果集是可滚动的
 <br>
 上面方法中，参数columnIndex表示列的索引，列索引从1开始，而不是0，这第一点与数组不同。如果你清楚当前列的数据类型，那么可以使用getInt()之类的方法来获取，如果你不清楚列的类型，那么你应该使用getObject()方法来获取
 
-ResultSet还提供了一套通过列名称来获取列数据的方法：
+ResultSet还提供了一套通过列名称来获取列数据的方法
+
 | 返回值     | 方法                            | 功能描述                        |
 | :------ | :---------------------------- | :-------------------------- |
 | String  | getString(String columnName)  | 获取名称为columnName的列的String数据  |
@@ -465,7 +470,7 @@ public void login(String username, String password) {
 			con = JdbcUtils.getConnection();
 			stmt = con.createStatement();
 			String sql = "SELECT * FROM user WHERE " +
-					"username='" + username + 
+					"username='" + username +
 					"' and password='" + password + "'";
 			rs = stmt.executeQuery(sql);
 			if(rs.next()) {
@@ -573,17 +578,17 @@ Connection con = JdbcUtils.getConnection();
 			System.out.print(rs.getString(3) + ", ");
 			System.out.println(rs.getString(4));
 		}
-		
+
 		stmt.executeUpdate("set @str='b2'");
 		rs = stmt.executeQuery("execute myfun using @str");
-		
+
 		while(rs.next()) {
 			System.out.print(rs.getString(1) + ", ");
 			System.out.print(rs.getString(2) + ", ");
 			System.out.print(rs.getString(3) + ", ");
 			System.out.println(rs.getString(4));
 		}
-		
+
 		rs.close();
 		stmt.close();
 		con.close();
@@ -600,7 +605,7 @@ Connection con = JdbcUtils.getConnection();
 Connection con = JdbcUtils.getConnection();
 		String sql = "select * from t_book where bid=?";
 		PreparedStatement pstmt = con.prepareStatement(sql);
-		
+
 		pstmt.setString(1, "b1");
 		ResultSet rs = pstmt.executeQuery();
 		while(rs.next()) {
@@ -609,7 +614,7 @@ Connection con = JdbcUtils.getConnection();
 			System.out.print(rs.getString(3) + ", ");
 			System.out.println(rs.getString(4));
 		}
-		
+
 		pstmt.setString(1, "b2");
 		rs = pstmt.executeQuery();
 		while(rs.next()) {
@@ -618,7 +623,7 @@ Connection con = JdbcUtils.getConnection();
 			System.out.print(rs.getString(3) + ", ");
 			System.out.println(rs.getString(4));
 		}
-		
+
 		rs.close();
 		pstmt.close();
 		con.close();
@@ -636,7 +641,7 @@ jdbc:mysql://localhost:3306/test?useServerPrepStmts=true&cachePrepStmts=true
 Connection con = JdbcUtils.getConnection();
 		String sql = "select * from t_book where bid=?";
 		PreparedStatement pstmt = con.prepareStatement(sql);
-		
+
 		pstmt.setString(1, "b1");
 		ResultSet rs = pstmt.executeQuery();
 		while(rs.next()) {
@@ -645,7 +650,7 @@ Connection con = JdbcUtils.getConnection();
 			System.out.print(rs.getString(3) + ", ");
 			System.out.println(rs.getString(4));
 		}
-		
+
 		pstmt = con.prepareStatement(sql);
 		pstmt.setString(1, "b2");
 		rs = pstmt.executeQuery();
@@ -655,7 +660,7 @@ Connection con = JdbcUtils.getConnection();
 			System.out.print(rs.getString(3) + ", ");
 			System.out.println(rs.getString(4));
 		}
-		
+
 		rs.close();
 		pstmt.close();
 		con.close();
@@ -835,7 +840,7 @@ public class UserDaoImpl implements UserDao {
 				if(pstmt != null) pstmt.close();
 				if(con != null) con.close();
 			} catch(SQLException e) {}
-		}	
+		}
 	}
 
 	public List<User> findAll() {
@@ -859,7 +864,7 @@ public class UserDaoImpl implements UserDao {
 				if(pstmt != null) pstmt.close();
 				if(con != null) con.close();
 			} catch(SQLException e) {}
-		}	
+		}
 	}
 }
 ```
@@ -965,7 +970,7 @@ public void fun1() throws SQLException {
         Connection con = JdbcUtils.getConnection();
         String sql = "insert into dt value(?,?,?)";
         PreparedStatement pstmt = con.prepareStatement(sql);
-        
+
         java.util.Date d = new java.util.Date();
         pstmt.setDate(1, new java.sql.Date(d.getTime()));
         pstmt.setTime(2, new Time(d.getTime()));
@@ -975,7 +980,7 @@ public void fun1() throws SQLException {
 ```
 
 下面是从dt表中查询数据的代码：
-​	
+​
 
 ```java
 @Test
@@ -984,12 +989,12 @@ public void fun2() throws SQLException {
         String sql = "select * from dt";
         PreparedStatement pstmt = con.prepareStatement(sql);
         ResultSet rs = pstmt.executeQuery();
-        
+
         rs.next();
         java.util.Date d1 = rs.getDate(1);
         java.util.Date d2 = rs.getTime(2);
         java.util.Date d3 = rs.getTimestamp(3);
-        
+
         System.out.println(d1);
         System.out.println(d2);
         System.out.println(d3);
@@ -1002,7 +1007,8 @@ public void fun2() throws SQLException {
 max_allowed_packet=10485760
 
 ## **10.1 什么是大数据**
-所谓大数据，就是大的字节数据，或大的字符数据。标准SQL中提供了如下类型来保存大数据类型：
+所谓大数据，就是大的字节数据，或大的字符数据。标准SQL中提供了如下类型来保存大数据类型
+
 | 类型         | 长度                      |
 | :--------- | :---------------------- |
 | tinyblob   | 2<sup>8</sup>--1B（256B） |
@@ -1014,7 +1020,8 @@ max_allowed_packet=10485760
 | mediumclob | 2<sup>24</sup>-1B（16M）  |
 | longclob   | 2<sup>32</sup>-1B（4G）   |
 <br>
-但是，在mysql中没有提供tinyclob、clob、mediumclob、longclob四种类型，而是使用如下四种类型来处理文本大数据：
+但是，在mysql中没有提供tinyclob、clob、mediumclob、longclob四种类型，而是使用如下四种类型来处理文本大数据
+
 | 类型         | 长度                      |
 | :--------- | :---------------------- |
 | tinytext   | 2<sup>8</sup>--1B（256B） |

@@ -2,6 +2,7 @@
 完整性约束是为了表的数据的正确性！如果数据不正确，那么一开始就不能添加到表中。
 
 # 2. 主键
+
 当某一列添加了主键约束后，那么这一列的数据就不能重复出现。这样每行记录中其主键列的值就是这一行的唯一标识。例如学生的学号可以用来做唯一标识，而学生的姓名是不能做唯一标识的，因为姓名有可能同名。
 
 主键列的值不能为NULL，也不能重复！指定主键约束使用PRIMARY KEY关键字
@@ -13,7 +14,7 @@ CREATE TABLE stu(
 		sid	    CHAR(6) PRIMARY KEY,
 		sname	VARCHAR(20),
 		age		INT,
-		gender	VARCHAR(10) 
+		gender	VARCHAR(10)
 );
 ```
 
@@ -187,9 +188,9 @@ CREATE TABLE t_section(
 ```
 修改t_section表，指定u_id为相对t_user表的uid列的外键：
 ```mysql
-ALTER TABLE t_section 
-ADD CONSTRAINT fk_t_user 
-FOREIGN KEY(u_id) 
+ALTER TABLE t_section
+ADD CONSTRAINT fk_t_user
+FOREIGN KEY(u_id)
 REFERENCES t_user(uid);
 ```
 修改t_section表，删除u_id的外键约束：
@@ -237,7 +238,7 @@ wife.wid是主键，不能重复，又是外键，必须来自husband.hid。
     ...
     deptno int/*所属部门的编号*/
   );
-  
+
   /*部门表*/
   create table dept (
     deptno int  primary key,/*部门编号*/
@@ -249,7 +250,7 @@ emp表中的deptno列的值表示当前员工所从属的部门编号。也就�
 
 我们需要给emp.deptno添加外键约束，约束它的值必须在dept.deptno中存在。外键必须是另一个表的主键！
 
-语法：CONSTRAINT 约束名称 FOREIGN KEY(外键列名) REFERENCES 关联表(关联表的主键) 
+语法：CONSTRAINT 约束名称 FOREIGN KEY(外键列名) REFERENCES 关联表(关联表的主键)
 
 ```mysql
 /*创建表时指定外键约束*/

@@ -222,11 +222,13 @@ public void doGet(HttpServletRequest request, HttpServletResponse response)
 
 # **3. Cookie的path**
 ## **3.1 什么是Cookie的路径**
+
 现在有WEB应用A，向客户端发送了10个Cookie，这就说明客户端无论访问应用A的哪个Servlet都会把这10个Cookie包含在请求中！但是也许只有AServlet需要读取请求中的Cookie，而其他Servlet根本就不会获取请求中的Cookie。这说明客户端浏览器有时发送这些Cookie是多余的！
 
 可以通过设置Cookie的path来指定浏览器，在访问什么样的路径时，包含什么样的Cookie
 
 ## **3.2 Cookie路径与请求路径的关系**
+
 下面我们来看看Cookie路径的作用：
 下面是客户端浏览器保存的3个Cookie的路径：
 
@@ -257,11 +259,12 @@ cookie.setPath(“/cookietest/servlet”);
 ```
 如果没有设置Cookie的路径，那么Cookie路径的默认值为当前访问资源所在路径，例如：
 
-- 访问http://localhost:8080/cookietest/AServlet时添加的Cookie默认路径为/cookietest
-- 访问http://localhost:8080/cookietest/servlet/BServlet时添加的Cookie默认路径为/cookietest/servlet
-- 访问http://localhost:8080/cookietest/jsp/BServlet时添加的Cookie默认路径为/cookietest/jsp
+- 访问 http://localhost:8080/cookietest/AServlet 时添加的Cookie默认路径为/cookietest
+- 访问 http://localhost:8080/cookietest/servlet/BServlet 时添加的Cookie默认路径为/cookietest/servlet
+- 访问 http://localhost:8080/cookietest/jsp/BServlet 时添加的Cookie默认路径为/cookietest/jsp
 
 # **4. Cookie的domain**
+
 Cookie的domain属性可以让网站中二级域共享Cookie，次要！
 百度你是了解的对吧！
 
@@ -588,6 +591,7 @@ session是依赖Cookie实现的。session是服务器端对象
 当用户打开某个服务器页面长时间没动作时，这样session会超时失效，当用户再有活动时，服务器通过用户提供的sessionId已经找不到session对象了，那么服务器还是会创建一个新的session对象，再把新的sessionId保存到客户端。这也是一个新的会话开始了。
 
 ## **7.4 Session与浏览器**
+
 session保存在服务器，而sessionId通过Cookie发送给客户端，但这个Cookie的生命不为-1，即只在浏览器内存中存在，也就是说如果用户关闭了浏览器，那么这个Cookie就丢失了
 
 当用户再次打开浏览器访问服务器时，就不会有sessionId发送给服务器，那么服务器会认为你没有session，所以服务器会创建一个session，并在响应中把sessionId保存到Cookie中发送给客户端
@@ -616,6 +620,7 @@ session失效时间也说明一个问题！如果你打开网站的一个页面�
 
 
 ## **7.6 URL重写**
+
 我们知道session依赖Cookie，那么session为什么依赖Cookie呢？因为服务器需要在每次请求中获取sessionId，然后找到客户端的session对象。那么如果客户端浏览器关闭了Cookie呢？那么session是不是就会不存在了呢？
 
 其实还有一种方法让服务器收到的每个请求中都带有sessioinId，那就是URL重写！在每个页面中的每个链接和表单中都添加名为jsessionid的参数，值为当前sessionid。当用户点击链接或提交表单时服务器也可以通过获取jsessionid这个参数来得到客户端的sessionId，找到sessoin对象。
@@ -742,6 +747,7 @@ public class RegistServlet extends HttpServlet {
 }
 ```
 ## **8.6 总结验证码案例**
+
 **VerifyCodeServlet：**
 
 - 生成验证码：VerifyCode vc = new VerifyCode(); BufferedImage image = vc.getImage()

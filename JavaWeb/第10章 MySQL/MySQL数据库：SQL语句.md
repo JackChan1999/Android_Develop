@@ -7,6 +7,7 @@
 
 # 1. SQL概述
 ## **1.1 什么是SQL**
+
 SQL（Structured Query Language）是“结构化查询语言”，它是对关系型数据库的操作语言。它可以应用到所有关系型数据库中，例如：MySQL、Oracle、SQL Server等。SQ标准（ANSI/ISO）有：
 
 - SQL-92：1992年发布的SQL语言标准
@@ -241,6 +242,7 @@ ORDER BY sorting_columns	/*对结果分组*/
 LIMIT offset_start, row_count;	/*结果限定*/
 ```
 创建学生表：stu
+
 | 字段名称   | 字段类型        | 说明   |
 | :----- | :---------- | :--- |
 | sid    | char(6)     | 学生学号 |
@@ -269,6 +271,7 @@ INSERT INTO stu VALUES('S_1010', 'zhengShi', 5, 'female');
 INSERT INTO stu VALUES('S_1011', 'xxx', NULL, NULL);
 ```
 雇员表：emp
+
 | 字段名称     | 字段类型         | 说明   |
 | :------- | :----------- | :--- |
 | empno    | int          | 员工编号 |
@@ -310,6 +313,7 @@ INSERT INTO emp values(7902,'FORD','ANALYST',7566,'1981-12-03',3000,NULL,20);
 INSERT INTO emp values(7934,'MILLER','CLERK',7782,'1982-01-23',1300,NULL,10);
 ```
 部门表：dept
+
 | 字段名称   | 字段类型        | 说明     |
 | :----- | :---------- | :----- |
 | deptno | int         | 部分编码   |
@@ -554,6 +558,7 @@ ORDER BY sal DESC,empno ASC;
 
 # **7. 聚合函数**
 聚合函数是用来做纵向运算的函数：
+
 | 聚合函数    | 功能描述                              |
 | :------ | :-------------------------------- |
 | COUNT() | 统计指定列不为NULL的记录行数                  |

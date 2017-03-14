@@ -23,7 +23,7 @@ AJAX还有一个最大的特点就是，当服务器响应时，不用刷新整�
 - 整个过程中页面没有刷新，只是刷新页面中的局部位置而已！
 - 当请求发出后，浏览器还可以进行其他操作，无需等待服务器的响应！
 
- ![ajax](http://img.blog.csdn.net/20161029003228262)
+![ajax](http://img.blog.csdn.net/20161029003228262)
 
 当输入用户名后，把光标移动到其他表单项上时，浏览器会使用AJAX技术向服务器发出请求，服务器会查询名为zhangSan的用户是否存在，最终服务器返回true表示名为zhangSan的用户已经存在了，浏览器在得到结果后显示“用户名已被注册！”
 
@@ -43,7 +43,7 @@ AJAX还有一个最大的特点就是，当服务器响应时，不用刷新整�
 - AJAX虽然提高了用户体验，但无形中向服务器发送的请求次数增多了，导致服务器压力增大
 - 因为AJAX是在浏览器中使用Javascript技术完成的，所以还需要处理浏览器兼容性问题
 
-#2. AJAX技术
+# 2. AJAX技术
 ## **2.1 AJAX第一例**
 ### **2.1.1 准备工作**
 因为AJAX也需要请求服务器，异步请求也是请求服务器，所以我们需要先写好服务器端代码，即编写一个Servlet！
@@ -134,7 +134,7 @@ xmlHttp.onreadystatechange = function() {
 ```javascript
 xmlHttp.onreadystatechange = function() {
   if(xmlHttp.readyState == 4) {
-    alert('hello'); 
+    alert('hello');
   }
 };
 ```
@@ -292,7 +292,7 @@ public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html;charset=utf-8");
-		
+
 		String username = request.getParameter("username");
 
 		if("itcast".equals(username)) {
@@ -359,7 +359,7 @@ public class ProvinceServlet extends HttpServlet {
 			throws ServletException, IOException {
 		// 注意设置编码
 		response.setContentType("text/html;charset=utf-8");
-		
+
 		// 使用DOM4J解析xml文档
 		InputStream input = this.getClass().getClassLoader().getResourceAsStream("china.xml");
 		SAXReader reader = new SAXReader();
@@ -396,7 +396,7 @@ public class CityServlet extends HttpServlet {
 		response.setContentType("text/xml;charset=utf-8");
 		// 获取省份参数
 		String provinceName = request.getParameter("provinceName");
-		
+
 		InputStream input = this.getClass().getClassLoader().getResourceAsStream("china.xml");
 		SAXReader reader = new SAXReader();
 		try {
@@ -461,14 +461,14 @@ function loadCities() {
 			var citySelect = document.getElementById("city");
 			// 删除city的<select>元素的所有子元素
 			removeChildNodes(citySelect);
-			
+
 			// 创建<option>元素，指定文本内容为“请选择”
 			var qxzOption = document.createElement("option");
 			var textNode = document.createTextNode("===请选择===");
 			qxzOption.appendChild(textNode);
 			// 把"请选择"这个<option>添加到<select>元素中
 			citySelect.appendChild(qxzOption);
-			
+
 			// 循环遍历每个服务器端响应的每个<city>元素
 			for(var i = 0; i < cityElementList.length; i++) {
 				var cityEle = cityElementList[i];
@@ -488,7 +488,7 @@ function loadCities() {
 	// 因为是POST请求，所以要设置Content-Type请求头
 	xmlHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 	// 参数为当前选中的省份名称
-	xmlHttp.send("provinceName=" + proName);	
+	xmlHttp.send("provinceName=" + proName);
 }
 // 使用proName创建<option>元素添加到<select>元素中
 function addProvinceOption(proName) {
@@ -539,7 +539,7 @@ Province.java
 public class Province {
 	private String name;
 	private List<City> cities = new ArrayList<City>();
-	
+
 	public void addCity(City city) {
 		cities.add(city);
 	}
@@ -617,8 +617,8 @@ System.out.println(s);
 
 ```java
 xstream.alias("province", Province.class);
-xstream.alias("china", List.class); 
-xstream.alias("city", City.class); 
+xstream.alias("china", List.class);
+xstream.alias("city", City.class);
 ```
 
 ```xml
@@ -724,7 +724,7 @@ xstream.addImplicitCollection(Province.class, "cities");
 到现在为止，我们都是每个类，每个成员都有对应的元素（或属性）存在，但有时我们并不希望某些类的成员在对应的XML文档中出现，例如我们不希望City类的description成员出现在XML文档中，可以使用下面方法：
 
 ```java
-xstream.omitField(City.class, "description"); 
+xstream.omitField(City.class, "description");
 ```
 
 ```xml
@@ -900,7 +900,7 @@ function createXMLHttpRequest() {
 			return ActvieXObject("Msxml2.XMLHTTP");//IE6.0
 		} catch (e) {
 			try {
-				return ActvieXObject("Microsoft.XMLHTTP");//IE5.5及更早版本	
+				return ActvieXObject("Microsoft.XMLHTTP");//IE5.5及更早版本
 			} catch (e) {
 				alert("哥们儿，您用的是什么浏览器啊？");
 				throw e;
@@ -911,10 +911,10 @@ function createXMLHttpRequest() {
 /*
  * option对象有如下属性
  */
- 		/*请求方式*/method, 
-		/*请求的url*/ url, 
-		/*是否异步*/asyn, 
-		/*请求体*/params, 
+ 		/*请求方式*/method,
+		/*请求的url*/ url,
+		/*是否异步*/asyn,
+		/*请求体*/params,
 		/*回调方法*/callback,
 		/*服务器响应数据转换成什么类型*/type
 
@@ -943,7 +943,7 @@ function ajax(option) {
 	 * 4. 发送请求
 	 */
 	xmlHttp.send(option.params);
-	
+
 	/*
 	 * 5. 注册监听
 	 */
@@ -961,7 +961,7 @@ function ajax(option) {
 				var text = xmlHttp.responseText;
 				data = eval("(" + text + ")");
 			}
-			
+
 			// 调用回调方法
 			option.callback(data);
 		}
