@@ -1,10 +1,9 @@
 # 即时通讯系列阅读
 
 1. [即时通讯基础](http://blog.csdn.net/axi295309066/article/details/62427091)
-
 2. [即时通讯：XMPP基础](http://blog.csdn.net/axi295309066/article/details/62427206)
-
 3. [即时通讯：XMPP项目实践-微聊](http://blog.csdn.net/axi295309066/article/details/62427366)
+4. [Smack类库最好的学习资料](http://blog.csdn.net/axi295309066/article/details/62435856)
 
 # 1. 项目简介
 

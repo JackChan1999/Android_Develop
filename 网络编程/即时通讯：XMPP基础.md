@@ -1,10 +1,9 @@
 # 即时通讯系列阅读
 
 1. [即时通讯基础](http://blog.csdn.net/axi295309066/article/details/62427091)
-
 2. [即时通讯：XMPP基础](http://blog.csdn.net/axi295309066/article/details/62427206)
-
 3. [即时通讯：XMPP项目实践-微聊](http://blog.csdn.net/axi295309066/article/details/62427366)
+4. [Smack类库最好的学习资料](http://blog.csdn.net/axi295309066/article/details/62435856)
 
 # 1. XMPP 简介
 
@@ -15,6 +14,16 @@ XMPP（Extensible Messaging and Presence Protocol）是一种基于标准通用�
 XMPP（可扩展消息处理现场协议）是基于可扩展标记语言（XML）的协议，它用于即时消息（IM）以及在线现场探测。它在促进服务器之间的准即时操作。这个协议可能最终允许因特网用户向因特网上的其他任何人发送即时消息，即使其操作系统和浏览器不同。
 
 XMPP 的前身是Jabber，一个开源形式组织产生的网络即时通信协议。XMPP 目前被IETF 国际标准组织完成了标准化工作。标准化的核心结果分为两部分；XMPP 其实就是用TCP 传的是XML 文件流。
+
+xmpp特点
+
+1. **开放**: XMPP协议是自由、开放、公开的，并且易于了解。 而且在客户端 、 服务器 、 组件 、 源码库等方面，都已经各自有多种实现。 
+2. **标准**: 互联网工程工作小组（ IETF ）已经将Jabber的核心XML流协议以XMPP之名，正式列为认可的实时通信及Presence技术。 而XMPP的技术规格已被定义在RFC3920及RFC3921 。 任何IM供应商在遵循XMPP协议下，都可与Google Talk实现连接。 
+3. **证实可用**: 第一个Jabber(现在XMPP)技术是Jeremie Miller在1998年开发的，现在已经相​​当稳定；数以百计的开发者为XMPP技术而努力。 今日的互联网上有数以万计的XMPP服务器运作着，并有数以百万计的人们使用XMPP实时传讯软件。 
+4. **分散式**: XMPP网络的架构和电子邮件十分相像；XMPP核心协议通信方式是先创建一个stream，XMPP以TCP传递XML数据流，没有中央主服务器。 任何人都可以运行自己的XMPP服务器，使个人及组织能够掌控他们的实时传讯体验。 
+5. **安全**: 任何XMPP协议的服务器可以独立于公众XMPP网络（例如在企业内部网络中），而使用SASL及TLS等技术的可靠安全性，已自带于核心XMPP技术规格中。 
+6. **可扩展**: XML 命名空间的威力可使任何人在核心协议的基础上建造定制化的功能；为了维持通透性，常见的扩展由XMPP标准基金会 。 弹性佳 XMPP除了可用在实时通信的应用程序，还能用在网络管理、内容供稿、协同工具、文件共享、游戏、远程系统监控等。 
+7. **多样性**: 用XMPP协议来建造及布署实时应用程序及服务的公司及开放源代码计划分布在各种领域；用XMPP技术开发软件，资源及支持的来源是多样的，使得使你不会陷于被“绑架”的困境。
 
 下面给大家介绍XMPP 通信中最核心的三个XML 节（stanza）。这些节（stanza）有自己的作用和目标，通过组织不同的节（stanza），就能达到我们各种各样的通信目的。
 
@@ -155,7 +164,9 @@ presence 节（stanza）用来控制和表示实体的在线状态，可以展�
 
 Openfire 采用Java 开发，开源的实时协作（RTC）服务器基于XMPP（Jabber）协议。Openfire 安装和使用都非常简单，并利用Web 进行管理。单台服务器可支持上万并发用户。您可以使用它轻易的构建高效率的即时通信服务器。由于是采用开放的XMPP 协议，您可以使用各种支持XMPP 协议的IM 客户端软件登陆服务。
 
-## 2.1 案例-数组的基本使用Openfire 的下载和安装
+相关的下载：[asmack github](https://github.com/Flowdalic/asmack)、[asmack下载地址1](http://asmack.freakempire.de/)、[asmack下载地址2](http://code.google.com/p/asmack/downloads/list)、[openfire下载地址](http://www.igniterealtime.org/downloads/index.jsp)、[smack使用指南](http://www.igniterealtime.org/builds/smack/docs/latest/documentation/index.html)
+
+## 2.1 案例-Openfire 的下载和安装
 
 下载地址：http://www.igniterealtime.org/downloads/index.jsp
 
@@ -188,6 +199,8 @@ Openfire 采用Java 开发，开源的实时协作（RTC）服务器基于XMPP�
 点击完成
 
 ![](http://upload-images.jianshu.io/upload_images/3981391-fe264ddc4cc503da.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+openfire启动失败问题，安装好后，启动，提示 [Java](http://lib.csdn.net/base/javase).io.FileNotFoundException: ..\lib\commons-el.jar ，解决办法：只需要 以管理员的身份运行openfire 即可
 
 启动之后弹出如上界面，有异常！大概应该是日志相关的文件找不到。我们先不管，点击Launch Admin 启动
 管理控制台。
@@ -243,6 +256,8 @@ openfire 管理员默认账号为admin，密码就是我们上一个界面设置
 分组聊天界面：
 
 ![](http://upload-images.jianshu.io/upload_images/3981391-d6ac6acd76533486.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+当我们用org.jivesoftware.smack.XMPPConnection.login(String username,String password)登录时，如果出现“SASLError using DIGEST-MD5: not-authorized”异常，这说明我们客户端没有开启SASL机制，在XMPP连接配置的时候，加上“SASLAuthentication.supportSASLMechanism("PLAIN",0);”这个支持SASL机制的方法就可以解决了。
 
 # 3. XMPP 客户端平台
 

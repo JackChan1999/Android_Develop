@@ -4,6 +4,7 @@
 
 # [1. GitBook Editor](https://www.gitbook.com/editor)
 最简单的方式就是使用GitBook编辑器，没有什么难度，后面的教程主要针对命令行的方式。
+
 ![](https://www.gitbook.com/assets/images/editor/preview_windows.png)
 
 PS：GitBook的book页面默认没有download按钮的
@@ -27,13 +28,17 @@ PS：GitBook的book页面默认没有download按钮的
 
 # 2. 安装 nodejs
 
-首先我们需要做的是安装 [Nodejs](http://nodejs.cn/)(http://nodejs.cn/)。大家可以到 [Nodejs](http://nodejs.cn/) 的官网进行下载。下载完成后，执行双击进行运行安装。安装完成后，打开 cmd 命令行，输入 node -v 查看安装的 nodejs 的相关版本信息。
+首先我们需要做的是安装 [Nodejs](http://nodejs.cn/)。大家可以到 [Nodejs](http://nodejs.cn/) 的官网进行下载。下载完成后，执行双击进行运行安装。安装完成后，打开 cmd 命令行，输入 node -v 查看安装的 nodejs 的相关版本信息。
 
 也可以在安装目录中找到 node.exe 文件，打开输入 node -v 查看安装的 nodejs 的相关版本信息。
 
 # 3. nodejs 镜像配置
 
 nodejs 安装完成后，我们就可以开始安装 gitbook 了。但是在安装之前，我们还需要配置一下 nodejs 插件安装的下载镜像地址。因为默认的镜像地址是在国外，需要翻墙才可以访问，因此我们需要设置国内的镜像地址。国内的我推荐大家使用阿里巴巴的镜像地址 http://registry.npm.taobao.org 。执行下面的命令，进行配置。
+
+```
+npm config set registry http://registry.npm.taobao.org
+```
 
 除了上面的方法外，我们也可以在用户主目录下编辑 .npmrc 文件，添加一行 registry=http://registry.npm.taobao.org 保存就可以了。用户的主目录一般在 C:\Users\Administrator ，具体随你的操作系统系统盘而定。
 
