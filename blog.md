@@ -87,4 +87,11 @@
 18		窗口管理器																																															
 
 	权限																																																
-	代码		WindowManager windowManager = (WindowManager) getSystemService(Context.WINDOW_SERVICE); 																																														
+	代码		WindowManager windowManager = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
+	
+
+# Android系统的常用权限
+
+http://img.blog.csdn.net/20160131122057559
+http://img.blog.csdn.net/20160131122113731
+http://img.blog.csdn.net/20160131122129746
