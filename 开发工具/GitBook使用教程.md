@@ -15,10 +15,10 @@ PS：GitBook的book页面默认没有download按钮的
 
 ![GitBook](http://upload-images.jianshu.io/upload_images/3981391-14e549f7801c794c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-## 同步GitHub
+## 1.1 同步GitHub
 ![gitbook](http://upload-images.jianshu.io/upload_images/3981391-41675f06ba92da6c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-## 更新失败，无法转换成pdf/mobi/epub格式
+## 1.2 更新失败，无法转换成pdf/mobi/epub格式
 
 
 ![gitbook](http://upload-images.jianshu.io/upload_images/3981391-e895f74985d2b8b9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
@@ -302,7 +302,7 @@ info: found 2 asset files
 warn: "options" property is deprecated, use config.get(key) instead
 warn: "options.generator" property is deprecated, use "output.name" instead
 error: error while generating page "README.md":
- 
+
 TypeError: this.contentPath is not a function
 ```
 
@@ -325,12 +325,14 @@ Error: Couldn't locate plugins "baidu, donate", Run 'gitbook install' to install
 
 这是提示插件没有安装的错误。大家执行 gitbook install 命令完成安装即可。
 
+![gitbook install](http://upload-images.jianshu.io/upload_images/3981391-0e12415cc8846989.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
 # 8. [gitbook-convert](https://github.com/GitbookIO/gitbook-convert)
 把docx、xml、html、odt文档转成GitBook
 
 ## 安装
 ```
-$ npm install gitbook-convert -g 
+$ npm install gitbook-convert -g
 ```
 ## 常用命令
 
@@ -345,7 +347,297 @@ $ gitbook-convert [options] <file> [export-directory]
 
 ![gitbook-convert](http://upload-images.jianshu.io/upload_images/3981391-8d69bf8557ebe4d3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-# 9. 更多GitBook教程
+# 9. 常用插件
+
+Gitbook 本身功能丰富，但同时可以使用插件来进行个性化定制。[Gitbook 插件](http://localhost:4000/start/plugin.html) 里已经有100多个插件，可以在 `book.json` 文件的 `plugins` 和 `pluginsConfig` 字段添加插件及相关配置，添加后别忘了进行安装。
+
+```
+// book.json
+{
+  "title": "Webpack 中文指南",
+  "description": "Webpack 是当下最热门的前端资源模块化管理和打包工具，本书大部分内容翻译自 Webpack 官网。",
+  "language": "zh",
+  "plugins": [
+    "disqus",
+    "github",
+    "editlink",
+    "prism",
+    "-highlight",
+    "baidu",
+    "splitter",
+    "sitemap"
+  ],
+  "pluginsConfig": {
+    "disqus": {
+      "shortName": "webpack-handbook"
+    },
+    "github": {
+      "url": "https://github.com/zhaoda/webpack-handbook"
+    },
+    "editlink": {
+      "base": "https://github.com/zhaoda/webpack-handbook/blob/master/content",
+      "label": "编辑本页"
+    },
+    "baidu": {
+        "token": "a9787f0ab45d5e237bab522431d0a7ec"
+    },
+    "sitemap": {
+        "hostname": "http://zhaoda.net/"
+    }
+  }
+}
+
+```
+
+```
+# 安装插件
+$ gitbook install ./
+```
+
+## [editlink](https://plugins.gitbook.com/plugin/editlink)
+
+内容顶部显示 `编辑本页` 链接。
+
+## [ad](https://plugins.gitbook.com/plugin/ad)
+
+在每个页面顶部和底部添加广告或任何自定义内容。
+
+## [splitter](https://plugins.gitbook.com/plugin/splitter)
+
+在左侧目录和右侧内容之间添加一个可以拖拽的栏，用来调整两边的宽度。
+
+## [image-captions](https://plugins.gitbook.com/plugin/image-captions)
+
+抓取内容中图片的 `alt` 或 `title` 属性，在图片下面显示标题。
+
+## [github](https://plugins.gitbook.com/plugin/github)
+
+在右上角显示 github 仓库的图标链接。
+
+## [anchors](https://plugins.gitbook.com/plugin/anchors)
+
+标题带有 github 样式的锚点。
+
+## [chart](https://plugins.gitbook.com/plugin/chart)
+
+使用 C3.js 图表。
+
+## [styles-sass](https://plugins.gitbook.com/plugin/styles-sass)
+
+使用 SASS 替换 CSS。
+
+## [styles-less](https://plugins.gitbook.com/plugin/styles-less)
+
+使用 LESS 替换 CSS。
+
+## [ga](https://plugins.gitbook.com/plugin/ga)
+
+添加 Google 统计代码。
+
+## [disqus](https://plugins.gitbook.com/plugin/disqus)
+
+添加 disqus 评论插件。
+
+## [sitemap](https://plugins.gitbook.com/plugin/sitemap)
+
+生成站点地图。
+
+## [latex-codecogs](https://plugins.gitbook.com/plugin/latex-codecogs)
+
+使用数学方程式。
+
+## [mermaid](https://plugins.gitbook.com/plugin/mermaid)
+
+使用流程图。
+
+## [book-summary-scroll-position-saver](https://plugins.gitbook.com/plugin/book-summary-scroll-position-saver)
+
+自动保存左侧目录区域导航条的位置。
+
+## [sharing](https://plugins.gitbook.com/plugin/sharing)
+
+默认的分享插件。
+
+## [fontsettings](https://plugins.gitbook.com/plugin/fontsettings)
+
+默认的字体、字号、颜色设置插件。
+
+## [search](https://plugins.gitbook.com/plugin/search)
+
+默认搜索插件。
+
+## [tbfed-pagefooter](https://plugins.gitbook.com/plugin/tbfed-pagefooter)
+
+自定义页脚，显示版权和最后修订时间。
+
+## [prism](https://plugins.gitbook.com/plugin/prism)
+
+基于 [Prism](http://prismjs.com/) 的代码高亮。
+
+## [atoc](https://plugins.gitbook.com/plugin/atoc)
+
+插入 TOC 目录。
+
+## [ace](https://plugins.gitbook.com/plugin/ace)
+
+插入代码高亮编辑器。
+
+## [highlight](https://plugins.gitbook.com/plugin/highlight)
+
+默认的代码高亮插件，通常会使用 prism 来替换。
+
+## [github-buttons](https://plugins.gitbook.com/plugin/github-buttons)
+
+显示 github 仓库的 star 和 fork 按钮。
+
+## [sectionx](https://plugins.gitbook.com/plugin/sectionx)
+
+分离各个段落，并提供一个展开收起的按钮。
+
+## [mcqx](https://plugins.gitbook.com/plugin/mcqx)
+
+使用选择题。
+
+## [include-codeblock](https://plugins.gitbook.com/plugin/include-codeblock)
+
+通过引用文件插入代码。
+
+## [fbqx](https://plugins.gitbook.com/plugin/fbqx)
+
+使用填空题。
+
+## [spoiler](https://plugins.gitbook.com/plugin/spoiler)
+
+隐藏答案，当鼠标划过时才显示。
+
+## [anchor-navigation](https://plugins.gitbook.com/plugin/anchor-navigation)
+
+锚点导航。
+
+## [youtubex](https://plugins.gitbook.com/plugin/youtubex)
+
+插入 YouTube 视频。
+
+## [redirect](https://plugins.gitbook.com/plugin/redirect)
+
+页面跳转。
+
+## [expandable-chapters](https://plugins.gitbook.com/plugin/expandable-chapters)
+
+收起或展开章节目录中的父节点。
+
+## [baidu](https://plugins.gitbook.com/plugin/baidu)
+
+使用百度统计。
+
+## [duoshuo](https://plugins.gitbook.com/plugin/duoshuo)
+
+使用多说评论。
+
+## [jsfiddle](https://plugins.gitbook.com/plugin/jsfiddle)
+
+插入 JSFiddle 组件。
+
+## [jsbin](https://plugins.gitbook.com/plugin/jsbin)
+
+插入 JSBin 组件。
+
+## 开发插件
+
+最好先查看别人的插件是怎么做的，然后再看[官方文档](https://developer.gitbook.com/plugins/index.html)。
+
+# 10. 配置
+
+在book.json中配置，键值对的形式
+
+- title 设置书本的标题
+
+```json
+"title" : "Gitbook Use"
+```
+
+- author 作者的相关信息
+
+```json
+"author" : "zhangjikai"
+```
+
+- description 书本的简单描述
+
+```json
+"description" : "记录Gitbook的配置和一些插件的使用"
+```
+
+- language Gitbook使用的语言, 版本2.6.4中可选的语言如下
+
+
+```
+en, ar, bn, cs, de, en, es, fa, fi, fr, he, it, ja, ko, no, pl, pt, ro, ru, sv, uk, vi, zh-hans, zh-tw
+```
+
+配置使用简体中文
+
+```json
+"language" : "zh-hans"
+```
+
+- links 在左侧导航栏添加链接信息
+
+```json
+"links" : {
+    "sidebar" : {
+        "Home" : "http://zhangjikai.com"
+    }
+}
+```
+
+- styles 自定义页面样式， 默认情况下各generator对应的css文件
+
+```json
+"styles": {
+    "website": "styles/website.css",
+    "ebook": "styles/ebook.css",
+    "pdf": "styles/pdf.css",
+    "mobi": "styles/mobi.css",
+    "epub": "styles/epub.css"
+}
+```
+
+例如使`<h1> <h2>`标签有下边框， 可以在`website.css`中设置
+
+```json
+h1 , h2{
+    border-bottom: 1px solid #EFEAEA;
+}
+```
+
+- plugins 配置使用的插件
+
+```
+"plugins": [
+    "disqus"
+]
+```
+
+添加新插件之后需要运行`gitbook install`来安装新的插件
+
+Gitbook默认带有5个插件：
+
+- highlight
+- search
+- sharing
+- font-settings
+- livereload
+
+如果要去除自带的插件， 可以在插件名称前面加`-`
+
+```json
+"plugins": [
+    "-search"
+]
+```
+
+# 11. 更多GitBook教程
 
 - [GitBook 中文解說 - 2.4](https://www.gitbook.com/book/wastemobile/gitbook-chinese/details)
 - [gitbook-documentation](https://www.gitbook.com/book/zhanghqgit/gitbook-documentation/details)
