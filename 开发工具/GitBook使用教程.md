@@ -26,6 +26,13 @@ PS：GitBook的book页面默认没有download按钮的
 
 ![gitbook](http://upload-images.jianshu.io/upload_images/3981391-7472f7955ba3bb2a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
+## 1.3 Token
+```
+git config --global gitbook.user username
+git config --global gitbook.token yourtoken
+```
+![token](http://upload-images.jianshu.io/upload_images/3981391-5cbfae01a0d89658.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
 # 2. 安装 nodejs
 
 首先我们需要做的是安装 [Nodejs](http://nodejs.cn/)。大家可以到 [Nodejs](http://nodejs.cn/) 的官网进行下载。下载完成后，执行双击进行运行安装。安装完成后，打开 cmd 命令行，输入 node -v 查看安装的 nodejs 的相关版本信息。
