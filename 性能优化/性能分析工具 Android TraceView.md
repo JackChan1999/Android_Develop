@@ -22,11 +22,11 @@ Traceview 是Android 平台特有的数据采集和分析工具，它主要用�
 
 DDMS 工具中Traceview 的使用如下图所示。
 
-![Traceview](http://img.blog.csdn.net/20161004122147095)
+![Traceview](images/Traceview)
 
-![Traceview](http://img.blog.csdn.net/20161004122217783)
+![Traceview](images/Traceview1)
 
-![Traceview](http://img.blog.csdn.net/20161004113446865)
+![Traceview](images/Traceview2)
 
 点击上图中所示按钮即可以采集目标进程的数据。当停止采集时，DDMS 会自动触发Traceview 工具来浏览采集数据
 
@@ -40,7 +40,7 @@ DDMS 工具中Traceview 的使用如下图所示。
 
 第2种方式就是使用android.os.Debug.startMethodTracing()和android.os.Debug.stopMethodTracing()方法，当运行了这段代码的时候，就会有一个trace文件在/sdcard目录中生成，也可以调用startMethodTracing(String traceName) 设置trace文件的文件名，最后你可以使用adb pull /sdcard/test.trace /tmp 命令将trace文件复制到你的电脑中，然后用DDMS工具打开就会出现下面那副图片了
 
-![Traceview](http://img.blog.csdn.net/20161004115927975)
+![Traceview](images/Traceview3)
 
 ## **2.2 Debug**
 ### **2.2.1 选择追踪范围加入记录代码**
@@ -96,20 +96,20 @@ publicclass MainActivity extends Activity {
 <uses-permissionandroid:name="android.permission.WRITE_EXTERNAL_STORAGE"/>  
 ```
 ## **2.4 利用tools下的工具trace view打开.trace文件**
-![Traceview](http://www.android100.org/uploadfile/2015/0620/20150620185837_0.gif)
+![Traceview](images/Traceview4.png)
 
 第一种方式相对来说是一种简单，但是测试的范围很宽泛，第二中方式相对来说精确一点，不过我个人喜欢使用第一种，因为简单，而且它是检测你的某一个操作。因为第二中更适合检测某一个方法的性能，其实也没有那种好，看使用的场景和个人的喜好
 
 效果图： 
 
-![这里写图片描述](http://www.android100.org/uploadfile/2015/0620/20150620185837_1.gif)
+![这里写图片描述](images/Traceview5.png)
 
 ## **2.5 看懂TraceView中的指标**
-![这里写图片描述](http://www.android100.org/uploadfile/2015/0620/20150620185837_2.gif)
+![这里写图片描述](images/Traceview6.png)
 
 下面我们具体分析一下这张图(与上图数据上有点区别)：
 
-![这里写图片描述](http://www.android100.org/uploadfile/2015/0620/20150620185837_3.gif)
+![这里写图片描述](images/Traceview7.png)
 
 ## **2.6 纵轴**
 TraceView界面下方表格中纵轴就是每个方法，包括了JDK的，Android SDK的，也有native方法的，当然最重要的就是app中你自己写的方法，有些Android系统的方法执行时间很长，那么有很大的可能就是你app中调用这些方法过多导致的
@@ -162,7 +162,7 @@ toplevel的 Incl Cpu Time 是1110.943，而io.bxbxbai.android.examples.activity.
 某函数运行的真实时间（以毫秒为单位），不含调用其它函数所占用的真实时间
 ### **Calls + Recur Calls / Total**
 这个指标非常重要！它表示这个方法执行的次数，这个指标中有两个值，一个Call表示这个方法调用的次数，Recur Call表示递归调用次数，看下图： 
-![Traceview](http://www.android100.org/uploadfile/2015/0620/20150620185837_4.gif)
+![Traceview](images/Traceview8.png)
 
 我选中了一个方法，可以看到这个方法的Calls + Recur Calls 值是14 + 0，表示这个方法调用了14次，但是没有递归调用
 从Children这一块来看，很多方法调用都是13的倍数，说明父方法中有一个判断，但是这不是重点，有些Child方法调用Calls为26，这说明了这些方法被调用了两遍，是不是可能存在重复调用的情况？这些都是可能可以优化性能的地方。
@@ -205,14 +205,14 @@ Android的性能分析工具还有很多，比如：
 # **4. 其他**
 
 下图这一条工具栏中有很多性能分析工具
-![Traceview](http://www.android100.org/uploadfile/2015/0620/20150620185837_5.gif)
+![Traceview](images/Traceview9.png)
 
 # **5. Traceview 的使用**
 下面，我们通过一个示例程序介绍Traceview 的使用。
 
 实例程序如下图所示：界面有4 个按钮，对应四个方法。
 
-![Traceview](http://img.blog.csdn.net/20161004113610023)
+![Traceview](images/Traceview10.png)
 
 点击不同的方法会进行不同的耗时操作。
 
@@ -255,7 +255,7 @@ public class MainActivity extends ActionBarActivity {
 ```
 我们分别点击按钮一次，要求找出最耗时的方法。点击前通过DDMS 启动Start Method Profiling 按钮
 
-![Traceview](http://img.blog.csdn.net/20161004113817624)
+![Traceview](images/Traceview16.png)
 
 然后依次点击4 个按钮，都执行后再次点击上图中红框中按钮，停止收集数据。
 
@@ -263,7 +263,7 @@ public class MainActivity extends ActionBarActivity {
 
 当我们停止收集数据的时候会出现如下分析图表。该图表分为2 大部分，上面分不同的行，每一行代表一个线程的执行耗时情况。main 线程对应行的的内容非常丰富，而其他线程在这段时间内干得工作则要少得多。图表的下半部分是具体的每个方法执行的时间情况。显示方法执行情况的前提是先选中某个线程。
 
-![Traceview](http://img.blog.csdn.net/20161004113906278)
+![Traceview](images/Traceview11.png)
 
 我们主要是分析main 线程。上面方法指标参数所代表的意思如下：
 
@@ -280,11 +280,11 @@ public class MainActivity extends ActionBarActivity {
 
 我们为了找到最耗时的操作，那么可以通过点击Incl Cpu Time，让其按照时间的倒序排列。我点击后效果如下图：
 
-![Traceview](http://img.blog.csdn.net/20161004114036843)
+![Traceview](images/Traceview12.png)
 
 通过分析发现：method1 最耗时，耗时2338 毫秒。
 
-![Traceview](http://img.blog.csdn.net/20161004114144157)
+![Traceview](images/Traceview13.png)
 
 那么有了上面的信息我们可以进入我们的method1 方法查看分析我们的代码了
 
@@ -297,13 +297,13 @@ Debug.stopMethodTracing();
 ```
 这两个方法用来创建.trace文件，将从Debug.startMethodTracing()开始，到Debug.stopMethodTracing()结束，期间所有的调用过程保存在.trace文件中，包括调用的函数名称和执行的时间等信息。
 
-![Traceview](http://www.android100.org/uploadfile/2015/0620/20150620185837_1.gif)
+![Traceview](images/Traceview14.png)
 
-![Traceview](http://www.android100.org/uploadfile/2015/0620/20150620185837_2.gif)
+![Traceview](images/Traceview15.png)
 
 # **6. dmtracedump** 
 
-```java
+```
 dmtracedump -g result.png target.trace  //结果png文件  目标trace文件
 ```
 参考：
