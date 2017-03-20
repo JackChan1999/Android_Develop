@@ -202,6 +202,55 @@ info: >> generation finished with success in 8.6s !
 info: >> 1 file(s) generated
 ```
 安装calibre后，转换成功。PS：安装calibre后需要重新启动命令行窗口
+## 设置PDF输出格式
+
+book.json
+```json
+{
+  "gitbook": "2.x.x",
+  "title": "Go语言圣经",
+  "description": "<The Go Programming Language>中文版",
+  "language": "zh",
+  "structure": {
+    "readme": "preface.md"
+  },
+  "pluginsConfig": {
+    "fontSettings": {
+      "theme": "white",
+      "family": "msyh",
+      "size": 2
+    },
+    "plugins": [
+      "yahei",
+      "katex",
+      "-search"
+    ]
+  },
+  "pdf": {
+    "pageNumbers": true, 
+    "fontFamily": "Arial",
+    "fontSize": 12,
+    "paperSize": "a4",
+    "margin": {
+      "right": 62,
+      "left": 62,
+      "top": 56,
+      "bottom": 56
+    }
+  }
+}
+```
+| Variable            | Description                              |
+| :------------------ | :--------------------------------------- |
+| `pdf.pageNumbers`   | 是否添加页码，默认是true                           |
+| `pdf.fontSize`      | 字体大小，默认是12                               |
+| `pdf.fontFamily`    | 字体，默认字体是Arial)                           |
+| `pdf.paperSize`     | Paper size, options are `'a0', 'a1', 'a2', 'a3', 'a4', 'a5', 'a6', 'b0', 'b1', 'b2', 'b3', 'b4', 'b5', 'b6', 'legal', 'letter'` (default is `a4`) |
+| `pdf.margin.top`    | Top margin (default is `56`)             |
+| `pdf.margin.bottom` | Bottom margin (default is `56`)          |
+| `pdf.margin.right`  | Right margin (default is `62`)           |
+| `pdf.margin.left`   | Left margin (default is `62`)            |
+
 ## gitbook mobi
 
 ```

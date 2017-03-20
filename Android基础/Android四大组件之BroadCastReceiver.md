@@ -45,7 +45,7 @@ Android 为了将系统运行时的各种“事件”通知给其他应用（或
 
 **布局文件如下**
 
-```java
+```xml
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
@@ -65,7 +65,6 @@ Android 为了将系统运行时的各种“事件”通知给其他应用（或
         />
 
 </LinearLayout>
-
 ```
 **实现代码**
 在该案例中总共用到了两个类一个是MainActivity.java 负责让用户输入IP 号码，另外一个是自定义的广播接收者IPCallerReceiver 负责监听用户的拨打电话事件。
@@ -148,7 +147,7 @@ Android 为了将系统运行时的各种“事件”通知给其他应用（或
 
 **注册广播**
 
-```java
+```xml
     <receiver android:name="com.itheima.android.ipcaller.IPCallerReceiver">
         <intent-filter >
             <action android:name="android.intent.action.NEW_OUTGOING_CALL"></action>
@@ -159,7 +158,7 @@ Android 为了将系统运行时的各种“事件”通知给其他应用（或
 
 **声明权限**
 
-```java
+```xml
 <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS"/>
 ```
 
