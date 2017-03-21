@@ -7,7 +7,6 @@
 ```java
 public class MainActivity extends Activity {  
 
-
     @Override  
     public void onCreate(Bundle savedInstanceState) {  
         super.onCreate(savedInstanceState);  
@@ -55,7 +54,6 @@ public void setContentView(int layoutResID) {
 public Window getWindow() {  
     return mWindow;  
 }  
-
 
 private Window mWindow;  
 ```
@@ -112,9 +110,8 @@ public void setContentView(int layoutResID) {
 
 我们可以看到，setContentView的基本流程简单概括就是如下几步：
 
-1、构建mDecor对象。mDecor就是整个窗口的顶层视图，它主要包含了Title和Content View两个区域 （参考图1中的两个区域 ），Title区域就是我们的标题栏，Content View区域就是显示我们xml布局内容中的区域。关于mDecor对象更多说明也请参考Android Touch事件分发过程这篇文章；
-
-2、设置一些关于窗口的属性，初始化标题栏区域和内容显示区域；
+1. 构建mDecor对象。mDecor就是整个窗口的顶层视图，它主要包含了Title和Content View两个区域 （参考图1中的两个区域 ），Title区域就是我们的标题栏，Content View区域就是显示我们xml布局内容中的区域。关于mDecor对象更多说明也请参考Android Touch事件分发过程这篇文章
+2. 设置一些关于窗口的属性，初始化标题栏区域和内容显示区域
 
 这里比较复杂的就是generateLayout(mDecor)这个函数，我们一起来分析一下吧。
 
@@ -297,8 +294,9 @@ protected ViewGroup generateLayout(DecorView decor) {
 ```
 
 其实也就是这么几个步骤：
-1、获取用户设置的一些属性与Flag；
-2、根据一些属性选择不同的顶层视图布局，例如FEATURE_NO_TITLE则选择没有title的布局文件等；这里我们看一个与图1中符合的顶层布局吧，即layoutResource = com.android.internal.R.layout.screen_title的情形：
+
+1. 获取用户设置的一些属性与Flag
+2. 根据一些属性选择不同的顶层视图布局，例如FEATURE_NO_TITLE则选择没有title的布局文件等；这里我们看一个与图1中符合的顶层布局吧，即layoutResource = com.android.internal.R.layout.screen_title的情形
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>  
