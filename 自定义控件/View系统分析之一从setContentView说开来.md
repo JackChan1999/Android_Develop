@@ -77,12 +77,12 @@ public void setContentView(int layoutResID) {
     // 构建mDecor对象,并且初始化标题栏和Content Parent(我们要显示的内容区域)  
     private void installDecor() {  
     if (mDecor == null) {  
-        mDecor = generateDecor();          // 3、构建DecorView  
+        mDecor = generateDecor(); // 3、构建DecorView  
         mDecor.setDescendantFocusability(ViewGroup.FOCUS_AFTER_DESCENDANTS);  
         mDecor.setIsRootNamespace(true);  
     }  
     if (mContentParent == null) {  
-        mContentParent = generateLayout(mDecor);              // 4、获取ContentView容器，即显示内容的区域  
+        mContentParent = generateLayout(mDecor); // 4、获取ContentView容器，即显示内容的区域  
 
         mTitleView = (TextView)findViewById(com.android.internal.R.id.title); 5、设置Title等  
         if (mTitleView != null) {  
@@ -104,7 +104,7 @@ public void setContentView(int layoutResID) {
 }  
 
     protected DecorView generateDecor() {  
-    return new DecorView(getContext(), -1);    // 构建mDecor对象  
+    return new DecorView(getContext(), -1); // 构建mDecor对象  
 }
 ```
 
@@ -200,7 +200,7 @@ protected ViewGroup generateLayout(DecorView decor) {
 
    // Inflate the window decor.   
    // 2、根据一些属性来选择不同的顶层视图布局,例如设置了FEATURE_NO_TITLE的属性，那么就选择没有Title区域的那么布局；  
-   // layoutResource布局就是整个Activity的布局，其中含有title区域和content区域，content区域就是用来显示我通过  
+   // layoutResource布局就是整个Activity的布局，其中含有title区域和content区域，content区域就是用来显示视图 
    // setContentView设置进来的内容区域，也就是我们要显示的视图。  
 
    int layoutResource;  
@@ -344,9 +344,12 @@ ViewGroup contentParent = (ViewGroup)findViewById(ID_ANDROID_CONTENT);
 
 ![](../assets/view2.png)
 
-这两个区域就组成了mDecor视图，我们的main_activity.xml就是放在内容视图这个区域的。
-3、加载顶层布局文件，转换为View，将其添加到mDecor中；
-4、获取内容容器Content Parent，即用于显示我们的内容的区域；
+这两个区域就组成了mDecor视图，我们的main_activity.xml就是放在内容视图这个区域的。 
+
+3、加载顶层布局文件，转换为View，将其添加到mDecor中； 
+
+4、获取内容容器Content Parent，即用于显示我们的内容的区域； 
+
 5、设置一些背景图和title等。
 
 在经过这几步，我们就得到了mContentParent，这就是用来装载我们的视图的ViewGroup。再回过头来看setContentView函数：

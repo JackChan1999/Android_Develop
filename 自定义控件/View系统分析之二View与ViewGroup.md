@@ -212,15 +212,17 @@ View的绘制相对就容易了，就是用Canvas绘制各种图形呗。drawTex
 
 ViewGroup组织和管理它的子View，其实主要就是对子View进行布局（规定它们放在在哪里）以及迭代所有子元素让它们绘制自身，并且使用LayoutParams对象对子元素的大小、边距等进行约束。我们在xml中定义一个View或者ViewGroup时使用的layout_width、layout_height就是LayoutParams对象的属性。
 
-同样，ViewGroup对于View的管理也是丈量、布局、绘制三个过程，只是这三个过程更为复杂一些。每个过程都会遍历所有的子View，然后对它的子View也进行这三个过程。这样，所有的子View就会在这三个过程都执行完毕之后，就会得到如下结果 :
+同样，ViewGroup对于View的管理也是丈量、布局、绘制三个过程，只是这三个过程更为复杂一些。每个过程都会遍历所有的子View，然后对它的子View也进行这三个过程。这样，所有的子View就会在这三个过程都执行完毕之后，就会得到如下结果 : 
 
-1、经历了onMeasure阶段，如果该ViewGroup是wrap_cotent的，那么由所有子View的的大小，否则根据丈量规格设置自身的大小；
-2、计算出各个子View应该在的坐标；
-3、绘制自身后，将所有子View绘制在相应的位置上。
+1、经历了onMeasure阶段，如果该ViewGroup是wrap_cotent的，那么由所有子View的的大小，否则根据丈量规格设置自身的大小 
+
+2、计算出各个子View应该在的坐标 
+
+3、绘制自身后，将所有子View绘制在相应的位置上
 
 ## 7. ViewGroup丈量 ( measure )
 
-ViewGroup的丈量就是遍历所有的child view， 然后对每个child view进行丈量操作，如果ViewGroup自身的大小是wrap_content的话会根据每个child view的大小计算出自身的大小，否则根据自身的 宽高规格设置自身的大小。
+ViewGroup的丈量就是遍历所有的child view， 然后对每个child view进行丈量操作，如果ViewGroup自身的大小是wrap_content的话会根据每个child view的大小计算出自身的大小，否则根据自身的宽高规格设置自身的大小。
 
 注意 : 默认情况下onMeasure函数只支持match_parent的规格，因此，如果你自定义View时需要支持wrap_content，那么你必须覆写onMeasure方法来实现。
 
