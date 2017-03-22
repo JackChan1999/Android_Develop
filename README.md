@@ -1,10 +1,10 @@
 # GitHub托管
 
-*https://github.com/JackChen1999/Android_Develop*
+**https://github.com/JackChen1999/Android_Develop**
 
 # 在线阅读
 
-*https://alleniverson.gitbooks.io/android-develop/content/*
+**https://alleniverson.gitbooks.io/android-develop/content/**
 
 # 目录
 
@@ -25,7 +25,7 @@
   * [Android应用开发-网络编程2](Android基础/Android应用开发-网络编程2.md)
   * [Android网络请求详解](网络编程/Android网络请求详解.md)
   * [Context完全解析](Android基础/Context完全解析.md)
-  * [非常全面的Android Bitmap知识点梳理](Android基础/非常全面的Android Bitmap知识点梳理.md)
+  * [非常全面的Android Bitmap知识点梳理](Android基础/Bitmap知识点梳理.md)
 
 * 第2章 网络编程
   * [Java网络编程](网络编程/Java网络编程.md)
