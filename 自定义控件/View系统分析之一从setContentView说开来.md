@@ -58,7 +58,7 @@ public Window getWindow() {
 private Window mWindow;  
 ```
 
-我们可以看到，实际上调用的mWindow的setContentView方法，在Android Touch事件分发过程这篇文章中我们已经指出Window的实现类为PhoneWindow类，我们就移步到PhoneWindow的setConentView吧，核心源码如下 :
+我们可以看到，实际上调用的mWindow的setContentView方法，在[Android Touch事件分发过程](http://blog.csdn.net/bboyfeiyu/article/details/38958829)这篇文章中我们已经指出Window的实现类为PhoneWindow类，我们就移步到PhoneWindow的setConentView吧，核心源码如下 :
 
 ```java
 @Override  
@@ -432,7 +432,7 @@ ViewGroup从语义上来说就是视图组，它也继承自View类，它其实�
 ```
 我们通过ViewGroup来组织、管理子视图，例如我们常见的FrameLayout、LinearLayout、RelativeLayout、ListView等都是ViewGroup类型，总之只要能包含其他View或者ViewGroup的都是ViewGroup类型。使用ViewGroup来构建视图树。
 
-![](../assets/view3.png)
+![](img/viewgroup.png)
 
 ## 5. View
 

@@ -21,7 +21,7 @@
 
 为什么是这样呢？如果不用RelativeLayout包裹可不可以呢？
 
-在Android View系统分析之从setContentView说开来(一)中的ViewGroup章节中我们说了，Android中的视图树是按照如下结构来组织的，即对顶层的是一个ViewGroup，然后其子节点可以是ViewGroup、View，只有ViewGroup下能够包含子节点，View则是叶子节点。如图 :
+在[Android View系统分析之从setContentView说开来(一)](自定义控件/View系统分析之一从setContentView说开来.md)中的ViewGroup章节中我们说了，Android中的视图树是按照如下结构来组织的，即对顶层的是一个ViewGroup，然后其子节点可以是ViewGroup、View，只有ViewGroup下能够包含子节点，View则是叶子节点。如图 :
 
 ![](img/viewgroup.png)
 
@@ -50,6 +50,8 @@ View是屏幕上所有可见元素的根类，其中ViewGroup也是View的子类
 在我们通过Activity的setContentView设置了Activity的页面内容以后，随着Activity的onResume方法的调用，整个Activity的内容就会显示到屏幕上。那么在显示之前，整个视图过程经历了哪些阶段呢？
 
 简单来说，View树解析完以后到显示的过程，主要会经历如下几个过程。
+
+![](img/measure.png)
 
 即ViewRoot首先会发送一个遍历视图树的消息，然后会调用performTraversals()函数来遍历整个视图树，并且调用DecorView的measure()、layout()、draw()方法，这三个过程分别为测量View的大小、计算View的显示过程、绘制内容，它们只是一个模板，具体的实现都是在onMeasure()、onLayout()、onDraw()中。遍历视图树中每个子View中的measure()、layout()、draw()这几个过程，如果子View是ViewGroup类型，那么又会遍历调用这个ViewGroup的所有子View的这三个过程，直到遍历完整个视图树为止。经历了这三个过程，UI系统就知道了View的大小和它所在的位置坐标以后，我们就可以把内容绘制到相应的地方，然后内容就显示出来了，就是这么回事！
 
@@ -582,6 +584,8 @@ xmlns:android="http://schemas.android.com/apk/res/android"
 ```
 
 呵，这个我们可见多了，每个布局用的xml中全都用这个。其实原理是这样的，res/values/attrs.xml中内容会被编译成R类，而R的完整路径就是工程的包名.R，注意，是工程的包名，而不是自定义View所在的包，因此你引入了工程的包名，Android系统就可以找到对应的R类，从而找到你的自定义属性，而你的自定义属性名又与你的自定义View类名一致，这样也就对应上了。
+
+<img src="img/customattr.png" width="400" />
 
 例如MyTextView所在的包为com.example.touch_event.viewsystem，但是我们的工程的包却是com.example.touch，因此R所在的路径就是com.example.touch.R，所以我在引入自定义属性的命名空间是需要引入的是com.example.touch，而不是com.example.touch_event.viewsystem。我们来试用一下吧：
 
