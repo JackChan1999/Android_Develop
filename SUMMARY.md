@@ -1,6 +1,9 @@
 # Summary
 
-* [序言](README.md)
+* [前言](README.md)
+
+----
+
 * 第1章 Android基础
   * [Android应用开发-快速入门](Android基础/Android应用开发-快速入门.md)
   * [Android应用开发-数据存储和界面展现1](Android基础/Android应用开发-数据存储和界面展现1.md)
@@ -17,6 +20,9 @@
   * [Android网络请求详解](网络编程/Android网络请求详解.md)
   * [Context完全解析](Android基础/Context完全解析.md)
   * [非常全面的Android Bitmap知识点梳理](Android基础/非常全面的Android Bitmap知识点梳理.md)
+
+----
+
 * 第2章 网络编程
   * [Java网络编程](网络编程\Java网络编程.md)
   * [HTTP协议详解1](网络编程\Http协议.md)
@@ -36,13 +42,22 @@
   * [即时通讯：XMPP基础](网络编程\即时通讯：XMPP基础.md)
   * [即时通讯：XMPP项目实践-微聊](网络编程\即时通讯：XMPP项目实践-微聊.md)
   * [Smack类库最好的学习资料](网络编程\Smack类库最好的学习资料.md)
+
+----
+
 * 第3章 NDK和JNI
   * [JNI与底层调用1](ndk&jni/JNI与底层调用1.md)
   * [JNI与底层调用2](ndk&jni/JNI与底层调用2.md)
   * [C和C++在Android开发中的应用](ndk&jni/C和C++在Android开发中的应用.md)
+
+----
+
 * 第4章 消息机制
   * [Android的消息机制](消息机制/Android的消息机制.md)
   * [AsyncTask完全解析](消息机制\Android AsyncTask完全解析，带你从源码的角度彻底理解.md)
+
+----
+
 * 第5章 自定义控件
   * [Android的事件分发](自定义控件/Android的事件分发.md)
   * [View的测量、布局、绘制](自定义控件/View的测量、布局、绘制.md)
@@ -50,12 +65,21 @@
   * [自定义控件：SlidingMenu](自定义控件/自定义控件：SlidingMenu，侧边栏，侧滑菜单.md)
   * [自定义控件：侧滑面板](自定义控件/自定义控件：侧滑面板.md)
   * [自定义控件：快速索引](自定义控件/自定义控件：快速索引.md)
+  * [Android View系统分析之一从setContentView说开来](自定义控件/Android View系统分析之一从setContentView说开来.md)
+  * [Android View系统分析之二View与ViewGroup](自定义控件/Android View系统分析之二View与ViewGroup.md)
+  * [Android View系统分析之三Activity的启动与显示](自定义控件/Android View系统分析之三Activity的启动与显示.md)
+
+----
+
 * 第6章 安全加密
   * [Android安全加密：对称加密](安全加密/Android安全加密：对称加密.md)
   * [Android安全加密：非对称加密](安全加密/Android安全加密：非对称加密.md)
   * [Android安全加密：数字签名和数字证书](安全加密/Android安全加密：数字签名和数字证书.md)
   * [Android安全加密：消息摘要Message Digest](安全加密/Android安全加密：消息摘要Message Digest.md)
   * [Android安全加密：Https编程](安全加密/Android安全加密：Https编程.md)
+
+----
+
 * 响应式编程
   * [给Android开发者的RxJava 详解](响应式编程/给Android开发者的RxJava详解.md)
   * [给初学者的RxJava2.0教程-1](响应式编程/给初学者的RxJava2.0教程-1.md)
@@ -67,16 +91,28 @@
   * [给初学者的RxJava2.0教程-7](响应式编程/给初学者的RxJava2.0教程-7.md)
   * [给初学者的RxJava2.0教程-8](响应式编程/给初学者的RxJava2.0教程-8.md)
   * [给初学者的RxJava2.0教程-9](响应式编程/给初学者的RxJava2.0教程-9.md)
+
+----
+
 * Linux
   * [Android下的Linux](Linux/Android下的Linux.md)
   * [Linux常用指令](Linux/Linux常用指令.md)
+
+----
+
 * Tangram
   * [苹果核 - Tangram 的基础 —— vlayout（Android）](Tangram/苹果核 - Tangram 的基础 —— vlayout（Android）.md)
   * [苹果核 - 页面动态化的基础 —— Tangram](Tangram/苹果核 - 页面动态化的基础 —— Tangram.md)
   * [苹果核 - vlayout使用说明（一）](Tangram/苹果核 - vlayout使用说明（一）.md)
   * [苹果核 - vlayout使用说明（二）](Tangram/苹果核 - vlayout使用说明（二）.md)
+
+----
+
 * 地图开发
   * [手机定位](地图开发/手机定位.md)
+
+----
+
 * 开发工具
   * [Android-Studio使用技巧](开发工具/Android Studio 使用技巧.md)
   * [Android反编译](开发工具/Android反编译.md)
@@ -86,14 +122,26 @@
   * [你所不知道的Android Studio调试技巧](开发工具/你所不知道的Android Studio调试技巧.md)
   * [Git常用命令和Git团队使用规范指南](开发工具/Git常用命令和Git团队使用规范指南.md)
   * [博客编辑神器：Markdown编辑器](开发工具/博客编辑神器：Markdown编辑器.md)
+
+----
+
 * Android新特性
   * [Android5.0新特性：全新的动画](新特性\Android5.0新特性：全新的动画.md)
   * [Android N 新特性](新特性\Android N 新特性.md)
   * [Google VR全景图片与视频功能开发详解](新特性\Google VR全景图片与视频功能开发详解.md)
+
+----
+
 * 性能优化
   * [性能分析工具 Android TraceView](性能优化\性能分析工具 Android TraceView.md)
+
+----
+
 * Android开发
   * [Oauth机制](Android开发\Oauth机制.md)
+
+----
+
 * Json解析
   * [Gson使用指南-1](Json解析\Gson使用指南-1.md)
   * [Gson使用指南-2](Json解析\Gson使用指南-2.md)
@@ -103,8 +151,14 @@
   * [使用Gson解析复杂的JSON数据](Json解析\使用Gson解析复杂的JSON数据.md)
   * [使用Gson解析json数据](Json解析\使用Gson解析json数据.md)
   * [简单新闻客户端](Json解析\简单新闻客户端.md)
+
+----
+
 * Material Design
   * [Design Support Library整理](Material Design\Android之Design Support Library整理.md)
+
+----
+
 * RecyclerView
   * [打造万能的ListView GridView 适配器](RecyclerView\打造万能的ListView GridView 适配器.md)
   * [ListView的优化](RecyclerView\ListView的优化.md)
