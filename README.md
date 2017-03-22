@@ -132,7 +132,7 @@
   * [简单新闻客户端](Json解析/简单新闻客户端.md)
 
 * Material Design
-  * [Design Support Library整理](Material Design/Design_Support_Library整理.md)
+  * [Design Support Library整理](Material Design/Design-Support-Library整理.md)
 
 * RecyclerView
   * [打造万能的ListView GridView 适配器](RecyclerView/打造万能的适配器.md)
