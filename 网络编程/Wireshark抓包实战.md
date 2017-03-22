@@ -28,6 +28,8 @@ http://c.m.163.com/nc/article/list/T1467284926140/0-20.html
 
 url组织形式http://c.m.163.com/nc/article/list/id/startindex-count.html
 
+其中tid是新闻类别的id，startindex是数据的起始索引，count是新闻数据的条数
+
 - 体育T1348649079062
 - 头条T1467284926140
 - 娱乐T1348648517839
@@ -36,6 +38,91 @@ url组织形式http://c.m.163.com/nc/article/list/id/startindex-count.html
 ## 新闻Tab标签
 
 http://c.m.163.com/nc/topicset/android/subscribe/manage/listspecial.html
+
+```json
+{
+    "tList": [
+        {
+            "template": "normal1",
+            "topicid": "0001899N",
+            "hasCover": false,
+            "weburl": "http://www.163.com/",
+            "alias": "Top News",
+            "subnum": "3.2万",
+            "recommendOrder": 0,
+            "isNew": 0,
+            "hashead": 1,
+            "img": "",
+            "isHot": 0,
+            "hasIcon": false,
+            "cid": "C1348646712614",
+            "recommend": "0",
+            "headLine": true,
+            "hasAD": 1,
+            "color": "",
+            "bannerOrder": 0,
+            "tname": "头条",
+            "ename": "androidnews",
+            "showType": "comment",
+            "special": 0,
+            "tid": "T1348647909107",
+            "ad_type": 1
+        },
+        {
+            "template": "normal1",
+            "topicid": "0001899N;000187QQ",
+            "hasCover": false,
+            "alias": "yaowenspecial",
+            "subnum": "10.6万",
+            "recommendOrder": 0,
+            "isNew": 0,
+            "hashead": 1,
+            "img": "",
+            "isHot": 0,
+            "hasIcon": false,
+            "cid": "C1348647991705",
+            "recommend": "0",
+            "headLine": false,
+            "hasAD": 1,
+            "color": "",
+            "bannerOrder": 0,
+            "tname": "要闻",
+            "ename": "yaowenspecial",
+            "showType": "comment",
+            "special": 0,
+            "tid": "T1467284926140",
+            "ad_type": 1
+        },
+        {
+            "template": "recommend",
+            "topicid": "00037VVH",
+            "hasCover": false,
+            "weburl": "http://ent.163.com/",
+            "alias": "Entertainment",
+            "subnum": "超过1000万",
+            "recommendOrder": 120,
+            "isNew": 0,
+            "hashead": 1,
+            "img": "T1348648517839",
+            "isHot": 0,
+            "hasIcon": true,
+            "cid": "C1348648351901",
+            "recommend": "1",
+            "headLine": false,
+            "hasAD": 1,
+            "color": "",
+            "bannerOrder": 0,
+            "tname": "娱乐",
+            "ename": "yule",
+            "showType": "comment",
+            "special": 0,
+            "tid": "T1348648517839",
+            "ad_type": 1
+        }
+    ]
+}
+```
+json数据中的tid即为上文中的新闻类别id
 
 ![](http://upload-images.jianshu.io/upload_images/3981391-e7b266d455078420.jpg)
 

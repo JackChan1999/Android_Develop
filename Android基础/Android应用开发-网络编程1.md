@@ -609,7 +609,8 @@ res\layout\item_listview.xml
 
 </RelativeLayout>
 ```
-效果：
+效果： 
+
 ![img](http://bbs.itheima.com/data/attachment/forum/201506/26/203145szmt0nnmeyewkmvv.png.thumb.jpg) 
 
 获取新闻信息，将news.xml和images文件夹存放在Tomcat服务器中。
@@ -2157,7 +2158,7 @@ public class MainActivity extends Activity {
 ```
 ## 3.1 **案例5：新闻客户端**
 
-```
+```java
 public class MainActivity extends Activity {
 
 	List<News> newsList;
@@ -2358,9 +2359,10 @@ text = new String(bos.toByteArray());
 ## 4.1 乱码的处理
 
 -  乱码的出现是因为服务器和客户端码表不一致导致
-```
+
+```java
 //手动指定码表
-text = new String(bos.toByteArray(), "gb2312");
+String text = new String(bos.toByteArray(), "gb2312");
 ```
 ## 4.2 **案例4：HTML源文件查看器**
 
@@ -2437,7 +2439,7 @@ if(conn.getResponseCode() == 200){
 
 -  浏览器在发送请求携带数据时会对数据进行URL编码，我们写代码时也需要为中文进行URL编码
 
-```
+```java
 String path = "http://192.168.1.104/Web/servlet/CheckLogin?name=" + URLEncoder.encode(name) + "&pass=" + pass;
 ```
 

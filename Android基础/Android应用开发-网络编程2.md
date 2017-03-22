@@ -1982,7 +1982,41 @@ public class LoginServlet extends HttpServlet {
 
 # 3. 使用HttpURLConnection 提交数据
 
+```java
+URL newURL = new URL(url);
+URLConnection urlConnection = newURL.openConnection();
+urlConnection.setConnectTimeout(mConfig.connTimeOut);
+urlConnection.setReadTimeout(mConfig.soTimeOut);
+urlConnection.setDoInput(true);
+urlConnection.setUseCaches(false);
+
+// HttpsURLConnection
+HttpsURLConnection.setDefaultSSLSocketFactory(sslFactory);
+HttpsURLConnection.setDefaultHostnameVerifier();
+```
+HttpURLConnection常用方法
+
+| 方法声明                 | 功能描述   |
+| :------------------- | :----- |
+| addRequestProperty() | 添加请求属性 |
+| setRequestMethod()   | 设置请求方式 |
+| setDoOutput()        |        |
+| setDoInput()         |        |
+| setConnectTimeout()  |        |
+| setReadTimeout()     |        |
+| setUseCaches()       |        |
+| getResponseCode()    |        |
+| getOutputStream()    |        |
+| getInputStream()     |        |
+| getErrorStream()     |        |
+| getResponseMessage() |        |
+| getContentLength()   |        |
+| getContentEncoding() |        |
+| getContentType()     |        |
+| getHeaderFields()    |        |
+
 ## 3.1 代码
+
 MainActivity.java 代码清单见【文件1-4】。
 【文件1-4】MainActivity.java
 ```java
@@ -3939,10 +3973,12 @@ public class MainActivity extends Activity {
 >HttpUtils本身就支持多线程断点续传，使用起来非常的方便
 
 * 创建HttpUtils对象
+```java
+HttpUtils http = new HttpUtils();
+```
 
-  	HttpUtils http = new HttpUtils();
-* 下载文件
-  ​
+* 下载文件 
+
 ```java
 http.download(
         url, //下载请求的网址
