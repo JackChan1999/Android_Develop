@@ -465,7 +465,8 @@ public class Tools {
                                 bos.write(b,0,len);
                         }
                         
-                        //把输出流里的内容转换成字节数组
+                        // 把输出流里的内容转换成字节数组
+                  		// String text = bos.toString();
                         String text = new String(bos.toByteArray());
                         return text;
                 }catch(IOException e){
@@ -1141,7 +1142,8 @@ public class Tools {
                                 bos.write(b,0,len);
                         }
                         
-                        //把输出流里的内容转换成字节数组
+                        // 把输出流里的内容转换成字节数组
+                  		// String text = bos.toString();
                         String text = new String(bos.toByteArray());
                         return text;
                 }catch(IOException e){
@@ -2351,8 +2353,9 @@ while((len = is.read(b)) != -1){
     //把读到的字节先写入字节数组输出流中存起来
     bos.write(b, 0, len);
 }
-//把字节数组输出流中的内容转换成字符串
-//默认使用utf-8
+// 把字节数组输出流中的内容转换成字符串
+// 默认使用utf-8
+// String text = bos.toString();
 text = new String(bos.toByteArray());
 ```
 
