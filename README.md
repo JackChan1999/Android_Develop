@@ -1,3 +1,11 @@
+# GitHub托管
+
+*https://github.com/JackChen1999/Android_Develop*
+
+# 在线阅读
+
+*https://alleniverson.gitbooks.io/android-develop/content/*
+
 # 目录
 
 * [前言](README.md)
