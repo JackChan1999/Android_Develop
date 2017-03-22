@@ -115,12 +115,12 @@
 ----
 
 * 开发工具
-  * [Android-Studio使用技巧](开发工具/Android Studio 使用技巧.md)
+  * [Android-Studio使用技巧](开发工具/AndroidStudio使用技巧.md)
   * [Android反编译](开发工具/Android反编译.md)
   * [GitBook使用教程](开发工具/GitBook使用教程.md)
   * [Git常用命令](开发工具/Git常用命令.md)
   * [GitHub秘籍](开发工具/GitHub秘籍.md)
-  * [你所不知道的Android Studio调试技巧](开发工具/你所不知道的Android Studio调试技巧.md)
+  * [你所不知道的Android Studio调试技巧](开发工具/你所不知道的AndroidStudio调试技巧.md)
   * [Git常用命令和Git团队使用规范指南](开发工具/Git常用命令和Git团队使用规范指南.md)
   * [博客编辑神器：Markdown编辑器](开发工具/博客编辑神器：Markdown编辑器.md)
 
@@ -128,13 +128,13 @@
 
 * Android新特性
   * [Android5.0新特性：全新的动画](新特性\Android5.0新特性：全新的动画.md)
-  * [Android N 新特性](新特性\Android N 新特性.md)
-  * [Google VR全景图片与视频功能开发详解](新特性\Google VR全景图片与视频功能开发详解.md)
+  * [Android N 新特性](新特性\Android7.0新特性.md)
+  * [Google VR全景图片与视频功能开发详解](新特性\VR全景图片与视频功能开发详解.md)
 
 ----
 
 * 性能优化
-  * [性能分析工具 Android TraceView](性能优化\性能分析工具 Android TraceView.md)
+  * [性能分析工具 Android TraceView](性能优化\性能分析工具TraceView.md)
 
 ----
 
@@ -161,10 +161,10 @@
 ----
 
 * RecyclerView
-  * [打造万能的ListView GridView 适配器](RecyclerView\打造万能的ListView GridView 适配器.md)
+  * [打造万能的ListView GridView 适配器](RecyclerView\打造万能的适配器.md)
   * [ListView的优化](RecyclerView\ListView的优化.md)
-  * [RecyclerView 使用完全解析 体验艺术般的控件](RecyclerView\Android RecyclerView 使用完全解析 体验艺术般的控件.md)
-  * [深入浅出 RecyclerView](RecyclerView\深入浅出 RecyclerView.md)
+  * [RecyclerView 使用完全解析 体验艺术般的控件](RecyclerView\RecyclerView使用完全解析.md)
+  * [深入浅出 RecyclerView](RecyclerView\深入浅出RecyclerView.md)
   * [为RecyclerView打造通用Adapter](RecyclerView\为RecyclerView打造通用Adapter.md)
   * [为RecyclerView添加HeaderView和FooterView](RecyclerView\为RecyclerView添加HeaderView和FooterView.md)
   * [RecyclerView.Adapter：全能notify解决方案](RecyclerView\RecyclerView.Adapter：全能notify解决方案.md)
