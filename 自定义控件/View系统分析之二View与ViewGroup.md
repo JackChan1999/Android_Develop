@@ -609,7 +609,7 @@ main.xml :
 </FrameLayout>
 ```
 
-我们引入了命名空间mytv, 用法为  xmlns:mytv="http://schemas.android.com/apk/res/com.example.touch"。并且需要注意，MyTextView的layout_width和layout_height我们都是设置为wrap_content的。然后使用mytv:text设置文本内容，使用mytv:textSize来设置文本大小。
+我们引入了命名空间mytv, 用法为 xmlns:mytv="http://schemas.android.com/apk/res/com.example.touch" 并且需要注意，MyTextView的layout_width和layout_height我们都是设置为wrap_content的。然后使用mytv:text设置文本内容，使用mytv:textSize来设置文本大小。
 
 运行以后效果如下图:
 
@@ -830,7 +830,8 @@ public class VerticalLinearLayout extends ViewGroup {
 main.xml的定义 :
 
 ```xml
-<com.example.touch_event.viewsystem.VerticalLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"  
+<com.example.touch_event.viewsystem.VerticalLinearLayout 
+	xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"  
     xmlns:mytv="http://schemas.android.com/apk/res/com.example.touch"  
     android:id="@+id/container"  
