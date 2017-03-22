@@ -55,7 +55,7 @@
 
 * 第4章 消息机制
   * [Android的消息机制](消息机制/Android的消息机制.md)
-  * [AsyncTask完全解析](消息机制\Android AsyncTask完全解析，带你从源码的角度彻底理解.md)
+  * [AsyncTask完全解析](消息机制/AsyncTask源码解析.md)
 
 ----
 
@@ -66,9 +66,9 @@
   * [自定义控件：SlidingMenu](自定义控件/自定义控件：SlidingMenu，侧边栏，侧滑菜单.md)
   * [自定义控件：侧滑面板](自定义控件/自定义控件：侧滑面板.md)
   * [自定义控件：快速索引](自定义控件/自定义控件：快速索引.md)
-  * [Android View系统分析之一从setContentView说开来](自定义控件/Android View系统分析之一从setContentView说开来.md)
-  * [Android View系统分析之二View与ViewGroup](自定义控件/Android View系统分析之二View与ViewGroup.md)
-  * [Android View系统分析之三Activity的启动与显示](自定义控件/Android View系统分析之三Activity的启动与显示.md)
+  * [Android View系统分析之一从setContentView说开来](自定义控件/View系统分析之一从setContentView说开来.md)
+  * [Android View系统分析之二View与ViewGroup](自定义控件/View系统分析之二View与ViewGroup.md)
+  * [Android View系统分析之三Activity的启动与显示](自定义控件/View系统分析之三Activity的启动与显示.md)
 
 ----
 
@@ -76,7 +76,7 @@
   * [Android安全加密：对称加密](安全加密/Android安全加密：对称加密.md)
   * [Android安全加密：非对称加密](安全加密/Android安全加密：非对称加密.md)
   * [Android安全加密：数字签名和数字证书](安全加密/Android安全加密：数字签名和数字证书.md)
-  * [Android安全加密：消息摘要Message Digest](安全加密/Android安全加密：消息摘要Message Digest.md)
+  * [Android安全加密：消息摘要Message Digest](安全加密/Android安全加密：消息摘要MessageDigest.md)
   * [Android安全加密：Https编程](安全加密/Android安全加密：Https编程.md)
 
 ----
@@ -102,10 +102,10 @@
 ----
 
 * Tangram
-  * [苹果核 - Tangram 的基础 —— vlayout（Android）](Tangram/苹果核 - Tangram 的基础 —— vlayout（Android）.md)
-  * [苹果核 - 页面动态化的基础 —— Tangram](Tangram/苹果核 - 页面动态化的基础 —— Tangram.md)
-  * [苹果核 - vlayout使用说明（一）](Tangram/苹果核 - vlayout使用说明（一）.md)
-  * [苹果核 - vlayout使用说明（二）](Tangram/苹果核 - vlayout使用说明（二）.md)
+  * [苹果核 - Tangram 的基础 —— vlayout（Android）](Tangram/Tangram基础-vlayout.md)
+  * [苹果核 - 页面动态化的基础 —— Tangram](Tangram/页面动态化的基础-Tangram.md)
+  * [苹果核 - vlayout使用说明（一）](Tangram/vlayout使用说明1.md)
+  * [苹果核 - vlayout使用说明（二）](Tangram/vlayout使用说明2.md)
 
 ----
 
