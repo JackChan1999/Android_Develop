@@ -2,7 +2,7 @@
 
 其实，Volley的官方文档中本身就附有了一张Volley的工作流程图，如下图所示。
 
-![img](http://img.blog.csdn.net/20140511114837375?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VvbGluX2Jsb2c=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+![img](img/volley-request.png)
 
 多数朋友突然看到一张这样的图，应该会和我一样，感觉一头雾水吧？没错，目前我们对Volley背后的工作原理还没有一个概念性的理解，直接就来看这张图自然会有些吃力。不过没关系，下面我们就去分析一下Volley的源码，之后再重新来看这张图就会好理解多了。
 
@@ -42,9 +42,7 @@ return queue;
 }
 ```
 
-可以看到，这里在第10行判断如果stack是等于null的，则去创建一个HttpStack对象，这里会判断如果手机系统版本号是大于9的，则创建一个HurlStack的实例，否则就创建一个HttpClientStack的实例。实际上
-
-HurlStack的内部就是使用HttpURLConnection进行网络通讯的，而HttpClientStack的内部则是使用HttpClient进行网络通讯的，这里为什么这样选择呢？可以参考我之前翻译的一篇文章**Android访问网络，使用HttpURLConnection还是HttpClient？**
+可以看到，这里在第10行判断如果stack是等于null的，则去创建一个HttpStack对象，这里会判断如果手机系统版本号是大于9的，则创建一个HurlStack的实例，否则就创建一个HttpClientStack的实例。实际上HurlStack的内部就是使用HttpURLConnection进行网络通讯的，而HttpClientStack的内部则是使用HttpClient进行网络通讯的，这里为什么这样选择呢？可以参考我之前翻译的一篇文章[**Android访问网络，使用HttpURLConnection还是HttpClient？**](http://blog.csdn.net/guolin_blog/article/details/12452307)
 
 创建好了HttpStack之后，接下来又创建了一个Network对象，它是用于根据传入的HttpStack对象来处理网络请求的，紧接着new出一个RequestQueue对象，并调用它的start()方法进行启动，然后将RequestQueue返回，这样newRequestQueue()的方法就执行结束了。
 
@@ -361,7 +359,7 @@ private class ResponseDeliveryRunnable implements Runnable {
 
 好了，到这里我们就把Volley的完整执行流程全部梳理了一遍，你是不是已经感觉已经很清晰了呢？对了，还记得在文章一开始的那张流程图吗，刚才还不能理解，现在我们再来重新看下这张图：
 
-![img](http://img.blog.csdn.net/20140511114837375?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3VvbGluX2Jsb2c=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+![img](img/volley-request.png)
 
 其中蓝色部分代表主线程，绿色部分代表缓存线程，橙色部分代表网络线程。我们在主线程中调用RequestQueue的add()方法来添加一条网络请求，这条请求会先被加入到缓存队列当中，如果发现可以找到相应的缓存结果就直接读取缓存并解析，然后回调给主线程。如果在缓存中没有找到结果，则将这条请求加入到网络请求队列中，然后处理发送HTTP请求，解析响应结果，写入缓存，并回调主线程。
 

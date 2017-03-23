@@ -586,6 +586,32 @@ view的事件分发
 1. 返回true，说明可以响应down事件和up事件
 2. 返回false，只会响应down事件。不会响应up事件。在down事件如果能消费(处理)当前事件。那么在up的时候也会把事件传递给当前的view，在down事件处理不了当前事件。那么在up的时候。也不会把事件传递给当前的view
 
+模拟点击事件
+
+```java
+private void createClick(final View v) {
+	08-23 03:22:35.028: I/System.out(1652): x轴坐标---151.0--y轴坐标---218.0
+    final int x = 151;
+    final int y = 218;
+	long downTime = System.currentTimeMillis();
+	MotionEvent motionEventDown = MotionEvent.obtain(downTime, downTime, MotionEvent.ACTION_DOWN, x, y, 0);
+	v.dispatchTouchEvent(motionEventDown);
+	
+	
+	new Handler().postDelayed(new Runnable() {
+		
+		@Override
+		public void run() {
+			long upTime = System.currentTimeMillis();
+			MotionEvent motionEventUp = MotionEvent.obtain(upTime, upTime, MotionEvent.ACTION_UP, x, y, 0);
+			v.dispatchTouchEvent(motionEventUp);
+			
+		}
+	}, 200);
+	
+}
+```
+
 [Android的事件分发实例分析](http://blog.csdn.net/axi295309066/article/details/60139074)
 
 # **7. ScrollView的onTouchEvent**

@@ -21,7 +21,7 @@
 代理服务器就是网络信息的中转站，有什么功能呢？
 
 1. 提高访问速度， 大多数的代理服务器都有缓存功能。
-2. 突破限制， 也就是FQ了
+2. 突破限制， 也就是翻墙了
 3. 隐藏身份。
 
 # 3. URL详解
@@ -59,13 +59,13 @@ http协议是无状态的，同一个客户端的这次请求和上次请求是�
 
 # 5. 打开一个网页需要浏览器发送很多次Request
 
-1. 当你在浏览器输入URL http://www.cnblogs.com 的时候，浏览器发送一个Request去获取 http://www.cnblogs.com 的html.  服务器把Response发送回给浏览器.
+1. 当你在浏览器输入URL http://www.cnblogs.com 的时候，浏览器发送一个Request去获取 http://www.cnblogs.com 的html.  服务器把Response发送回给浏览器
 
-2. 浏览器分析Response中的 HTML，发现其中引用了很多其他文件，比如图片，CSS文件，JS文件。
+2. 浏览器分析Response中的 HTML，发现其中引用了很多其他文件，比如图片，CSS文件，JS文件
 
-3. 浏览器会自动再次发送Request去获取图片，CSS文件，或者JS文件。
+3. 浏览器会自动再次发送Request去获取图片，CSS文件，或者JS文件
 
-4. 等所有的文件都下载成功后。 网页就被显示出来了。
+4. 等所有的文件都下载成功后。 网页就被显示出来了
 
 # 6. HTTP消息的结构
 
@@ -82,7 +82,7 @@ GET http://www.cnblogs.com/ HTTP/1.1
 Host: www.cnblogs.com
 ```
 
-抽象的东西，难以理解，老感觉是虚的， 所谓眼见为实, 实际见到的东西，我们才能理解和记忆。 我们今天用Fiddler，实际的看看Request和Response.
+抽象的东西，难以理解，老感觉是虚的， 所谓眼见为实, 实际见到的东西，我们才能理解和记忆。 我们今天用Fiddler，实际的看看Request和Response
 
 下面我们打开Fiddler 捕捉一个博客园登录的Request 然后分析下它的结构, 在Inspectors tab下以Raw的方式可以看到完整的Request的消息，   如下图
 

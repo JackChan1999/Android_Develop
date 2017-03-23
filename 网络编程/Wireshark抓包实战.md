@@ -26,7 +26,7 @@ http://c.m.163.com/nc/article/list/T1467284926140/0-20.html
 
 ## 新闻分类id
 
-url组织形式http://c.m.163.com/nc/article/list/id/startindex-count.html
+url组织形式：http://c.m.163.com/nc/article/list/id/startindex-count.html
 
 其中tid是新闻类别的id，startindex是数据的起始索引，count是新闻数据的条数
 
@@ -130,9 +130,15 @@ json数据中的tid即为上文中的新闻类别id
 
 ## 新闻详情页
 
+https://c.m.163.com/news/a/docid.html
+
 http://c.m.163.com/nc/article/docid/full.html
 
-例如：http://c.m.163.com/nc/article/CG4A99320001899O/full.html
+例如：
+
+https://c.m.163.com/news/a/CG4A99320001899O.html
+
+http://c.m.163.com/nc/article/CG4A99320001899O/full.html
 
 其中CG4A99320001899O是docid，如图所示
 
