@@ -49,15 +49,13 @@ Google 明确声明该API 是稳定的，在后续所有版本中都稳定支持
 
 ## 3.1 NDK 的下载
 
-[NDK 的官方下载地址](http://developer.android.com/tools/sdk/ndk/index.html)，由于官方网址在国外，国内访问不了，必须得翻墙。因此我提供了下载好的NDK 工具放在百度网盘上供大家[下载](http://pan.baidu.com/s/1jGpCDKi)
+[NDK 的官方下载地址](https://developer.android.google.cn/ndk/downloads/index.html)
 
-![](../assets/ndk.png)
+![](img/jni13.png)
 
 ## 3.2 将NDK 解压到一个不包含空格和中文的目录下
 
-本人将NDK 解压在D:\software\ndkr9\android-ndk-r9b 中。
-
-注意：Android Studio 已经集成了NDK，无需下载
+本人将NDK 解压在D:\software\ndkr9\android-ndk-r9b 中
 
 ## 3.3 NDK 目录结构说明
 

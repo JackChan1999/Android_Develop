@@ -20,64 +20,72 @@ Android是基于Linux内核的一个手机操作系统，谷歌提供了开发�
 
 # 2. 课程内容
 
-## 2.1 搭建Android开发环境
+## [NDK中文官方开发技术文档地址](https://developer.android.google.cn/ndk/index.html)
 
-### 2.1.1 安装JDK
+![](img/jni14.png)
 
-- [下载地址](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
+## 下载配置NDK
 
-![Snip20161011_59](../assets/Snip20161011_59.png)
+[NDK下载地址](https://developer.android.google.cn/ndk/downloads/index.html)
 
-![Snip20161011_63](../assets/Snip20161011_63.png)
+![](img/jni13.png)
 
-- 安装
+配置NDK
 
-双击安装文件进行安装，选项保持默认即可
+![](img/jni4.png)
 
-- 配置
+![](img/jni5.png)
 
-将安装路径中的JDK的bin目录，设置到PATH环境变量中，比如电脑上的路径为：`C:\Program Files\Java\jdk1.8.0_05\bin`
+如果不配置NDK路径，会报NDK没有配置错误
 
-### 2.1.2 安装Android Studio和SDK
+![](img/jni3.png)
 
-- [下载](http://www.android-studio.org/)地址
+## JNI开发HelloWorld
 
-这里选择的是无安装，无SDK的版本
-![Snip20161011_58](../assets/Snip20161011_58.png)
+把 Include C++ support的勾打上
 
-- 配置
+![](img/jni1.png)
 
-解压即可，不需要安装。然后运行解压目录下的`android64.exe`，按照下图指示完成配置。
-![Snip20161011_64](../assets/Snip20161011_64.png)
-![Snip20161011_66](../assets/Snip20161011_66.png)
-![Snip20161011_67](../assets/Snip20161011_67.png)
-![Snip20161011_68](../assets/Snip20161011_68.png)
-![Snip20161011_70](../assets/Snip20161011_70.png)
-Android SDK Location指定一个空目录即可，解析来会自动安装。
-![Snip20161011_71](../assets/Snip20161011_71.png)
-![Snip20161011_73](../assets/Snip20161011_73.png)
-此阶段下载需要费不少时间。
-![Snip20161011_75](../assets/Snip20161011_75.png)
+选择C++11和Toolchain Default均可，C++11有更多的新特性和功能
 
-## 2.1.3 实现Android的HelloWorld
+![](img/jni2.png)
 
-## 2.2 Android NDK环境搭建
+点击Finish后，进入工程目录，如图所示，除了java文件夹外多了一个cpp文件夹，cpp就是存放c和c++代码的文件夹
 
-- 下载
+![](img/jni8.png)
 
-NDK开发包随公开课视频下发，请同学们持续关注。
+## 配置NDK开发环境中遇到的坑
 
-- 解压缩Android NDK
+Failed to find CMake
 
-将NDK解压缩到随意目录（但是目录不能包含中文和空格）。
+![](img/jni6.png)
 
-- 配置
+什么，CMake是什么鬼，原来，在Android Studio 2.2 后，NDK开发更加人性化了，使用了[**CMake**](https://cmake.org/)，一款外部构建工具，可与 Gradle 搭配使用来构建原生库。如果您只计划使用 ndk-build，则不需要此组件。还有[**LLDB**](http://lldb.llvm.org/)，一种调试程序，Android Studio 使用它来[调试原生代码](https://developer.android.google.cn/studio/debug/index.html)。
 
-![Snip20161012_77](../assets/Snip20161012_77.png)
+点击Install CMake and sync project，提示如下错误
 
-![Snip20161012_78](../assets/Snip20161012_78.png)
-将解压缩的NDK路径填入Android NDK location目录。
-![Snip20161012_79](../assets/Snip20161012_79.png)
+![](img/jni7.png)
+
+```
+Gradle sync failed: Failed to find CMake.
+Install from Android Studio under File/Settings/Appearance & Behavior/System Settings/Android SDK/SDK Tools/CMake.
+Expected CMake executable at D:\android-sdk\cmake\bin\cmake.exe.
+Consult IDE log for more details (Help | Show Log)
+```
+
+原来是我使用了代理，因为之前Google的链接需要翻墙才能够使用，所以配置了某代理，但是该代理不管用，在设置中把代理去掉即可。在Google在中国开了发布会后，Google的链接可以使用了，Android开发官网也可以上了，而且翻译了大量的技术文档，方便了英语不太好的同学
+
+![](img/jni11.png)
+
+打开 SDK Manager，安装上CMake和LLDB
+
+![](img/jni15.png)
+
+![](img/jni9.png)
+
+![](img/jni10.png)
+
+更多更详细的NDK开发文档，请看Android官方中文文档[向您的项目添加 C 和 C++ 代码](https://developer.android.google.cn/studio/projects/add-native-code.html)
 
 ## 2.3 Android Java代码调用C++代码
 

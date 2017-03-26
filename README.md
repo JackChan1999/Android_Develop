@@ -52,6 +52,7 @@
   * [JNI与底层调用1](ndk&jni/JNI与底层调用1.md)
   * [JNI与底层调用2](ndk&jni/JNI与底层调用2.md)
   * [C和C++在Android开发中的应用](ndk&jni/C和C++在Android开发中的应用.md)
+  * [向您的项目添加C和C++代码](ndk&jni/向您的项目添加C和C++代码.md)
 
 * 第4章 消息机制
   * [Android的消息机制](消息机制/Android的消息机制.md)
