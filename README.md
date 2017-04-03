@@ -1,12 +1,12 @@
-# GitHub托管
+## GitHub托管
 
 **https://github.com/JackChen1999/Android_Develop**
 
-# 在线阅读
+## 在线阅读
 
 **https://alleniverson.gitbooks.io/android-develop/content/**
 
-# 目录
+## 目录
 
 * [前言](README.md)
 
@@ -143,3 +143,16 @@
   * [为RecyclerView打造通用Adapter](RecyclerView/为RecyclerView打造通用Adapter.md)
   * [为RecyclerView添加HeaderView和FooterView](RecyclerView/为RecyclerView添加HeaderView和FooterView.md)
   * [RecyclerView.Adapter：全能notify解决方案](RecyclerView/RecyclerView.Adapter：全能notify解决方案.md)
+
+
+## 关注我
+
+- Email：<815712739@qq.com>
+- CSDN博客：[Allen Iverson](http://blog.csdn.net/axi295309066)
+- 新浪微博：[AndroidDeveloper](http://weibo.com/u/1848214604?topnav=1&wvr=6&topsug=1&is_all=1)
+- GitHub：[JackChen1999](https://github.com/JackChen1999)
+- GitBook：[alleniverson](https://www.gitbook.com/@alleniverson)
+
+|                   微信打赏                   |                  支付宝打赏                   |
+| :--------------------------------------: | :--------------------------------------: |
+| <img src="assets/weixin.png" width="300" /> | <img src="assets/支付宝.jpg" width="300" /> |
