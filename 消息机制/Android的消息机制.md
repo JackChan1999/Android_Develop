@@ -547,6 +547,11 @@ public static void loop() {
 
 Handler应用场景：Handler在主线程中创建，Looper会在死循环里等待取消息，1、没取到，就阻塞，2、一旦被子线程唤醒，取到消息，就把Message交给Handler处理。子线程用Handler去发送消息，拿写入描述符去写消息，唤醒主线程。
 
+```java
+Looper.getMainLooper() == Looper.myLooper(); // 判断是否在主线程
+Handler mHandler = new Handler(Looper.getMainLooper());
+```
+
 # **11. Handler.dispatchMessage**
 
 ```java
