@@ -19,7 +19,17 @@ HTTP协议是学习JavaWEB开发的基石，不深入了解HTTP协议，就不�
 
 ## OSI网络七层协议
 
-应用层（HTTP、FTP、SMTP、POP3、TELNET）->表示层->会话层->传输层（TCP、UDP）->网络层（IP）->数据链路层->物理层
+- 应用层（HTTP、FTP、SMTP、POP3、TELNET）
+- 表示层
+- 会话层
+- 传输层（TCP、UDP）
+- 网络层（IP）
+- 数据链路层
+- 物理层
+
+![](img/网络协议.jpg)
+
+![](img/网络模型.jpg)
 
 # **2. HTTP协议简介**
 
@@ -231,7 +241,6 @@ Date: Wed, 25 Sep 2012 04:15:03 GMT
 | Last-Modified                            | 最后修改时间                      |
 | Refresh                                  | 自动刷新，n秒后跳转到另一个页面            |
 | Set-Cookie                               | 发送Cookie信息                  |
-<br>
 Location: http://www.it315.org/index.jsp  配合302实现请求重定向
 
 ![http](http://img.blog.csdn.net/20161030185328767)
@@ -263,7 +272,6 @@ Date: Tue, 11 Jul 2000 18:23:51 GMT 当前时间
 | 307  | 服务器通知浏览器使用缓存                             |
 | 404  | 请求的资源没有找到，说明客户端错误的请求了不存在的资源              |
 | 500  | 请求资源找到了，但服务器内部出现了错误                      |
- <br>
 304：当用户第一次请求index.html时，服务器会添加一个名为Last-Modified响应头，这个头说明了index.html的最后修改时间，浏览器会把index.html内容，以及最后响应时间缓存下来。当用户第二次请求index.html时，在请求中包含一个名为If-Modified-Since请求头，它的值就是第一次请求时服务器通过Last-Modified响应头发送给浏览器的值，即index.html最后的修改时间，If-Modified-Since请求头就是在告诉服务器，我这里浏览器缓存的index.html最后修改时间是这个，您看看现在的index.html最后修改时间是不是这个，如果还是，那么您就不用再响应这个index.html内容了，我会把缓存的内容直接显示出来。而服务器端会获取If-Modified-Since值，与index.html的当前最后修改时间比对，如果相同，服务器会发响应码304，表示index.html与浏览器上次缓存的相同，无需再次发送，浏览器可以显示自己的缓存页面，如果比对不同，那么说明index.html已经做了修改，服务器会响应200
 
 ![http](http://img.blog.csdn.net/20161028111022578)
