@@ -14,13 +14,13 @@ Android从5.0 (API Level 21)开始提供[Material Design](https://developer.andr
 1.首先项目gradle中添加:
 
 ```
-compile 'com.android.support:appcompat-v7:23.4.0'
+compile 'com.android.support:appcompat-v7:25.3.0'
 ```
 
 2.确保Activity继承`AppCompatActivity`
 3.在application设置中使用NoActionBar的主题:
 
-```
+```xml
 <application
     android:theme="@style/Theme.AppCompat.Light.NoActionBar"
     />
@@ -28,7 +28,7 @@ compile 'com.android.support:appcompat-v7:23.4.0'
 
 4.把Toolbar写在布局中
 
-```
+```xml
 <android.support.v7.widget.Toolbar
    android:id="@+id/my_toolbar"
    android:layout_width="match_parent"
@@ -43,7 +43,7 @@ compile 'com.android.support:appcompat-v7:23.4.0'
 首先把Toolbar find出来, 然后调用[setSupportActionBar方法](https://developer.android.com/reference/android/support/v7/app/AppCompatActivity.html#setSupportActionBar(android.support.v7.widget.Toolbar))
 把Toolbar设置为自己的ActionBar即可.
 
-```
+```java
 public class ToolbarDemoActivity extends AppCompatActivity {
 
     @BindView(R.id.toolbar)
@@ -65,7 +65,7 @@ public class ToolbarDemoActivity extends AppCompatActivity {
 
 定义menu:
 
-```
+```xml
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
@@ -89,7 +89,7 @@ public class ToolbarDemoActivity extends AppCompatActivity {
 
 然后在代码中inflate和处理它的点击事件:
 
-```
+```java
 @Override
 public boolean onCreateOptionsMenu(Menu menu) {
     Log.i(TAG, "onCreateOptionsMenu()");
@@ -119,7 +119,7 @@ public boolean onOptionsItemSelected(MenuItem item) {
 
 添加向上返回parent的action:
 
-```
+```java
 @Override
 protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -135,7 +135,7 @@ protected void onCreate(Bundle savedInstanceState) {
 
 然后只需要在manifest中指定parent:
 
-```
+```xml
 <activity
     android:name=".toolbar.ToolbarDemoActivity"
     android:parentActivityName=".MainActivity"></activity>
@@ -197,8 +197,7 @@ setHasOptionsMenu(true)
 ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
 ```
 
-就会导致Activity`onCreateOptionsMenu()`方法的调用, 而Activity会根据其中Fragment是否设置了setHasOptionsMenu(true)来调用Fragment的
-`onCreateOptionsMenu()`方法, 调用顺序是树形的, 按层级调用, 中间如果有false则跳过.
+就会导致Activity`onCreateOptionsMenu()`方法的调用, 而Activity会根据其中Fragment是否设置了setHasOptionsMenu(true)来调用Fragment的`onCreateOptionsMenu()`方法, 调用顺序是树形的, 按层级调用, 中间如果有false则跳过.
 
 假设当前Activity, Parent Fragment和Child Fragment中都设置了自己的Toolbar为ActionBar.
 在打开Child fragment的时候, `onCreateOptionsMenu()`的调用顺序是.
@@ -206,12 +205,9 @@ setHasOptionsMenu(true)
 
 关于这个, 还有以下几种情况:
 
-```
 - 如果Parent的`setHasOptionsMenu(false)`, Child为true, 则Parent的`onCreateOptionsMenu()`不会调用, 打开Child的时候Activity -> Child.
 - 如果Child的`setHasOptionsMenu(false)`, Parent为true, 则打开Child的时候仍然会调用Activity和Parent的onCreateOptionsMenu()方法.
 - 如果Parent和Child都置为false, 打开Parent和Child Fragment的时候都会调用Activity的onCreateOptionsMenu()方法.
-
-```
 
 **仅仅是child Fragment的show() hide()的切换, activity和parent Fragment的onCreateOptionsMenu()也会重新进入.**
 这一点我还没有想明白, 是项目中遇到的, 初步推测可能是menu的显隐变化invalidate了menu, 改天有空再试试.

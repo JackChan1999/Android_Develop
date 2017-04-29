@@ -8,9 +8,7 @@
 
 ## 主题
 
-（有木有直入主题，哈哈~）
 我将上次的例子做了下修改
-xml：
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -62,9 +60,6 @@ import android.support.v4.view.NestedScrollingChildHelper;
 import android.util.AttributeSet;
 import android.view.View;
 
-/**
- * Created by SidHu on 2016/8/17.
- */
 public class HideHeadBehavior extends CoordinatorLayout.Behavior implements NestedScrollingChild {
 
     private boolean isHeadHide = false;
@@ -205,9 +200,6 @@ import android.support.design.widget.CoordinatorLayout;
 import android.util.AttributeSet;
 import android.view.View;
 
-/**
- * Created by SidHu on 2016/8/18.
- */
 public class MoveWithHeadBehavior extends CoordinatorLayout.Behavior{
 
     private int lastBottom = -1;

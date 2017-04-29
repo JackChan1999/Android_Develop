@@ -2,13 +2,13 @@
 
 Behavior是Android Design中推荐的布局概念，网上找了很多关于Behavior的资料，很多都是直接翻译的文档或者浅尝辄止，很多问题都没有讲明白，例如具体怎么自定义Behavior，怎么使非官方的控件也能实现这些功能等等。最近几天，我整理出了一些思路，跟大家分享下。
 
-大家知道，Behavior的主要作用有三个，这也是我准备去分别介绍的、
+大家知道，Behavior的主要作用有三个，这也是我准备去分别介绍的
 
-1. 可以避免重写控件的触摸事件
-2. 优秀的嵌套滑动机制
-3. 轻松建立布局间的依赖关系
+- 可以避免重写控件的触摸事件
+- 优秀的嵌套滑动机制
+- 轻松建立布局间的依赖关系
 
-每篇文章，我都会提出几个相关的疑问，并带着大家一起去解决它，今天的疑问是以下几个、
+每篇文章，我都会提出几个相关的疑问，并带着大家一起去解决它，今天的疑问是以下几个
 
 - 如何用Behavior使我们自定义的控件能够对外传递触摸事件？
 - 如何用对应的控件处理触摸事件？
@@ -29,7 +29,7 @@ Behavior是Android Design中推荐的布局概念，网上找了很多关于Beha
 
 原来，CoordinatorLayout只是将传过来的数据进行了一次封装，分发给了自己子布局里面所有含有Behavior的控件，交由它们进行处理。（那么我们是不是可以自己实现NestedScrollingParent接口，然后直接处理NestedScrollingChild过来的数据，不使用CoordinatorLayout和Behavior呢？答案也是肯定的！）
 
-说到这里，那我们先学习下NestedScrolling的使用，[推荐看这篇文章](https://segmentfault.com/a/1190000002873657)
+说到这里，那我们先学习下NestedScrolling的使用，推荐看这篇文章：[Android嵌套滑动机制](https://segmentfault.com/a/1190000002873657)
 有了以上知识，我们不妨写一个Behavior的例子，比如说我想让其他控件知道我某个控件的上滑手势（就如RecyclerView一样），那来看一下我们Behavior的代码
 
 ```java
@@ -148,13 +148,12 @@ if (childHelper == null) {
 然而有一点我们需要注意到的是：**onTouch事件是CoordinatorLayout分发下来的，所以这里的onTouchEvent并不是我们控件自己的onTouch事件**，也就是说，你假如手指不在我们的控件上滑动，也会触发onTouchEvent。
 于是你就看到了我下面写的代码：
 
-```
+```java
 ox = ev.getX();
 oy = ev.getY();
 if (oy < child.getTop() || oy > child.getBottom() || ox < child.getLeft() || ox > child.getRight()) {
     return true;
 }
-
 ```
 
 对手势的位置进行过滤，不是我们控件范围内的，舍弃掉后面MOVE事件里面做的事情也很简单，大家应该也看的懂，就是将滑动的数据传递出去，我就不细细解释了

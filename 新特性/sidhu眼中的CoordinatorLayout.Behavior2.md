@@ -12,9 +12,9 @@
 
 那我们就开始讲解今天的内容，同样，在文章的开始，我们先提出几个疑问：
 
-1. A发出消息，E也发出消息，怎样判断哪个是我们想要处理的滑动事件？
-2. A使B变化的同时，A能否也能一起变化？
-3. A使B发生改变的同时，B是否能发出消息，使C根据自己变化？
+- A发出消息，E也发出消息，怎样判断哪个是我们想要处理的滑动事件？
+- A使B变化的同时，A能否也能一起变化？
+- A使B发生改变的同时，B是否能发出消息，使C根据自己变化？
 
 ## A发出消息，E也发出消息，怎样判断哪个是我们想要处理的滑动事件？
 
@@ -91,9 +91,6 @@ import android.support.design.widget.CoordinatorLayout;
 import android.util.AttributeSet;
 import android.view.View;
 
-/**
- * Created by SidHu on 2016/8/17.
- */
 public class HideHeadBehavior extends CoordinatorLayout.Behavior {
 
     private boolean isHeadHide = false;
@@ -212,7 +209,6 @@ public void onNestedPreScroll(CoordinatorLayout coordinatorLayout, View child, V
 
 ## A使B发生改变的同时，B是否能发出消息，使C根据自己变化？
 
-就得嘛得！
-不是还有一个问题嘛
-这个问题的回答当然也是肯定的啦，其实聪明的你或许已经猜想到应该 怎么实现了，没错，就是根据第一篇文章依葫芦画瓢嘛。哈哈，赶紧试一试吧、不过到时候我写的会有点稍微不一样，因为下一篇要讲的是：Behavior的布局依赖、、
+就得嘛得！不是还有一个问题嘛
+这个问题的回答当然也是肯定的啦，其实聪明的你或许已经猜想到应该 怎么实现了，没错，就是根据第一篇文章依葫芦画瓢嘛。哈哈，赶紧试一试吧、不过到时候我写的会有点稍微不一样，因为下一篇要讲的是：Behavior的布局依赖
 [sidhu眼中的CoordinatorLayout.Behavior（三）](https://segmentfault.com/a/1190000006666005)
