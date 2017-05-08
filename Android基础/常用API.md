@@ -29,3 +29,8 @@ ViewCompat.offsetTopAndBottom
 public void onWindowFocusChanged(boolean hasFocus)
 
 package保护的类，新建一个一样的包，把类移到新建的包下即可
+
+## TextUtils
+
+- isEmpty()
+- join()

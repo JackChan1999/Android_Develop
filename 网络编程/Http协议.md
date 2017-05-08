@@ -150,8 +150,8 @@ keyword=hello
 ```
 POST请求是可以有体的，而GET请求不能有请求体。
 
-- Referer: http://localhost:8080/hello/index.jsp
-  请求来自哪个页面，例如你在百度上点击链接到了这里，那么Referer:http://www.baidu.com；如果你是在浏览器的地址栏中直接输入的地址，那么就没有Referer这个请求头了
+- `Referer: http://localhost:8080/hello/index.jsp`
+  请求来自哪个页面，例如你在百度上点击链接到了这里，那么`Referer:http://www.baidu.com`；如果你是在浏览器的地址栏中直接输入的地址，那么就没有Referer这个请求头了
 
 - Content-Type: application/x-www-form-urlencoded
   表单的数据类型，说明会使用url格式编码数据；url编码的数据都是以“%”为前缀，后面跟随两位的16进制，例如“传智”这两个字使用UTF-8的url编码用为“%E4%BC%A0%E6%99%BA”
@@ -241,22 +241,22 @@ Date: Wed, 25 Sep 2012 04:15:03 GMT
 | Last-Modified                            | 最后修改时间                      |
 | Refresh                                  | 自动刷新，n秒后跳转到另一个页面            |
 | Set-Cookie                               | 发送Cookie信息                  |
-Location: http://www.it315.org/index.jsp  配合302实现请求重定向
+`Location: http://www.it315.org/index.jsp`  配合302实现请求重定向
 
 ![http](http://img.blog.csdn.net/20161030185328767)
 
 Content-Type: text/html; charset=GB2312 当前所发送的数据的基本信息，（数据的类型，所使用的编码）
 
-Last-Modified: Tue, 11 Jul 2000 18:23:51 GMT 缓存相关的头
+Last-Modified: Tue, 11 Jul 2000 18:23:51 GMT 缓存相关的头，最后的修改时间
 
-Refresh: 1;url=http://www.it315.org 通知浏览器进行定时刷新，此值可以是一个数字指定多长时间以后刷新当前页面，这个数字之后也可以接一个分号后跟一个URL地址指定多长时间后刷新到哪个URL
+`Refresh: 1;url=http://www.it315.org` 通知浏览器进行定时刷新，此值可以是一个数字指定多长时间以后刷新当前页面，这个数字之后也可以接一个分号后跟一个URL地址指定多长时间后刷新到哪个URL
 
 Transfer-Encoding: chunked 传输类型，如果是此值是一个chunked说明当前的数据是一块一块传输的
 
 Set-Cookie:SS=Q0=5Lb_nQ; path=/search 和cookie相关的头，后面课程单讲
 
 ETag: W/"83794-1208174400000" 和缓存机制相关的头
-​     
+​ 
 Date: Tue, 11 Jul 2000 18:23:51 GMT 当前时间
 
 ## **7.3 响应码**
@@ -294,13 +294,13 @@ Date: Tue, 11 Jul 2000 18:23:51 GMT 当前时间
 
 以上三个头都是用来控制缓存的，是因为历史原因造成的，不同的浏览器认识不同的头，我们通常三个一起使用保证通用性
 
-2、自动刷新响应头，浏览器会在3秒之后请求http://www.itcast.cn：
+2、自动刷新响应头，浏览器会在3秒之后请求`http://www.itcast.cn`
 
-- Refresh: 3;url=http://www.itcast.cn
+- `Refresh: 3;url=http://www.itcast.cn`
 
 ## **7.5 HTML中指定响应头**
 
-在HTMl页面中可以使用<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">来指定响应头，例如在index.html页面中给出<meta http-equiv="Refresh" content="3;url=http://www.itcast.cn">，表示浏览器只会显示index.html页面3秒，然后自动跳转到http://www.itcast.cn。
+在HTMl页面中可以使用`<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">`来指定响应头，例如在index.html页面中给出`<meta http-equiv="Refresh" content="3;url=http://www.itcast.cn">`，表示浏览器只会显示index.html页面3秒，然后自动跳转到`http://www.itcast.cn`
 
 # 8. 模拟网络请求
 
