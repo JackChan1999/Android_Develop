@@ -5,6 +5,15 @@ Runtime.getRuntime().availableProcessors(); // 获取CPU核心数
 Runtime.getRuntime().maxMemory();
 ```
 
+## Process
+
+```
+Process.THREAD_PRIORITY_BACKGROUND;
+Process.killProcess();
+Process.myTid();
+Process.setThreadPriority();
+```
+
 ## Handler
 
 ```
@@ -34,3 +43,7 @@ package保护的类，新建一个一样的包，把类移到新建的包下即�
 
 - isEmpty()
 - join()
+
+## TaskStackBuilder
+
+任务栈Builder

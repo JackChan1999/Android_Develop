@@ -23,7 +23,7 @@ Android 系统将这种机制应用到方方面面，比如：联系人（通讯
 
 用一张简易图演示内容提供者的工作原理，如下图所示
 
-![这里写图片描述](http://img.blog.csdn.net/20161021114145924)
+![ContentProvider](http://img.blog.csdn.net/20161021114145924)
 
 该图中假设手机助手App 要获取系统的短信，系统的短信是存储在数据库中的，当然该数据库只能由系统短信App 内部代码直接访问。手机助手App 直接访问短信数据库是行不通的，这时候就可以借助内容提供者，系统短信App 已经写好了内容提供者，该内容提供者对外提供了短信数据。因此手机助手App直接去访问系统短信的内容提供者即可间接实现对短信数据库的访问
 
@@ -109,11 +109,11 @@ package com.example.contentProviderA;
 <uses-library android:name="android.test.runner" />
 ```
 万事俱备后一定记得运行一下该测试方法，看见如下绿条和数据库文件才行哦
-![这里写图片描述](http://img.blog.csdn.net/20161021114941420)
+![ContentProvider](http://img.blog.csdn.net/20161021114941420)
 
 数据库初始化完成
 
-![这里写图片描述](http://img.blog.csdn.net/20161021115029794)
+![ContentProvider](http://img.blog.csdn.net/20161021115029794)
 
 ## **3.3 在AppA 中创建内容提供者**
 我们已经将user.db 创建好了，接下来我们创建一个内容提供者将user.db 中的数据提供出去
@@ -283,7 +283,7 @@ public class MyContentProvider extends ContentProvider {
 ## **3.5 创建工程02-内容访问者B**
 在AppB 中直接使用MainActivity 类，布局文件如下
 
-![这里写图片描述](http://img.blog.csdn.net/20161021120644176)
+![ContentProvider](http://img.blog.csdn.net/20161021120644176)
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
@@ -465,7 +465,7 @@ MainActivity.java 代码实现
     }
 ```
 ## **3.6 内容提供者Uri 的书写规范**
-![这里写图片描述](http://img.blog.csdn.net/20161021121139574)
+![ContentProvider](http://img.blog.csdn.net/20161021121139574)
 
 - schema，用来说明一个ContentProvider 控制这些数据。"content://"
 - Authority主机名或授权：它定义了是哪个ContentProvider 提供这些数据。
@@ -478,7 +478,7 @@ MainActivity.java 代码实现
 使用内容提供者操作系统短信和操作系统联系人是我们企业开发中“经常”遇到的需求，而自定义内容提供者对外提供数据反而使用的场景并不多，除非我们开发的短信或者联系人应用
 ## 4.1 准备知识
 打开Android 系统源码，查看packages\providers\路径下的工程，这些就是Android 系统中的内容提供者，其中TelephonyProvider 就是短信的内容提供者文件
-![这里写图片描述](http://img.blog.csdn.net/20161021121808634)
+![ContentProvider](http://img.blog.csdn.net/20161021121808634)
 
 打开TelephonyProvider 下的src 文件，查看java 文件，其中的SmsProvider.java 即短信息内容提供者逻辑代码。UriMatcher 一般在静态代码块中进行初始化操作，查找静态代码块，找到的逻辑代码如下
 
@@ -518,10 +518,10 @@ private static final UriMatcher sURLMatcher = new UriMatcher(UriMatcher.NO_MATCH
 ```
 通过查找系统源码，可以确定短信息内容提供者的Uri 应该为:”content://sms”。查看Android 模拟器下的/data/data/com.android.providers.telephony/databases/目录，查看其mmssms.db文件。
 
-![这里写图片描述](http://img.blog.csdn.net/20161021122102336)
+![ContentProvider](http://img.blog.csdn.net/20161021122102336)
 
 打开数据库，其中sms 表存储的就是短信的数据，其存储格式如下
-![这里写图片描述](http://img.blog.csdn.net/20161021122146760)
+![ContentProvider](http://img.blog.csdn.net/20161021122146760)
 
 其中，address 存储的是联系人号码，date 是发送日期，type 对应短信的类型（发送是1/接收是2）,body是短信的主体内容
 
