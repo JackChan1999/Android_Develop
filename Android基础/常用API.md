@@ -14,6 +14,23 @@ Process.myTid();
 Process.setThreadPriority();
 ```
 
+```java
+public static String getProcessName(Context cxt, int pid) {
+        ActivityManager am = (ActivityManager) cxt
+                .getSystemService(Context.ACTIVITY_SERVICE);
+        List<RunningAppProcessInfo> runningApps = am.getRunningAppProcesses();
+        if (runningApps == null) {
+            return null;
+        }
+        for (RunningAppProcessInfo procInfo : runningApps) {
+            if (procInfo.pid == pid) {
+                return procInfo.processName;
+            }
+        }
+        return null;
+    }
+```
+
 ## Handler
 
 ```
