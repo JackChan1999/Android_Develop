@@ -12,6 +12,7 @@ Process.THREAD_PRIORITY_BACKGROUND;
 Process.killProcess();
 Process.myTid();
 Process.setThreadPriority();
+System.exit(1);
 ```
 
 ```java
@@ -64,3 +65,40 @@ package保护的类，新建一个一样的包，把类移到新建的包下即�
 ## TaskStackBuilder
 
 任务栈Builder
+
+## UncaughtExceptionHandler
+
+```
+public class CrashHandler implements Thread.UncaughtExceptionHandler {
+    @Override
+    public void uncaughtException(Thread thread, Throwable throwable) {
+        
+    }
+}
+```
+子线程弹土司
+```
+new Thread(new Runnable() {
+    @Override
+    public void run() {
+        Looper.prepare();
+        Toast.makeText(context,"很抱歉，程序出现异常，即将退出。",Toast.LENGTH_SHORT).show();
+        Looper.loop();
+    }
+}).start();
+```
+## ViewFlipper
+
+实现左右滑动的效果。
+
+通常情况下都是用ViewPager 来实现的
+viewPager可以兼容低版本,而ViewFlipper是android4.0才引入的新控件
+viewPager是一页一页的,可以带动画效果
+而ViewFlipper 是一层一层的,当然也可以实现切换的动画效果,但是比viewpager复杂些
+
+## FragmentTabHost
+
+## Activity
+
+    recreate();
+    setTheme();
