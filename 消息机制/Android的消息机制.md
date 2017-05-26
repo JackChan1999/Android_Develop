@@ -413,6 +413,8 @@ public class Handler {
 
 把this，也就是当前handler对象赋值给Message 的target属性，当多个Handler发送消息到消息队列的时候，可以通过该属性判断消息是哪个Handler发送的
 
+![](img/handler机制2.png)
+
 ## **9.2 MessageQueue.enqueueMessage**
 
 ```java
