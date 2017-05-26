@@ -80,3 +80,30 @@ public abstract class BaseTabDetailPager extends BaseMenuDetailPager{
 method.invoke(obj, null);
 method.invoke(obj, new Object[]{});
 ```
+## 判断RecyclerView到达底部出错
+
+```java
+    //滑动状态改变
+    @Override
+    public void onScrollStateChanged(int state) {
+        super.onScrollStateChanged(state);
+        //在静止的状态下   && 必须是最后显示的条目就是RecyclerView的最后一个条目 && 没有在加载更多的数据
+        boolean isState = state == RecyclerView.SCROLL_STATE_IDLE;
+        //最后一个条目显示的下标
+        int lastVisibleItemPosition = lm.findLastVisibleItemPosition();
+        boolean isLastVisibleItem = lastVisibleItemPosition == getAdapter().getItemCount() - 1;
+
+        if(isState && isLastVisibleItem && !hasLoadMoreData && mOnLoadMoreListener != null){
+            hasLoadMoreData = true;
+            //显示脚
+            mFooterView.setPadding(0,0,0,0);
+            //滑动到显示的脚的位置
+            smoothScrollToPosition(lastVisibleItemPosition);
+            //加载数据
+            mOnLoadMoreListener.onLoadMore();
+        }
+    }
+```
+
+在RecyclerView设置了分割线（addItemDecoration()）的情况下是没有问题的，但是当没有设置分割线的情况下，出现了上拉无法加载更多数据的问题，通过打印lastVisibleItemPosition和getAdapter().getItemCount()发现，lastVisibleItemPosition的值在设置了分割线的情况下比没有设置的情况下大1，于是查看findLastVisibleItemPosition()的源码，If RecyclerView has item decorators, they will be considered in calculations as well。原来当RecyclerView添加了分割线，分割线会被计算在内
+

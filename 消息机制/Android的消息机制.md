@@ -8,6 +8,8 @@ Application No Response：应用程序无响应。在主线程中，是不允许
 
 # **2. Handler、Looper、Message、MessageQueue**
 
+![](img/handler.png)
+
 Android 的Handler 机制（也有人叫消息机制）目的是为了跨线程通信，也就是多线程通信。之所以需要跨线程通信是因为在Android 中主线程通常只负责UI 的创建和修改，子线程负责网络访问和耗时操作，因此，主线程和子线程需要经常配合使用才能完成整个Android 功能。
 
 在Android中，线程内部或者线程之间进行信息交互时经常会使用消息，这些基础的东西如果我们熟悉其内部的原理，将会使我们容易、更好地架构系统，避免一些低级的错误。在学习Android中消息机制之前，我们先了解与消息有关的几个类：
