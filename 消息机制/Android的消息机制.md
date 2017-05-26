@@ -575,7 +575,7 @@ public void dispatchMessage(Message msg) {
 
 所以Android的消息机制大概流程是：Handler把消息Message发送到消息队列MessageQueue，Looper从消息队列取消息，取到消息后回调Handler的handleMessage()方法
 
-![handler](http://img.blog.csdn.net/20170303172217572?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvYXhpMjk1MzA5MDY2/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+![handler](img/handler机制.png)
 
 ## **11.1 消息处理的优先级**
 
