@@ -1,3 +1,7 @@
+---
+typora-copy-images-to: img
+---
+
 # 1. Android5.0新特性
 
 ## 1. 性能提升
@@ -78,17 +82,12 @@
 
 ```xml
 <service
-
    android:name=".SampleChooserTargetService"
-
    android:label="@string/app_name"
-
    android:permission="android.permission.BIND_CHOOSER_TARGET_SERVICE">
 
    <intent-filter>
-
        <actionandroid:name="android.service.chooser.ChooserTargetService" />
-
    </intent-filter>
 
 </service>
@@ -99,6 +98,71 @@
 Android6.0已经移除了ApacheHTTP Client,推荐使用HttpURLConnection，如果还相继续使用俩种HTTP请求方式，OkHttp会是一个不错的选择。
 
 ## 9. Text Selection
+
+自定义文本选择菜单
+
+```xml
+<TextView
+    android:id="@+id/tv"
+    android:layout_width="wrap_content" android:layout_height="wrap_content"
+    android:text="自定义文本选择菜单"
+    android:textIsSelectable="true"/>
+```
+
+```java
+TextView tv = (TextView) findViewById(R.id.tv);
+tv.setCustomSelectionActionModeCallback(new MyCallback());
+```
+ActionMode.Callback
+```java
+private class MyCallback implements ActionMode.Callback {
+
+    @Override
+    public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+        MenuInflater menuInflater = mode.getMenuInflater();
+        menuInflater.inflate(R.menu.menu,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+        return false;
+    }
+
+@Override
+public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+    switch (item.getItemId()){
+        case R.id.menu_add:
+            Toast.makeText(MainActivity.this, "我是添加", Toast.LENGTH_SHORT).show();
+            break;
+    }
+    mode.finish();
+    return false;
+}
+
+    @Override
+    public void onDestroyActionMode(ActionMode mode) {
+    }
+}
+```
+menu
+```xml
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="搜索"
+        android:orderInCategory="0"
+        android:id="@+id/menu_search" />
+    <item android:title="添加"
+        android:orderInCategory="98"
+        android:id="@+id/menu_add" />
+
+    <item android:title="嘿咻"
+        android:orderInCategory="10"
+        android:id="@+id/menu_delete" />
+</menu>
+```
+
+ActionMode.Callback2
 
 ```java
 private ActionMode.Callback2
@@ -228,6 +292,10 @@ if (themeId != -1){
 }
 ```
 
+### 主题编辑器
+
+![1495858260782](img/1495858260782.png)
+
 ## 2. 阴影和剪裁
 
 ### 2.1.阴影
@@ -237,6 +305,8 @@ elevation：海拔，控制阴影，还控制层次关系
 translationZ
 
 注意：要设置一定的margin，才能看到阴影效果
+
+![1495858494090](img/1495858494090.png)
 
 ### 2.2.View的轮廓
 
@@ -316,7 +386,25 @@ android:state_pressed="true"/>
 />
 </selector>
 ```
-### 3.3.Palette调色板
+### 3.3.Palette调色板/取色器
+
+Material Design 规范了UI部件的颜色规范，很多时候，我们希望在显示一张图片和一个背景的时候，给一张背景设置一个和图片色调相近的颜色。
+
+Android 已经提供了一个叫做调色板或者取色器的工具，来获取一个 bitmap 中的各种色调。
+
+Palette是一个调色板，或者叫取色器，它能让你从图像中提取突出的颜色。
+它能取到6种类型的颜色：2(融合or活泼) * 3(明~暗)
+
+- Vibrant(充满活力的)
+- Vibrant dark(充满活力的黑)
+- Vibrant light(充满活力的亮)
+- Muted(柔和的)
+- Muted dark(柔和的黑)
+- Muted lighr(柔和的亮)
+
+调色板的使用场景：动态设置色彩。根据图片来决定标题的颜色和标题栏的背景色，这样视觉上更具有冲击力和新鲜感，而不像统一色调那样呆板
+
+![1495858718545](img/1495858718545.png)
 
 | 颜色            | 说明    |
 | ------------- | ----- |
@@ -388,6 +476,12 @@ palette.getMutedColor(Color.*WHITE*);
 ### 3.4.Vector矢量图
 
 （有线段和曲线组成，占用空间小，与分辨率无关，颜色不丰富），位图（像素点描述）
+
+SVG可缩放矢量图形（Scalable VectorGraphics）是基于可扩展标记语言（XML），用于描述二维矢量图形的一种图形格式。
+
+矢量图像用点和线来描述物体，所以文件会比较小，同时也能提供高清晰的画面。而位图图像的存储单位是图像上每一点的像素值，因此一般的图像文件都很大，会占用大量的网络带宽。
+
+除此之外，对于矢量图像，用户可以任意缩放图像显示，而不会破坏图像的清晰度、细节等，且不论缩放到多少倍，SVG图像在屏幕上总是边缘清晰，它的清晰度适合任何屏幕分辨率和打印分辨率。
 
 ## 4. 全新的动画
 
