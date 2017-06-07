@@ -56,7 +56,7 @@ Binder对象都有各自的内存区域，当Binder1想要向Binder2发送数据
 
 ## IPC
 
-IPC：进程间通信或跨进程通信，是指两个进程间进行数据交互的过程。
+IPC：进程间通信或跨进程通信，是指两个进程间进行数据交换的过程。
 
 PRC：远程过程调用
 
@@ -148,7 +148,7 @@ Binder死亡代理
 
 ### Messenger
 
-底层实现是AIDL，一次处理一个请求，不用考虑线程同步的问题，主要作用是传递消息
+底层实现是AIDL，一次处理一个请求，串行处理消息，不用考虑线程同步的问题，主要作用是传递消息
 
 ![](../assets/Messenger的工作原理.png)
 
@@ -162,8 +162,9 @@ Binder死亡代理
 
 首先创建一个Service和一个AIDL接口，接着创建一个类继承自AIDL接口中的Stub类并实现Stub类中的抽象方法，在Service的onBind()方法返回这个类的对象，然后客户端就可以帮到服务端Service，建立连接后就可以访问远程服务端的方法了。
 
-
 客户端调用远程服务的方法，被调用的方法允运行在服务端的Binder线程池中，同时客户端线程会被挂起，这个时候如果服务端方法执行比较耗时，就会导致客户端线程长时间的阻塞在哪里，而如果这个客户端线程是UI线程的话，就会导致客户端ANR，这当然不是我们想要看到的。因此，如果我们明确知道某个远程方法是耗时的，那么，我们就应该避免在客户端的UI线程去访问远程方法。由于客户端的onServiceConnected()和onServiceDisconnected()方法都运行在UI线程中，所以也不可以在它们里面直接调用服务端的耗时方法，这点要尤其注意。另外，由于服务端的方法本身就运行在服务端的Binder线程池中，所以服务端方法本身可以执行大量耗时操作，这个时候切记不要在服务端方法中开线程去进行异步任务，除非你明确知道自己在干什么，否则不建议这么做。
+
+![](../assets/找李处办证.png)
 
 ### RemoteCallbackList
 
@@ -187,6 +188,10 @@ public class RemoteCallbackList<E extends IInterface>{
   - getCallingPid()
   - getCallingUid()
 - 为Service指定android:permission属性
+
+### ContentProvider
+
+### Binder连接池
 
 ## 客户端和服务端在同一进程
 
@@ -286,3 +291,67 @@ public class BindingActivity extends Activity {
     };
 }
 ```
+## RemoteViews
+
+应用：通知栏和桌面小部件
+
+### NotificationManager
+
+
+
+### APPWidgetProvider
+
+## Binder的组成解构
+
+![](http://images2015.cnblogs.com/blog/13430/201705/13430-20170516223325025-1448613892.png)
+
+![](http://images2015.cnblogs.com/blog/13430/201705/13430-20170516223354650-984999229.png)
+
+ActivityManagerService
+
+Launcher，也是一个App
+
+## PackageManagerService
+
+是用来获取Apk包的信息的。Android系统使用PMS解析这个Apk中的manifest文件
+
+![](http://images2015.cnblogs.com/blog/13430/201705/13430-20170526223853482-683221082.png)
+
+## App启动流程
+
+1. Launcher通知AMS，要启动斗鱼App，而且指定要启动斗鱼的哪个页面（也就是首页）。
+2. AMS通知Launcher，好了我知道了，没你什么事了，同时，把要启动的首页记下来。
+3. Launcher当前页面进入Paused状态，然后通知AMS，我睡了，你可以去找斗鱼App了。
+4. AMS检查斗鱼App是否已经启动了。是，则唤起斗鱼App即可。否，就要启动一个新的进程。AMS在新进程中创建一个ActivityThread对象，启动其中的main函数。
+5. 斗鱼App启动后，通知AMS，说我启动好了。
+6. AMS翻出之前在第二步存的值，告诉斗鱼App，启动哪个页面。
+7. 斗鱼App启动首页，创建Context并与首页Activity关联。然后调用首页Activity的onCreate函数。
+
+![](http://images2015.cnblogs.com/blog/13430/201705/13430-20170519224933760-1702392298.png)
+
+![](http://images2015.cnblogs.com/blog/13430/201705/13430-20170519225853353-1638311589.png) 
+
+![](http://images2015.cnblogs.com/blog/13430/201705/13430-20170519225928432-1563080021.png)
+
+## Activity跳转流程
+
+ 从ActivityA跳转到ActivityB，其实可以把ActivityA看作是Launcher，那么这个跳转过程，和App的启动过程就很像了。
+
+有了前面的分析基础，会发现，这个过程不需要重新启动一个新的进程，所以可以省略App启动过程中的一些步骤，流程简化为：
+
+​      1）ActivityA向AMS发送一个启动ActivityB的消息。
+
+​      2）AMS保存ActivityB的信息，然后通知App，你可以休眠了（onPaused）。
+
+​      3）ActivityA进入休眠，然后通知AMS，我休眠了。
+
+​      4）AMS发现ActivityB所在的进程就是ActivityA所在的进程，所以不需要重新启动新的进程，所以它就会通知App，启动ActivityB。
+
+​      5）App启动ActivityB。
+
+![](http://images2015.cnblogs.com/blog/13430/201705/13430-20170519230735275-563343566.png)
+
+## Instrumentation
+
+仪表盘，execStartActivity()
+

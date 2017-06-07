@@ -1,3 +1,7 @@
+---
+typora-copy-images-to: img
+---
+
 ## IndexOutOfBoundsException
 
 java.lang.IndexOutOfBoundsException: Invalid index 0, size is 0
@@ -107,3 +111,65 @@ method.invoke(obj, new Object[]{});
 
 在RecyclerView设置了分割线（addItemDecoration()）的情况下是没有问题的，但是当没有设置分割线的情况下，出现了上拉无法加载更多数据的问题，通过打印lastVisibleItemPosition和getAdapter().getItemCount()发现，lastVisibleItemPosition的值在设置了分割线的情况下比没有设置的情况下大1，于是查看findLastVisibleItemPosition()的源码，If RecyclerView has item decorators, they will be considered in calculations as well。原来当RecyclerView添加了分割线，分割线会被计算在内
 
+## sugar no such table
+
+![1495900428003](img/1495900428003.png)
+
+关掉Instant Run，因为Sugar ORM在使用过程中还需注意meta-data 中DOMAIN_PACKAGE_NAME的value所写的包名为自己的包名
+
+app:compileDebugJavaWithJavac
+
+![1495953719748](img/1495953719748.png)
+
+Compilation failed; see the compiler error output for details.
+
+![1495953800759](img/1495953800759.png)
+
+## android-apt
+
+[android-apt 即将退出历史舞台](http://blog.csdn.net/asce1885/article/details/52878076)
+
+伴随着 Android Gradle 插件 2.2 版本的发布，近期 `android-apt` 作者在官网发表声明证实了后续将不会继续维护 `android-apt`，并推荐大家使用 Android 官方插件提供的相同能力。也就是说，大约三年前推出的 `android-apt` 即将告别开发者，退出历史舞台，Android Gradle 插件提供了名为 `annotationProcessor` 的功能来完全代替 `android-apt`。
+
+## Fragment重影问题
+
+```java
+private void initFirstFragment() {
+        List<Fragment> fragments = getSupportFragmentManager().getFragments();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        if(fragments!=null && fragments.size()>0){
+            //说明有之前缓存的fragment 处理fragment重影的问题
+            for(int i = 0;i<fragments.size();i++){
+                transaction.remove(fragments.get(i));
+            }
+            transaction.commit();
+        }
+
+        BaseFragment fragment = FragmentFactory.getFragment(0);
+        transaction = getSupportFragmentManager().beginTransaction();
+        transaction.add(R.id.fl_container,fragment,"0").commit();
+}
+```
+
+## 方法数超65535问题
+
+```
+Error:Execution failed for task ':app:transformClassesWithDexForDebug'.
+> com.android.build.api.transform.TransformException: com.android.ide.common.process.ProcessException: java.util.concurrent.ExecutionException: com.android.dex.DexException: Multiple dex files define Lorg/apache/commons/collections/Buffer;
+
+Error:Execution failed for task ':app:transformClassesWithJarMergingForDebug'.
+> com.android.build.api.transform.TransformException: java.util.zip.ZipException: duplicate entry: org/apache/commons/collections/ArrayStack.class
+```
+
+解决方法：https://developer.android.com/studio/build/multidex.html
+
+## 错误 编码GBK的不可映射字符
+
+```
+tasks.withType(JavaCompile) {  
+    options.encoding = "UTF-8"  
+}  
+```
+## ViewPager翻页bug
+
+当ViewPager页数比较多的时候，翻页的时候两页之间相隔页数比较大，会有翻页动画，可以通过setCurrentItemPosition(pos,false)把默认的动画去掉，但是当页数比较多的时候，这种方法不管用。使用SuperViewPager

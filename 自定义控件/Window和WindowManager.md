@@ -105,9 +105,11 @@ import android.widget.Button;
 public class TestActivity extends Activity implements OnTouchListener {
 
     private static final String TAG = "TestActivity";
+  
+  	private int mStartX;
+	private int mStartY;
 
     private Button mCreateWindowButton;
-
     private Button mFloatingButton;
     private WindowManager.LayoutParams mLayoutParams;
     private WindowManager mWindowManager;
@@ -145,18 +147,25 @@ public class TestActivity extends Activity implements OnTouchListener {
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
-        int rawX = (int) event.getRawX();
-        int rawY = (int) event.getRawY();
         switch (event.getAction()) {
         case MotionEvent.ACTION_DOWN: {
+          	mStartX = (int) event.getRawX();
+        	mStartY = (int) event.getRawY();
             break;
         }
         case MotionEvent.ACTION_MOVE: {
-            int x = (int) event.getX();
-            int y = (int) event.getY();
-            mLayoutParams.x = rawX;
-            mLayoutParams.y = rawY;
+            int newX = (int) event.getRawX();
+        	int newY = (int) event.getRawY();
+        	// 获取手指移动的距离
+       	 	int dx = newX - mStartX;
+       	 	int dy = newY - mStartY;
+        	// 修改Window的x，y坐标
+        	mLayoutParams.x += dx;
+        	mLayoutParams.y += dy;
             mWindowManager.updateViewLayout(mFloatingButton, mLayoutParams);
+          	// 重新记录新的坐标起始点
+        	mStartX = (int) event.getRawX();
+        	mStartY = (int) event.getRawY();
             break;
         }
         case MotionEvent.ACTION_UP: {
@@ -180,3 +189,69 @@ public class TestActivity extends Activity implements OnTouchListener {
     }
 }
 ```
+## 悬浮窗口
+
+```java
+public class WindowService extends Service {
+    private WindowManager mWindowManager;
+    private ImageView mImageView;
+
+    @Override
+    public IBinder onBind(Intent intent) {
+        return null;
+    }
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        //创建悬浮窗
+        createFloatWindow();
+    }
+
+    private void createFloatWindow() {
+        //这里的参数设置上面刚刚讲过，不再说明
+        WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
+        mWindowManager = (WindowManager) getApplication().getSystemService(Context.WINDOW_SERVICE);
+        //设置window的type
+        layoutParams.type = WindowManager.LayoutParams.TYPE_PHONE;
+        //设置效果为背景透明
+        layoutParams.format = PixelFormat.RGBA_8888;
+        //设置浮动窗口不可聚焦
+        layoutParams.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
+        layoutParams.gravity = Gravity.BOTTOM | Gravity.RIGHT;
+        layoutParams.width = WindowManager.LayoutParams.WRAP_CONTENT;
+        layoutParams.height = WindowManager.LayoutParams.WRAP_CONTENT;
+        layoutParams.x = -50;
+        layoutParams.y = -50;
+
+        mImageView = new ImageView(this);
+        mImageView.setImageResource(android.R.drawable.ic_menu_add);
+        //添加到Window
+        mWindowManager.addView(mImageView, layoutParams);
+        //设置监听
+        mImageView.setOnTouchListener(touchListener);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (mImageView != null) {
+            //讲WindowManager时说过，add，remove成对出现，所以需要remove
+            mWindowManager.removeView(mImageView);
+        }
+    }
+
+    private View.OnTouchListener touchListener = new View.OnTouchListener() {
+        @Override
+        public boolean onTouch(View v, MotionEvent event) {
+            //模拟触摸触发的事件
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+            return false;
+        }
+    };
+}
+```
+
+http://blog.csdn.net/yanbober/article/details/46361191#t7

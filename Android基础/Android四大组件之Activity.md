@@ -590,3 +590,4 @@ Activity 一共有以下四种launchMode：standard、singleTop、singleTask、s
 
 下面我们结合实例一一介绍这四种lanchMode。
 
+当activity设置为singleTask /SingleTop的时候 如果调用startActivity没有创建新的实例 还需要传递数据并且更新目标activity的界面，可以通过重写onNewIntent来实现这个需求

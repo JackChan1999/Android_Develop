@@ -37,6 +37,7 @@ public static String getProcessName(Context cxt, int pid) {
 ```
 Looper.getMainLooper() == Looper.myLooper(); // 判断是否是主线程
 Handler mHandler = new Handler(Looper.getMainLooper());
+mhandler.post(Runnable);// handler在那个线程创建的，任务就在那个线程执行
 ```
 
 ## 多线程
@@ -102,3 +103,37 @@ viewPager是一页一页的,可以带动画效果
 
     recreate();
     setTheme();
+## GZIP压缩解压缩
+
+GZIPOutputStream
+
+GZIPInputStream
+
+## 网络请求CallBack封装
+
+```
+public abstract class BaseCallBack<T> {
+    
+    Type type;
+    static Type getSuperclassTypeParameter(Class<?> subclass)
+    {
+        Type superclass = subclass.getGenericSuperclass();
+        if (superclass instanceof Class)
+        {
+            throw new RuntimeException("Missing type parameter.");
+        }
+        ParameterizedType parameterized = (ParameterizedType) superclass;
+
+        return $Gson$Types.canonicalize(parameterized.getActualTypeArguments()[0]);
+    }
+
+    public BaseCallBack()
+    {
+        type = getSuperclassTypeParameter(getClass());
+    }
+
+    public abstract void onFailure(Call call, IOException e);
+
+    public abstract void onSuccess(Call call, T t);
+}
+```
