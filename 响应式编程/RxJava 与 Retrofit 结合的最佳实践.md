@@ -22,13 +22,13 @@ RxJava和Retrofit也火了一段时间了，不过最近一直在学习ReactNati
 4. 如何取消一个Http请求 -- 观察者之间的对决，Oberver VS Subscriber
 5. 一个需要ProgressDialog的Subscriber该有的样子
 
-
 ## 1.RxJava如何与Retrofit结合
 
 ### 1.1 基本页面
-先扔出<code>build.gradle</code>文件的内容
 
-```javascript
+先扔出build.gradle文件的内容
+
+```gradle
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
@@ -47,7 +47,8 @@ dependencies {
 添加rxandroid是因为rxjava中的线程问题。
 
  下面先搭建一个基本的页面，页面很简单，先来看文件目录结构
- ![目录结构](http://ww2.sinaimg.cn/large/75ddb715gw1f1qpfv65nnj20a80l5abe.jpg)
+
+ ![目录结构](images/RxJava_16.jpg)
 
 **activity_main.xml**的代码如下：
 
@@ -210,8 +211,7 @@ private void getMovie(){
 
 Retrofit本身对Rxjava提供了支持。
 
-添加Retrofit对Rxjava的支持需要在**Gradle**文件中添加
-<code>compile 'com.squareup.retrofit2:adapter-rxjava:2.0.0-beta4'</code>
+添加Retrofit对Rxjava的支持需要在**Gradle**文件中添加 `compile 'com.squareup.retrofit2:adapter-rxjava:2.0.0-beta4'`
 当然我们已经添加过了。
 
 然后在创建Retrofit的过程中添加如下代码：
@@ -457,11 +457,11 @@ Observable<HttpResult<List<Subject>>>
 }
 ```
 
-我们想要对**resultCode**和**resultMessage**先做一个判断，因为如果<code>resultCode == 0</code>代表**success**，那么<code>resultCode != 0</code>时**data**一般都是**null**。
+我们想要对**resultCode**和**resultMessage**先做一个判断，因为如果 `resultCode == 0` 代表**success**，那么 `resultCode != 0` 时**data**一般都是**null**。
 
 Activity或Fragment对**resultCode**和**resultMessage**基本没有兴趣，他们只对**请求状态**和**data**数据感兴趣。
 
-基于这种考虑，我们在<code>resultCode != 0</code>的时候，抛出个自定义的**ApiException**。这样就会进入到subscriber的onError中，我们可以在onError中处理错误信息。
+基于这种考虑，我们在 `resultCode != 0` 的时候，抛出个自定义的**ApiException**。这样就会进入到subscriber的onError中，我们可以在onError中处理错误信息。
 
 另外，请求成功时，需要将data数据转换为目标数据类型传递给subscriber，因为，Activity和Fragment只想拿到和他们真正相关的数据。
 
@@ -948,8 +948,7 @@ private void toSubscribe(Observable o, Subscriber s){
 
 这样的情况还能不能继续使用这样的框架呢？
 我的解决方法是封装一个类，把user和orderArray作为类的属性。
-但是如果你的服务器一会data本身是一个完整的user数据，一会又是这样：
-<code>"data": {"user": {}, "orderArray": []}</code>
+但是如果你的服务器一会data本身是一个完整的user数据，一会又是这样：`"data": {"user": {}, "orderArray": []}`
 那我觉得你有必要跟你的服务端好好聊聊了，请他吃顿饭和顿酒，大不了献出菊花就是了。
 
 但是如果服务已经上线了！！！

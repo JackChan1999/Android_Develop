@@ -38,7 +38,7 @@ RxJava 在 GitHub 主页上的自我介绍是 "a library for composing asynchron
 
 异步操作很关键的一点是程序的简洁性，因为在调度过程比较复杂的情况下，异步代码经常会既难写也难被读懂。 Android 创造的 AsyncTask 和Handler ，其实都是为了让异步代码更加简洁。RxJava 的优势也是简洁，但它的简洁的与众不同之处在于，随着程序逻辑变得越来越复杂，它依然能够保持简洁。
 
-![](http://ww4.sinaimg.cn/large/52eb2279jw1f2rx409pcnj2044048mx5.jpg)
+![RxJava](images/RxJava_01.png)
 
 假设有这样一个需求：界面上有一个自定义的视图 imageCollectorView ，它的作用是显示多张图片，并能使用 addImage(Bitmap) 方法来任意增加显示的图片。现在需要程序将一个给出的目录数组 File[] folders 中每个目录下的 png 图片都加载出来并显示在 imageCollectorView 中。需要注意的是，由于读取图片的这一过程较为耗时，需要放在后台执行，而图片的显示则必须在 UI 线程执行。常用的实现方式有多种，我这里贴出其中一种：
 
@@ -133,13 +133,11 @@ RxJava 的异步实现，是通过一种扩展的观察者模式来实现的。
 
 OnClickListener 的模式大致如下图：
 
-![OnClickListener 观察者模式](http://ww4.sinaimg.cn/mw1024/52eb2279jw1f2rx42h1wgj20fz03rglt.jpg)
-
-
+![RxJava](images/RxJava_02.png)
 
 如图所示，通过 setOnClickListener() 方法，Button 持有 OnClickListener 的引用（这一过程没有在图上画出）；当用户点击时，Button 自动调用 OnClickListener 的 onClick() 方法。另外，如果把这张图中的概念抽象出来（Button -> 被观察者、OnClickListener -> 观察者、setOnClickListener() -> 订阅，onClick() -> 事件），就由专用的观察者模式（例如只用于监听控件点击）转变成了通用的观察者模式。如下图：
 
-![通用观察者模式](http://ww3.sinaimg.cn/mw1024/52eb2279jw1f2rx4446ldj20ga03p74h.jpg)
+![RxJava](images/RxJava_03.png)
 
 而 RxJava 作为一个工具库，使用的就是通用形式的观察者模式。
 
@@ -155,7 +153,7 @@ onError(): 事件队列异常。在事件处理过程中出异常时，onError()
 在一个正确运行的事件序列中, onCompleted() 和 onError() 有且只有一个，并且是事件序列中的最后一个。需要注意的是，onCompleted() 和 onError() 二者也是互斥的，即在队列中调用了其中一个，就不应该再调用另一个。
 RxJava 的观察者模式大致如下图：
 
-![RxJava 的观察者模式](http://ww3.sinaimg.cn/mw1024/52eb2279jw1f2rx46dspqj20gn04qaad.jpg)
+![RxJava](images/RxJava_04.png)
 
 ## 3.2 基本实现
 
@@ -207,7 +205,6 @@ Subscriber<String> subscriber = new Subscriber<String>() {
 不仅基本使用方式一样，实质上，在 RxJava 的 subscribe 过程中，Observer 也总是会先被转换成一个 Subscriber 再使用。所以如果你只想使用基本功能，选择 Observer 和 Subscriber 是完全一样的。它们的区别对于使用者来说主要有两点：
 
 onStart(): 这是 Subscriber 增加的方法。它会在 subscribe 刚开始，而事件还未发送之前被调用，可以用于做一些准备工作，例如数据的清零或重置。这是一个可选方法，默认情况下它的实现为空。需要注意的是，如果对准备工作的线程有要求（例如弹出一个显示进度的对话框，这必须在主线程执行）， onStart() 就不适用了，因为它总是在 subscribe 所发生的线程被调用，而不能指定线程。要在指定的线程来做准备工作，可以使用 doOnSubscribe() 方法，具体可以在后面的文中看到。
-
 
 unsubscribe(): 这是 Subscriber 所实现的另一个接口 Subscription 的方法，用于取消订阅。在这个方法被调用后，Subscriber 将不再接收事件。一般在这个方法调用前，可以使用 isUnsubscribed() 先判断一下状态。 unsubscribe() 这个方法很重要，因为在 subscribe() 之后， Observable 会持有 Subscriber 的引用，这个引用如果不能及时被释放，将有内存泄露的风险。所以最好保持一个原则：要在不再使用的时候尽快在合适的地方（例如 onPause() onStop() 等方法中）调用 unsubscribe() 来解除引用关系，以避免内存泄露的发生。
 
@@ -290,11 +287,11 @@ public Subscription subscribe(Subscriber subscriber) {
 
 整个过程中对象间的关系如下图：
 
-![关系静图](http://ww4.sinaimg.cn/mw1024/52eb2279jw1f2rx489robj20lk0a8my2.jpg)
+![RxJava](images/RxJava_05.png)
 
 或者可以看动图：
 
-![关系动图](http://ww3.sinaimg.cn/mw1024/52eb2279jw1f2rx4ay0hrg20ig08wk4q.gif)
+![RxJava](images/RxJava_06.gif)
 
 除了 subscribe(Observer) 和 subscribe(Subscriber) ，subscribe() 还支持不完整定义的回调，RxJava 会自动根据定义创建出 Subscriber 。形式如下：
 
@@ -389,7 +386,7 @@ Observable.create(new OnSubscribe<Drawable>() {
 
 然而，
 
-![这并没有什么diao用](http://ww3.sinaimg.cn/mw1024/52eb2279jw1f2rx4ddcncj2046053gll.jpg)
+![RxJava](images/RxJava_07.png)
 
 在 RxJava 的默认规则中，事件的发出和消费都是在同一个线程的。也就是说，如果只用上面的方法，实现出来的只是一个同步的观察者模式。观察者模式本身的目的就是『后台处理，前台回调』的异步机制，因此异步对于 RxJava 是至关重要的。而要实现异步，则需要用到 RxJava 的另一个概念： Scheduler 。
 
@@ -497,7 +494,7 @@ Observable.just("images/logo.png") // 输入类型 String
 
 - map(): 事件对象的直接变换，具体功能上面已经介绍过。它是 RxJava 最常用的变换。 map() 的示意图：
 
-![map() 示意图](http://ww1.sinaimg.cn/mw1024/52eb2279jw1f2rx4fitvfj20hw0ea0tg.jpg)
+![RxJava](images/RxJava_08.png)
 
 - flatMap(): 这是一个很有用但非常难理解的变换，因此我决定花多些篇幅来介绍它。 首先假设这么一种需求：假设有一个数据结构『学生』，现在需要打印出一组学生的名字。实现方式很简单：
 
@@ -569,7 +566,7 @@ Observable.from(students)
 
 flatMap() 示意图：
 
-![flatMap() 示意图](http://ww1.sinaimg.cn/mw1024/52eb2279jw1f2rx4i8da2j20hg0dydgx.jpg)
+![RxJava](images/RxJava_09.png)
 
 扩展：由于可以在嵌套的 Observable 中添加异步代码， flatMap() 也常用于嵌套的异步操作，例如嵌套的网络请求。示例代码（Retrofit + RxJava）：
 ```java
@@ -632,15 +629,15 @@ public <R> Observable<R> lift(Operator<? extends R, ? super T> operator) {
 
 如果你更喜欢具象思维，可以看图：
 
-![lift() 原理图](http://ww1.sinaimg.cn/mw1024/52eb2279jw1f2rxcrna27j20h40d1q4f.jpg)
+![RxJava](images/RxJava_10.png)
 
 或者可以看动图：
 
-![lift 原理动图](http://ww4.sinaimg.cn/mw1024/52eb2279jw1f2rxcu9f46g20go0cz4qp.gif)
+![RxJava](images/RxJava_11.gif)
 
 两次和多次的 lift() 同理，如下图：
 
-![两次 lift](http://ww1.sinaimg.cn/mw1024/52eb2279jw1f2rxcvophmj20h30hl0v3.jpg)
+![RxJava](images/RxJava_12.png)
 
 举一个具体的 Operator 的实现。下面这是一个将事件中的 Integer 对象转换成 String 的例子，仅供参考：
 ```java
@@ -770,17 +767,17 @@ Observable.just(1, 2, 3, 4) // IO 线程，由 subscribeOn() 指定
 
 subscribeOn() 原理图：
 
-![subscribeOn() 原理](http://ww4.sinaimg.cn/mw1024/52eb2279jw1f2rxcynbsuj20ha0d7wg2.jpg)
+![RxJava](images/RxJava_13.png)
 
 observeOn() 原理图：
 
-![observeOn() 原理](http://ww4.sinaimg.cn/mw1024/52eb2279jw1f2rxd05lttj20hj0cyabl.jpg)
+![RxJava](images/RxJava_14.png)
 
 从图中可以看出，subscribeOn() 和 observeOn() 都做了线程切换的工作（图中的 "schedule..." 部位）。不同的是， subscribeOn() 的线程切换发生在 OnSubscribe 中，即在它通知上一级 OnSubscribe 时，这时事件还没有开始发送，因此 subscribeOn() 的线程控制可以从事件发出的开端就造成影响；而 observeOn() 的线程切换则发生在它内建的 Subscriber 中，即发生在它即将给下一级 Subscriber 发送事件时，因此 observeOn() 控制的是它后面的线程。
 
 最后，我用一张图来解释当多个 subscribeOn() 和 observeOn() 混合使用时，线程调度是怎么发生的（由于图中对象较多，相对于上面的图对结构做了一些简化调整）：
 
-![线程控制综合调用](http://ww1.sinaimg.cn/mw1024/52eb2279jw1f2rxd1vl7xj20hd0hzq6e.jpg)
+![RxJava](images/RxJava_15.png)
 
 图中共有 5 处含有对事件的操作。由图中可以看出，①和②两处受第一个 subscribeOn() 影响，运行在红色线程；③和④处受第一个 observeOn() 的影响，运行在绿色线程；⑤处受第二个 onserveOn() 影响，运行在紫色线程；而第二个 subscribeOn() ，由于在通知过程中线程就被第一个 subscribeOn() 截断，因此对整个流程并没有任何影响。这里也就回答了前面的问题：当使用了多个 subscribeOn() 的时候，只有第一个 subscribeOn() 起作用。
 
@@ -1056,7 +1053,7 @@ RxBus 名字看起来像一个库，但它并不是一个库，而是一种模�
 
 # 关于作者
 
-朱凯（扔物线）， Android 工程师。微博：[扔物线](http://weibo.com/rengwuxian)，GitHub：[rengwuxian](https://github.com/rengwuxian)
+朱凯（扔物线）， Android 工程师。HenCoder：[给高级 Android 工程师的进阶手册](http://hencoder.com/)，微博：[扔物线](http://weibo.com/rengwuxian)，GitHub：[rengwuxian](https://github.com/rengwuxian)
 
 # 为什么写这个？
 
