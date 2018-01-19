@@ -8,10 +8,10 @@ Runtime.getRuntime().maxMemory();
 ## Process
 
 ```
-Process.THREAD_PRIORITY_BACKGROUND;
-Process.killProcess();
+Process.THREAD_PRIORITY_BACKGROUND; // 后台线程
+Process.killProcess();// 杀死进程
 Process.myTid();
-Process.setThreadPriority();
+Process.setThreadPriority(); // 设置线程优先级
 System.exit(1);
 ```
 
@@ -137,3 +137,67 @@ public abstract class BaseCallBack<T> {
     public abstract void onSuccess(Call call, T t);
 }
 ```
+## System
+
+- System.currentTimeMillis()
+- System.arraycopy()
+- SystemClock.uptimeMillis()
+
+![](img/多击事件.png)
+
+### 模拟双击事件
+
+```java
+public class MainActivity extends Activity {
+
+	private long firstClickTime;
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_main);
+	}
+
+	public void onClick(View view) {
+		if (firstClickTime > 0) {// 发现之前点击过一次
+			if (System.currentTimeMillis() - firstClickTime < 500) {// 判断两次点击是否小于500毫秒
+				Toast.makeText(this, "双击啦!", Toast.LENGTH_SHORT).show();
+				firstClickTime = 0;//重置时间, 重新开始
+				return;
+			}
+		}
+
+		firstClickTime = System.currentTimeMillis();
+	}
+}
+```
+
+### 模拟三击事件
+
+```java
+public class MainActivity extends Activity {
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_main);
+	}
+
+	long[] mHits = new long[3];// 数组长度表示要点击的次数
+
+	public void onClick(View view) {
+		System.arraycopy(mHits, 1, mHits, 0, mHits.length - 1);
+		mHits[mHits.length - 1] = SystemClock.uptimeMillis();// 开机后开始计算的时间
+		if (mHits[0] >= (SystemClock.uptimeMillis() - 500)) {
+			Toast.makeText(this, "是男人!!!", Toast.LENGTH_SHORT).show();
+		}
+	}
+}
+```
+## ImageView
+
+```
+adjustViewBounds
+```
+
+ImageView的android:adjustViewBounds属性为是否保持原图的长宽比，单独设置不起作用，需要配合maxWidth或maxHeight一起使用。

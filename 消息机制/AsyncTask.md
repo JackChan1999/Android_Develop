@@ -4,6 +4,8 @@
 
 # AsyncTask
 
+对线程池和Handler的封装；用线程池来处理后台任务，用Handler来处理与UI的交互。
+
 AsyncTask是Thread+Handler的替代，底层是Handler和ThreadPoolExecutor的封装，android1.5引进
 
 ```java
